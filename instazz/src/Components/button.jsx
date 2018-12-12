@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Popup from 'react-popup';
 
 export default class Button extends Component{
   handleClick=()=>{
@@ -9,7 +8,7 @@ export default class Button extends Component{
 
   render() {
       return <div>
-              <button onClick={this.handleClick} type="button">We win!</button> 
+              <button onClick={this.handleClick} type="button">Essayez InstaZZ</button> 
             </div>
       }
  }

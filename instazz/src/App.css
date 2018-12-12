@@ -7,7 +7,44 @@
   height: 40vmin;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color:black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color:white;
+  background-color: #111;
+}
+
 .App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-corps {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
