@@ -1,75 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Parallax Template - Materialize</title>
+  <title>InstaZZ</title>
+
+    <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
+
 <body>
+
+  <!-- NAVIGATION -->
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
         <img src="appareilPhoto.png" alt="logo" height="250">
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-        
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#Pourquoi_InstaZZ">Pourquoi InstaZZ</a></li>
+            <li><a href="#Rejoingnez_nos_rangs">Rejoignez nos rangs</a></li>
+            <li><a href="#Qui_sommes_nous">Qui sommes nous</a></li>
+            <li><a href="#Galerie">Galerie Photos</a></li>
+          </ul>
+          <ul id="nav-mobile" class="sidenav">
+            <li><a href="#Pourquoi_InstaZZ">Pourquoi InstaZZ</a></li>
+            <li><a href="#Rejoingnez_nos_rangs">Rejoignez nos rangs</a></li>
+            <li><a href="#Qui_sommes_nous">Qui sommes nous</a></li>
+            <li><a href="#Galerie">Galerie Photos</a></li>
+          </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
+  <!-- BANNIERE & LOGO -->
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
         <h1 class="header center white-text">InstaZZ</h1>
         <div class="row center">
-            <h5 class="header col s12 white-text">Une application pour partager ses souvenirs entre ZZ.</h5>
+            <h5 class="header col s12 white-text">Une application pour partager ses souvenirs entre ZZ</h5>
         </div>
         <div class="row center">
-            <a href="" id="download-button" class="btn-large waves-effect waves-light blue lighten-2">Voir la galerie photo</a>
+            <a href="" id="download-button" class="btn-large waves-effect waves-light blue lighten-2">Voir la galerie photos</a>
         </div>
         <br><br>
-
       </div>
     </div>
-    <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
+      <div class="parallax"><img src="background1.jpg" alt="image bannière"></div>
   </div>
 
 
+  <!-- COPRS -->
+
+  <!-- SECTION Pourquoi InstaZZ ? -->
   <div class="container">
       <div class="section">
-  
-        <div class="row">
+        <div class="row" id="Pourquoi_InstaZZ">
           <div class="col s12 center">
             <h3><i class="mdi-content-send brown-text"></i></h3>
             <h4>Pourquoi InstaZZ ?</h4>
-            <p class="left-align light">InstaZZ est une application permettant de partager, d'échanger ses expériences entre ZZ. Des photos de soirées, le repas d'isibouff, la remise de diplome ou seulement votre repas au RU, personne ne juge ! Surtout postez tout et n'oubliez rien même ce qui est inutile ça fera des dossiers pour plus tard.</p>
-            <p class="left-align light">Voici 3 raisons d'utiliser notre superbe et utile application.</p>
+            <p class="justify-align light">InstaZZ est une application permettant de partager, d'échanger ses expériences entre ZZ. Des photos de soirées, le repas d'isibouffe, la remise de diplôme ou seulement votre repas au RU, personne ne juge ! Surtout postez tout et n'oubliez rien même ce qui est inutile ça fera des dossiers pour plus tard.</p>
+            <p class="justify-align light">Voici 3 raisons d'utiliser notre superbe et utile application.</p>
           </div>
         </div>
-  
       </div>
     </div>
 
+
+  <!-- SECTION 3 raisons -->
   <div class="container">
     <div class="section">
 
-      <!--   Icon Section   -->
+      <!--  Texte Section   -->
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
-             <h2 class="center brown-text"><i class="tiny material-icons">photo_library</i></h2>
-            <h5 class="center">Postez vos images</h5>
-            <p class="light">Partagez toutes vos images dignes de véritables photographes (ou pas). Vous pensez en mal à vos camarades ? Ou tout simplement vous souhaitez lui rappeler sa dernière cuite ? N'attendez plus !! C'est le moment de poster ces belles photos.</p>
+              <h2 class="center brown-text"><i class="tiny material-icons">photo_library</i></h2>
+              <h5 class="center">Postez vos images</h5>
+              <p class="light">Partagez toutes vos images dignes de véritables photographes (ou pas). Vous pensez en mal à vos camarades ? Ou tout simplement vous souhaitez lui rappeler sa dernière cuite ? N'attendez plus !! C'est le moment de poster ces belles photos.</p>
           </div>
         </div>
 
@@ -77,8 +95,7 @@
           <div class="icon-block">
             <h2 class="center brown-text"><i class="material-icons">group</i></h2>
             <h5 class="center">Suivez les autres ZZ</h5>
-
-            <p class="light">Vous serez surement surpris de ce que peut poster vos voisins de cours. Ne manquez pas une occasion de compléter vos dossier sur vos amis ou d'admirer de beau paysage avec des lamas.</p>
+            <p class="light">Vous serez surement surpris de ce que peuvent poster vos voisins de cours. Ne manquez pas une occasion de compléter vos dossiers sur vos amis ou d'admirer de beaux paysages avec des lamas.</p>
           </div>
         </div>
 
@@ -86,27 +103,28 @@
           <div class="icon-block">
             <h2 class="center brown-text"><i class="material-icons">comment</i></h2>
             <h5 class="center">Commentez très honnêtement</h5>
-
-            <p class="light">Votre esprit critique développé au cours des cours de communication est en plein essort, ne le réprimer pas ! Connectez vous instantanement (enfin après les cours) et laissez votre esprit divaguer et lachez votre créativité dans les commentaires.</p>
+            <p class="light">Votre esprit critique développé au cours des cours de communication est en plein essort, ne le réprimer pas ! Connectez vous instantanement (enfin après les cours) et laissez votre esprit divaguer et lâchez votre créativité dans les commentaires.</p>
           </div>
         </div>
       </div>
 
+      <!--  Image Section   -->
       <div class="row">
         <div class="col s12 m4">
-          <p class="center"><img src="post.jpg" alt="Unsplashed background img 1" height="100"></p>
+          <p class="center"><img src="post.jpg" alt="Post" height="100"></p>
         </div>
         <div class="col s12 m4">
-          <p class="center"><img src="follow.jpg" alt="Unsplashed background img 1" height="100"></p>
+          <p class="center"><img src="follow.jpg" alt="Follow" height="100"></p>
         </div>
         <div class="col s12 m4">
-          <p class="center"><img src="comment.jpg" alt="Unsplashed background img 1" height="100"></p>
+          <p class="center"><img src="comment.jpg" alt="Comment" height="100"></p>
         </div>
       </div>
     </div>
   </div>
 
 
+  <!--  Image parallax & phrase   -->
   <div class="parallax-container valign-wrapper">
     <div class="section no-pad-bot">
       <div class="container">
@@ -115,97 +133,131 @@
         </div>
       </div>
     </div>
-    <div class="parallax"><img src="lama.jpg" alt="Unsplashed background img 2"></div>
+    <div class="parallax"><img src="lama.jpg" alt="Lama"></div>
   </div>
 
 
-<div class="container">
-      <div class="section">
-  
+  <!--  SECTION Rejoignez nos rangs   -->
+  <div class="container">
+        <div class="section">
+          <div class="row">
+            <div class="col s12 center" id="Rejoingnez_nos_rangs">
+              <h3><i class="mdi-content-send brown-text"></i></h3>
+              <h4>Rejoignez nos rangs</h4>
+              <p class="left-align light">Demain c'est une révolution qui s'avance ! Plus de communication par des phrases, plus dialogues de sourds. Demain c'est uniquement par des souvenirs photographiques que les ZZ échangeront, et nous serons là pour instaurer ce changement. <br>
+              Rejoignez nos rangs, la révolution avance ! Déjà plus de 42 ZZ nous ont rejoint dans ce mouvement historique.
+              <br>
+              Voici trois témoignages d'utilisateurs d'InstaZZ tirés au harsard :</p>
+            </div>
+          </div>
+    
+        <!--  Temoignage 1   -->    
         <div class="row">
-          <div class="col s12 center">
-            <h3><i class="mdi-content-send brown-text"></i></h3>
-            <h4>Rejoignez nos rangs</h4>
-            <p class="left-align light">Demain c'est une révolution qui s'avance ! Plus de communication par des phrases, plus dialogues de sourds. Demain c'est uniquement par des souvenirs photographiques que les ZZ échangeront, et nous serons là pour instaurer ce changement. <br>
-            Rejoignez nos rangs, la révolution avance ! Déjà plus de 42 ZZ nous ont rejoint dans ce mouvement historique.
-            <br>
-            Voici trois témoignages d'utilisateurs d'InstaZZ tirés au harsard :</p>
+          <div class="col s12 m3">
+            <div class="icon-block">
+              <h5 class="center brown-text"></h5>
+              <img src="temoignage1.png" alt="Profil 1" height="200" align="middle">
+            </div>
           </div>
-        </div>
-  
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center brown-text"></h5>
-            <img src="temoignage2.png" alt="Unsplashed background img 1" height="180" align="middle">
+          <div class="col s12 m6">
+            <div class="icon-block">
+              <h5 class="center brown-text">Isabelle E.</h5>
+              <p class="light">Tout simplement exceptionnel ! J'aime tailler mes amis ZZ, et cette application me permet de le faire à travers la révolutionnante fonctionnalité "Commentaires". Je recommande vivement ! </p>
+              <h4 class="center brown-text"><i class="material-icons">star star star star</i></h4>
+            </div>
           </div>
-        </div>
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center brown-text">ZZ A.</h5>
-            <p class="light">Tout simplement exceptionnel ! J'aime tailler mes amis ZZ, et cette application me permet de le faire à travers la révolutionnante fonctionnalité "Commentaires". Je recommande vivement ! </p>
-            <h4 class="center brown-text"><i class="material-icons">star star star star</i></h4>
           </div>
-        </div>
-        </div>
 
+          <!--  Temoignage 2   -->    
+          <div class="row">
+          <div class="col s12 m3">
+            <div class="icon-block">
+              <img src="temoignage2.png" alt="Profil 2" height="200" align="middle">
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="icon-block">
+              <h5 class="center brown-text">Alexandre G.</h5>
+              <p class="light">Depuis que j'utilise InstaZZ ma vie a changé.</p>
+              <h4 class="center brown-text"><i class="material-icons">star star star star_half</i></h4>
+            </div>
+          </div>
+          </div>
+
+          <!--  Temoignage 3   -->    
+          <div class="row">
+          <div class="col s12 m3">
+            <div class="icon-block">
+              <img src="temoignage3.png" alt="Profil 3" height="200" align="middle">
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="icon-block">
+              <h5 class="center brown-text">Arthur B.</h5>
+              <p class="light">J'avais dû mal à faire des phrases qui ont du sens, et InstaZZ a résolu ce problème pour moi ! Maintenant je n'ai plus besoin de m'exprimer il me suffit de partager les photos de mes assiettes lors de mes repas.</p>
+              <h4 class="center brown-text"><i class="material-icons">star star star star</i></h4>
+            </div>
+          </div>
+          </div>
+      </div>
+  </div>
+
+
+  <!--  Galerie photos   -->    
+  <div class="slider" id="Galerie">
+  <ul class="slides">
+    <li>
+      <img src="assiette.png">
+      <div class="caption center-align">
+        <br><br><br><br><br><h3>Affichez que vous mangez <br> cinq fruits et légumes par jour !</h3>
+      </div>
+    </li>
+    <li>
+      <img src="chien.png">
+      <div class="caption left-align">
+        <h3>Montrez votre chien chéri <br>réputé pour son intelligence !</h3>
+      </div>
+    </li>
+    <li>
+      <img src="pieds.png">
+      <div class="caption right-align">
+        <h3>Partagez vos expériences les plus enrichissantes !</h3>
+      </div>
+    </li>
+    <li>
+      <img src="scene.png">
+      <div class="caption center-align">
+        <h3>Proposez vos mises en scène <br> les plus incroyables !</h3>
+      </div>
+    </li>
+  </ul>
+</div>
+<!--  Galerie photo script  -->    
+<script type="text/javascript">
+   $(document).ready(function(){
+      $('.slider').slider({full_width: true});
+    });
+</script>
+
+
+    <!--  Pied de page   -->    
+    <footer class="page-footer blue lighten-2">
+      <div class="container">
         <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <img src="temoignage1.png" alt="Unsplashed background img 1" height="170" align="middle">
+          <div class="col l6 s12">
+            <h5 class="white-text" id="Qui_sommes_nous">Qui sommes nous ?</h5>
+            <p class="white-text">Deux étudiantes à l'ISIMA.</p>
           </div>
-        </div>
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center brown-text">Alexandre G.</h5>
-            <p class="light">Depuis que j'utilise InstaZZ ma vie a changé.</p>
-            <h4 class="center brown-text"><i class="material-icons">star star star star_half</i></h4>
+          <div class="col l5 s12">
+            <h5 class="white-text">Contactez-nous</h5>
+            <ul>
+              <li><p class="white-text">Adresse mail : instazz@gmail.com</p></li>
+            </ul>
           </div>
-        </div>
-        </div>
-
-        <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <img src="temoignage3.png" alt="Unsplashed background img 1" height="170" align="middle">
-          </div>
-        </div>
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center brown-text">ZZ B.</h5>
-            <p class="light">J'avais dû mal à faire des phrases qui ont du sens, et InstaZZ a résolu ce problème pour moi ! Maintenant je n'ai plus besoin de m'exprimer il me suffit de partager les photos de mes assiettes lors de mes repas.</p>
-            <h4 class="center brown-text"><i class="material-icons">star star star star</i></h4>
-          </div>
-        </div>
-        </div>
-
-      </div>
-      </div>
-    </div>
-
-  <footer class="page-footer blue lighten-2">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Qui sommes nous ?</h5>
-          <p class="white-text">Deux étudiante à l'ISIMA.</p>
-        </div>
-        <div class="col l5 s12">
-          <h5 class="white-text">Contactez-nous</h5>
-          <ul>
-            <li><p class="white-text">Adresse mail : instazz@gmail.com</p></li>
-          </ul>
         </div>
       </div>
-    </div>
+    </footer>
 
-  </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
 
   </body>
 </html>
