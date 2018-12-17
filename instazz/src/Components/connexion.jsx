@@ -14,10 +14,12 @@ export default class FormulaireInscription extends Component{
                         <from>
                               <FormulaireInput name="Pseudo" required={true}/>
                               <br></br>
+                              <br></br>
                               <FormulaireInput name="Mot de passe" required={true}/>
                         </from> 
                         <br></br>  
                         <br></br>  
+                        <br></br>
                         <button onClick={this.handleSubmit} type="button">Se connecter</button>  
                   </div>
             );

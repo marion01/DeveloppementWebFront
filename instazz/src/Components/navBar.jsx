@@ -5,33 +5,199 @@ import FormulaireInscription from './inscription.jsx'
 import Connexion from './connexion.jsx'
 import logo from '../asset/logo.png'
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+
+
 const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
 const PageConnexion = () => <Connexion></Connexion>;
 const PageContact = () => <h2>Contact</h2>;
 const PageMenu = () => <Menu></Menu>;
 
-function NavBar () {
-    return (
-        <div>
-            <Router>
-                <div className="App-hearder">
-                    <nav>
-                        <ul>
-                            <li><Link to="/"><img src={logo}  alt="logo" height="50"/></Link></li>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/inscription/">S'inscrire</Link></li>
-                            <li><Link to="/connexion/">Se connecter</Link></li>
-                            <li><Link to="/contact/">Contact</Link></li>
-                        </ul>
-                    </nav>
-                    <Route path="/" exact component={PageMenu}/>
-                    <Route path="/inscription/" component={PageInscription}/>
-                    <Route path="/connexion/" component={PageConnexion}/>
-                    <Route path="/contact/" component={PageContact}/>
-                </div>
-            </Router>
-        </div>
-    );
+
+
+
+const styles = {
+    list: {
+      width: 250
+    }
+  };
+
+  
+
+class NavBar extends Component{
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+            [side]: open
+        });
+    };
+
+    state = {
+        top: false
+      };
+    
+
+
+    render() {
+        const { classes } = this.props;
+
+        const sideList = (
+            <div className={classes.list}>
+            <List>
+                {["Vous êtes connecté en tant que X"].map((text, index) => (
+                <ListItem button key={text}>
+                    <ListItemText primary={text} />
+                </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {["Mon profil", "Se déconnecter"].map((text, index) => (
+                <ListItem button key={text}>
+                    <ListItemText primary={text} />
+                </ListItem>
+                ))}
+            </List>
+            </div>
+        );
+
+        return (
+            <div>
+                <Router>
+                    <div className="App-hearder">
+                        <nav>
+                            <ul>
+                                
+                                <li onClick={this.toggleDrawer("left", true)} class="nav-item"><img src={logo}  alt="logo" height="50"/>
+                                <Drawer
+                                open={this.state.left}
+                                onClose={this.toggleDrawer("left", false)}
+                                >
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    onClick={this.toggleDrawer("left", false)}
+                                    onKeyDown={this.toggleDrawer("left", false)}
+                                >
+                                    {sideList}
+                                </div>
+                                </Drawer>                                    
+                                    
+                                </li>
+                                <li><Link to="/inscription/">S'inscrire</Link></li>
+                                <li><Link to="/connexion/">Se connecter</Link></li>
+                                <li><Link to="/contact/">Contact</Link></li>
+                            </ul>
+                        </nav>
+                        <Route path="/" exact component={PageMenu}/>
+                        <Route path="/inscription/" component={PageInscription}/>
+                        <Route path="/connexion/" component={PageConnexion}/>
+                        <Route path="/contact/" component={PageContact}/>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
 
-export default NavBar;
+
+NavBar.propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+  
+  export default withStyles(styles)(NavBar);
+
+
+/*
+
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import Button from "@material-ui/core/Button";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+
+const styles = {
+  list: {
+    width: 250
+  },
+  fullList: {
+    width: "auto"
+  }
+};
+
+class TemporaryDrawer extends React.Component {
+  state = {
+    top: false,
+    left: false,
+    bottom: false,
+    right: false
+  };
+
+  toggleDrawer = (side, open) => () => {
+    this.setState({
+      [side]: open
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    const sideList = (
+      <div className={classes.list}>
+        <List>
+          {["Vous êtes connecté en tant que X"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["Mon profil", "Se déconnecter"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
+
+    return (
+      <div>
+        <Button onClick={this.toggleDrawer("left", true)}>Open Left</Button>
+        <Drawer
+          open={this.state.left}
+          onClose={this.toggleDrawer("left", false)}
+        >
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer("left", false)}
+            onKeyDown={this.toggleDrawer("left", false)}
+          >
+            {sideList}
+          </div>
+        </Drawer>
+      </div>
+    );
+  }
+}
+
+TemporaryDrawer.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(TemporaryDrawer);
+*/

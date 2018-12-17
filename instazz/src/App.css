@@ -59,6 +59,24 @@ li a:hover {
   color: #61dafb;
 }
 
+.sub-nav {
+  display: none; /* Masque la sous-liste */
+  position: absolute; /* Evite que la dimension du conteneur ne change quand la sous-liste est affichée */
+  left: 0; /* FIX IE7 : pour que le sous-menu s’aligne avec son conteneur */
+  top: 2em; /* FIX IE7 : pour que le sous-menu s’aligne avec son conteneur, on le positionne explicitement en bas du conteneur */
+  white-space: nowrap; /* Pour que le texte ne revienne pas à la ligne */
+  background: white; /* FIX IE7 : évite que la sous-liste ne disparaisse au moment où le curseur arrive au-dessus */
+  margin-top: 20px; /* Pour que le sous-menu recouvre son parent, facilitant le passage de la souris de l’un à l’autre */
+}
+.nav-item:hover .sub-nav {
+  display: block; /* Affiche cette sous-liste au survol de son conteneur */
+}
+
+.nav-item {
+  float: left; /* Pour que les liens s’affichent horizontalement */
+  position: relative; /* Crée un contexte de positionnement pour les sous-listes */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
