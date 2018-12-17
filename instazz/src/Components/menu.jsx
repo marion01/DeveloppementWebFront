@@ -3,7 +3,6 @@ import logo from '../asset/logo.png'
 
 export default class Menu extends Component{
   handleClick=()=>{
-    console.log("test"); 
     alert('I am alert, nice to meet you');
   }
 

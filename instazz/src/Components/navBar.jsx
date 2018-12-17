@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menu.jsx'
+import FormulaireInscription from './inscription.jsx'
+import Connexion from './connexion.jsx'
 import logo from '../asset/logo.png'
 
-const Inscription = () => <h2>Inscription</h2>;
-const Connexion = () => <h2>Connexion</h2>;
-const Contact = () => <h2>Contact</h2>;
-const Menu2 = () => <Menu></Menu>;
+const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
+const PageConnexion = () => <Connexion></Connexion>;
+const PageContact = () => <h2>Contact</h2>;
+const PageMenu = () => <Menu></Menu>;
 
 function NavBar () {
     return (
@@ -22,10 +24,10 @@ function NavBar () {
                             <li><Link to="/contact/">Contact</Link></li>
                         </ul>
                     </nav>
-                    <Route path="/" exact component={Menu2}/>
-                    <Route path="/inscription/" component={Inscription}/>
-                    <Route path="/connexion/" component={Connexion}/>
-                    <Route path="/contact/" component={Contact}/>
+                    <Route path="/" exact component={PageMenu}/>
+                    <Route path="/inscription/" component={PageInscription}/>
+                    <Route path="/connexion/" component={PageConnexion}/>
+                    <Route path="/contact/" component={PageContact}/>
                 </div>
             </Router>
         </div>
@@ -33,18 +35,3 @@ function NavBar () {
 }
 
 export default NavBar;
-
-
-
-
-/*export default class NavBar extends 
-  render() {
-      return <div>
-              <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Contact</a></li>
-            </ul> 
-            </div>
-      }
- }
-*/
