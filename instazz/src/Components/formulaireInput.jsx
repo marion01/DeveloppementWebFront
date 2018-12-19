@@ -9,8 +9,8 @@ export default class FormulaireInput extends Component{
       }
 
       static propTypes = {
-            prenom: PropTypes.string.isRequired,
-            confirmationMdp: PropTypes.bool,
+            name: PropTypes.string.isRequired,
+            required: PropTypes.bool,
       }
 
       constructor(props){

@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
-import Menu from './Components/menu.jsx'
-import Button from './Components/button.jsx'
-import NavBar from './Components/navBar.jsx'
-import logo from './asset/logo.png'
+import Menu from './Components/menu.jsx';
+import NavBarVisiteur from './Components/navBar.jsx';
+import NavBarUtilisateur from './Components/navBarConnecte.jsx';
 
 class App extends Component {
-  render() {
-    return (
+
+    constructor(props) {
+        super(props);
+        this.state = { user: false };
+    }
+
+    handleSignIn = () => {
+        //test mdp
+        this.setState({ user: true});
+    }
+
+    handleSignOut = () => {
+        this.setState({ user: false });
+    }
+
+    render() {
+      const user = this.state.user;
+      return (
       <div className="App">
-        <body>
-          <NavBar></NavBar>
+            <body>
+                  {user ? <NavBarUtilisateur handleSignOut={this.handleSignOut}></NavBarUtilisateur>
+                      : <NavBarVisiteur handleSignIn={this.handleSignIn}></NavBarVisiteur>}
         </body>
       </div>
     );

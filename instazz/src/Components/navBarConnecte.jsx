@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menu.jsx'
-import FormulaireInscription from './inscription.jsx'
-import Connexion from './connexion.jsx'
-import Contact from './contact.jsx'
+import Profil from './profil.jsx'
 import logo from '../asset/logo.png'
+import Contact from './contact.jsx'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
+
+
+const PageContact = () => <Contact></Contact>;
+const PageMenu = () => <Menu></Menu>;
+const PageProfil = () => <Profil></Profil>;
+
+
 
 
 const styles = {
@@ -24,10 +31,8 @@ const styles = {
   
 
 class NavBar extends Component{
-    
-
     static defaultProps = {
-        handleSignIn: ''
+        handleSignOut: ''
     }
 
     constructor(props) {
@@ -50,21 +55,34 @@ class NavBar extends Component{
 
 
     render() {
+
         const { classes } = this.props;
-        const PageConnexion = () => <Connexion handleSignIn={this.props.handleSignIn} ></ Connexion>;
-        const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
-        const PageContact = () => <Contact></Contact>;
-        const PageMenu = () => <Menu></Menu>;
 
         const sideList = (
             <div className={classes.list}>
-            <List>
-                    {["test1", "test2"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                            ))}
-            </List>
+                <List>
+                    {["Vous êtes connecté en tant que X"].map((text, index) => (
+                        <ListItem button key={text}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+                <Divider />
+                <List>
+                    <Link to="/profil/">
+                        {["Mon profil"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </Link>
+
+                    {["Se déconnecter"].map((text, index) => (
+                        <ListItem onClick={this.props.handleSignOut} button key={text}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
             </div>
         );
 
@@ -92,15 +110,12 @@ class NavBar extends Component{
                                     
                                 </div>
                                 <li><Link to="/">Accueil</Link></li>
-                                <li><Link to="/inscription/">S'inscrire</Link></li>
-                                <li><Link to="/connexion/">Se connecter</Link></li>
                                 <li><Link to="/contact/">Contact</Link></li>
                             </ul>
                         </nav>
                         <Route path="/" exact component={PageMenu}/>
-                        <Route path="/inscription/" component={PageInscription}/>
-                        <Route path="/connexion/" component={PageConnexion}/>
                         <Route path="/contact/" component={PageContact} />
+                        <Route path="/profil/" component={PageProfil} />
                     </div>
                 </Router>
             </div>

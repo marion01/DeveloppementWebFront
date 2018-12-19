@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import FormulaireInput from './formulaireInput.jsx'
+import App from './../App.js'
 
 export default class FormulaireInscription extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+    }
 
-      handleSubmit=()=>{
-            alert('connection en cours');
-          }
 
       render() {
             return (
-                  <div>
+                <div className="App-corps">
                         <h1>Connexion</h1>
                         <from>
                               <FormulaireInput name="Pseudo" required={true}/>
@@ -20,7 +22,7 @@ export default class FormulaireInscription extends Component{
                         <br></br>  
                         <br></br>  
                         <br></br>
-                        <button onClick={this.handleSubmit} type="button">Se connecter</button>  
+                    <button onClick={this.props.handleSignIn} type="button">Se connecter</button>  
                   </div>
             );
       }
