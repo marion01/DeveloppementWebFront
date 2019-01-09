@@ -28,8 +28,10 @@ class App extends Component {
       const user = this.state.user;
       return (
       <div className="App">
-          {user ? <NavBarUtilisateur handleSignOut={this.handleSignOut}></NavBarUtilisateur>
+            <body>
+                  {user ? <NavBarUtilisateur handleSignOut={this.handleSignOut}></NavBarUtilisateur>
                       : <NavBarVisiteur handleSignIn={this.handleSignIn}></NavBarVisiteur>}
+        </body>
       </div>
     );
   }

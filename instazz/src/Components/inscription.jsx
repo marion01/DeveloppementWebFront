@@ -9,7 +9,7 @@ export default class FormulaireInscription extends Component{
 
       render() {
             return (
-                  <div>
+                <div className="App-corps">
                         <h1>Inscription</h1>
                         <from>
                               <FormulaireInput name="Prenom" required={true}/>

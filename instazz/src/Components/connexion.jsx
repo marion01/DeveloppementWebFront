@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
 import FormulaireInput from './formulaireInput.jsx'
+import App from './../App.js'
+import PostsList from './postsList.jsx'
 
 export default class FormulaireInscription extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+    }
 
-      handleSubmit=()=>{
-            alert('connection en cours');
-          }
 
       render() {
             return (
-                  <div>
+                <div className="App-corps">
                         <h1>Connexion</h1>
-                        <from>
+                        <form>
                               <FormulaireInput name="Pseudo" required={true}/>
                               <br></br>
                               <br></br>
                               <FormulaireInput name="Mot de passe" required={true}/>
-                        </from> 
+                        </form> 
                         <br></br>  
                         <br></br>  
                         <br></br>
-                        <button onClick={this.handleSubmit} type="button">Se connecter</button>  
+                    <button onClick={this.props.handleSignIn} type="button">Se connecter</button>
+                    <PostsList/>
                   </div>
             );
       }

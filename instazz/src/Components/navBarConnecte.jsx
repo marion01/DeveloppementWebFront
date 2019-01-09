@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menu.jsx'
 import FormulaireInscription from './inscription.jsx'
 import Connexion from './connexion.jsx'
-import Contact from './contact.jsx'
+import Profil from './profil.jsx'
 import logo from '../asset/logo.png'
 
 import PropTypes from 'prop-types';
@@ -16,6 +16,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
 
 
+const PageContact = () => <h2>Contact</h2>;
+const PageMenu = () => <Menu></Menu>;
+const PageProfil = () => <Profil></Profil>;
+
+
+
+
 const styles = {
     list: {
       width: 250
@@ -25,10 +32,8 @@ const styles = {
   
 
 class NavBar extends Component{
-    
-
     static defaultProps = {
-        handleSignIn: ''
+        handleSignOut: ''
     }
 
     constructor(props) {
@@ -37,6 +42,8 @@ class NavBar extends Component{
     }
 
     toggleDrawer = (side, open) => () => {
+        console.log("toggleDrawer");
+        console.log(open);
         this.setState({
             [side]: open
         });
@@ -49,25 +56,36 @@ class NavBar extends Component{
 
 
     render() {
+
         const { classes } = this.props;
-        const PageConnexion = () => <Connexion handleSignIn={this.props.handleSignIn} ></ Connexion>;
-        const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
-        const PageContact = () => <Contact></Contact>;
-        const PageMenu = () => <Menu></Menu>;
 
         const sideList = (
             <div className={classes.list}>
-            <List>
-                    {["test1", "test2"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                            ))}
-            </List>
+                <List>
+                    {["Vous êtes connecté en tant que X"].map((text, index) => (
+                        <ListItem button key={text}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+                <Divider />
+                <List>
+                    <Link to="/profil/">
+                        {["Mon profil"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </Link>
+
+                    {["Se déconnecter"].map((text, index) => (
+                        <ListItem onClick={this.props.handleSignOut} button key={text}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
             </div>
         );
-
-        const isMobile = window.innerWidth <= 500;
 
         return (
             <div>
@@ -75,38 +93,30 @@ class NavBar extends Component{
                     <div className="App-hearder">
                         <nav>
                             <ul>
-                                {isMobile ?
-                                    <div>
-                                        <Button onClick={this.toggleDrawer("left", true)} className="nav-item"><img src={logo} alt="logo" height="50" /></Button>
-                                        <Drawer
-                                            open={this.state.left}
-                                            onClose={this.toggleDrawer("left", false)}
+                                <div>
+                                <Button onClick={this.toggleDrawer("left", true)} class="nav-item"><img src={logo} alt="logo" height="50" /></Button>
+                                    <Drawer
+                                        open={this.state.left}
+                                        onClose={this.toggleDrawer("left", false)}
+                                    >
+                                        <div
+                                            tabIndex={0}
+                                            role="button"
+                                            onClick={this.toggleDrawer("left", false)}
+                                            onKeyDown={this.toggleDrawer("left", false)}
                                         >
-                                            <div
-                                                tabIndex={0}
-                                                role="button"
-                                                onClick={this.toggleDrawer("left", false)}
-                                                onKeyDown={this.toggleDrawer("left", false)}
-                                            >
-                                                {sideList}
-                                            </div>
-                                        </Drawer>
-
-                                    </div>
-                                    :
-                                    <div>
-                                        <li><Link to="/">Acceuil</Link></li>
-                                        <li><Link to="/inscription/">S'inscrire</Link></li>
-                                        <li><Link to="/connexion/">Se connecter</Link></li>
-                                        <li><Link to="/contact/">Contact</Link></li>
-                                    </div>}
-                              
+                                            {sideList}
+                                        </div>
+                                    </Drawer>                                    
+                                    
+                                </div>
+                                <li><Link to="/">Acceuil</Link></li>
+                                <li><Link to="/contact/">Contact</Link></li>
                             </ul>
                         </nav>
                         <Route path="/" exact component={PageMenu}/>
-                        <Route path="/inscription/" component={PageInscription}/>
-                        <Route path="/connexion/" component={PageConnexion}/>
                         <Route path="/contact/" component={PageContact} />
+                        <Route path="/profil/" component={PageProfil} />
                     </div>
                 </Router>
             </div>
