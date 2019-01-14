@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FormulaireInput from './formulaireInput.jsx'
-import App from './../App.js'
 import PostsList from './postsList.jsx'
 
 export default class FormulaireInscription extends Component{
@@ -24,8 +23,9 @@ export default class FormulaireInscription extends Component{
                         <br></br>  
                         <br></br>
                     <button onClick={this.props.handleSignIn} type="button">Se connecter</button>
-                    <PostsList/>
+                    <PostsList />
                   </div>
+
             );
       }
  }

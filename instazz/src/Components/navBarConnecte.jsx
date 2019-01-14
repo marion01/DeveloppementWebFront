@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menu.jsx'
-import FormulaireInscription from './inscription.jsx'
-import Connexion from './connexion.jsx'
 import Profil from './profil.jsx'
+import Upload from './upload.jsx'
 import logo from '../asset/logo.png'
 
 import PropTypes from 'prop-types';
@@ -19,6 +18,7 @@ import Button from "@material-ui/core/Button";
 const PageContact = () => <h2>Contact</h2>;
 const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
+const PageUpload = () => <Upload></Upload>;
 
 
 
@@ -77,6 +77,13 @@ class NavBar extends Component{
                             </ListItem>
                         ))}
                     </Link>
+                    <Link to="/upload/">
+                        {["Charger un post"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </Link>
 
                     {["Se déconnecter"].map((text, index) => (
                         <ListItem onClick={this.props.handleSignOut} button key={text}>
@@ -117,6 +124,7 @@ class NavBar extends Component{
                         <Route path="/" exact component={PageMenu}/>
                         <Route path="/contact/" component={PageContact} />
                         <Route path="/profil/" component={PageProfil} />
+                        <Route path="/upload/" component={PageUpload} />
                     </div>
                 </Router>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../asset/logo.png'
 import FormulaireInscription from './inscription.jsx'
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Route, Link } from 'react-router-dom';
 import Connexion from './connexion.jsx'
 
 const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
