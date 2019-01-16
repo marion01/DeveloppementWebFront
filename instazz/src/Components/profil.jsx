@@ -13,4 +13,3 @@ export default class Profil extends Component{
         );
     }
 }
-
