@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menu.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
+import MesPosts from './mesPosts.jsx'
 import logo from '../asset/logo.png'
 
 import PropTypes from 'prop-types';
@@ -19,6 +20,7 @@ const PageContact = () => <h2>Contact</h2>;
 const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
+const PageMesPosts = () => <MesPosts></MesPosts>;
 
 
 
@@ -42,8 +44,6 @@ class NavBar extends Component{
     }
 
     toggleDrawer = (side, open) => () => {
-        console.log("toggleDrawer");
-        console.log(open);
         this.setState({
             [side]: open
         });
@@ -79,6 +79,14 @@ class NavBar extends Component{
                     </Link>
                     <Link to="/upload/">
                         {["Charger un post"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </Link>
+
+                    <Link to="/mesPosts/">
+                        {["Mes posts"].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -125,6 +133,7 @@ class NavBar extends Component{
                         <Route path="/contact/" component={PageContact} />
                         <Route path="/profil/" component={PageProfil} />
                         <Route path="/upload/" component={PageUpload} />
+                        <Route path="/mesPosts/" component={PageMesPosts} />
                     </div>
                 </Router>
             </div>

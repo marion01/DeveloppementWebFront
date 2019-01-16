@@ -11,7 +11,6 @@ export default class PostsList extends Component {
             .then((res) => {
                 const posts = res.data;
                 this.setState({ posts });
-                console.log(res);
                 console.log(res.data);
             })
     }
