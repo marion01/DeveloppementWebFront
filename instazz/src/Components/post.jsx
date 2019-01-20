@@ -17,6 +17,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import SendIcon from '@material-ui/icons/Send';
 
 
 const styles = theme => ({
@@ -38,6 +42,10 @@ const styles = theme => ({
             marginRight: -8,
         },
     },
+
+    left: {
+        align:'right'
+    },
     expandOpen: {
         transform: 'rotate(180deg)',
     },
@@ -49,7 +57,12 @@ const styles = theme => ({
         display: 'block',
         width: '50vw',
         transitionDuration: '0.3s',
-    }
+    },
+
+    commentaire: {
+        resize: 'vertical',
+        width: '40vw'
+    },
 });
 
 
@@ -89,11 +102,7 @@ class Post extends Component{
             });
     }
 
-
-
-    handleExpandClick = () => {
-        this.setState(state => ({ expanded: !state.expanded }));
-
+    recoverComments = () => {
         //récupération des commentaires du post  => na marcge pas
         var urlCommentaire = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
         axios.get(urlCommentaire)
@@ -101,21 +110,60 @@ class Post extends Component{
                 const commentaires = res.data;
                 this.setState({ commentaires: commentaires.doc });
             })
+    }
+
+
+    handleExpandClick = () => {
+        this.setState(state => ({ expanded: !state.expanded }));
+        this.recoverComments();
+       
     };
+
+    sendComment = () => {
+        var date = new Date()
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+      
+        var body = {
+            commentaire: document.getElementById('comment').value,
+            auteur: {
+                pseudo: "utilisateur connecté",
+                //ref:
+            },
+            post: this.state.post._id,
+            date: date.toDateString() 
+        };
+        console.log(body)
+        let url = 'http://localhost:5000/api/v1/commentaires/post'
+        axios.post(url, body,{
+            headers: headers
+        })
+            .then((res) => {
+                this.recoverComments()
+                document.getElementById('comment').value = ""
+                console.log("post commentaire");
+        })
+        .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+
+
+
+    }
 
     render() {
         const { classes } = this.props;
 
         let commentaires;
         if (this.state.commentaires.length === 0) {
-            commentaires = <Typography>Aucun commentaire</Typography>;
         } else {
-            commentaires = <CardContent>
+            commentaires = <div>
                 {this.state.commentaires.map(
                     commentaire =>
                         <Commentaire key={commentaire._id} idCommentaire={commentaire._id}></Commentaire>
-                )};
-                 </CardContent>
+                )}
+                 </div>
         }
 
         return (
@@ -136,7 +184,8 @@ class Post extends Component{
                 <CardContent>
                     <Typography component="p">{this.state.post.texte}</Typography>
                 </CardContent>
-                <CardActions className={classes.actions} disableActionSpacing>
+                    <CardActions className={classes.actions} disableActionSpacing>
+                        <Typography className={classes.left}>Afficher les commentaires</Typography>
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,
@@ -149,8 +198,25 @@ class Post extends Component{
                     </IconButton>
                 </CardActions>
 
-                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                        <List>
                             {commentaires}
+                            <ListItem>
+                                <Avatar aria-label="Recipe" >R</Avatar>
+                                <ListItemText
+                                primary="Entrez un commentaire"
+                                    secondary={
+                                        <React.Fragment>
+                                        <textarea className={classes.commentaire} name="comment" id="comment" >
+                                        </textarea>
+                                        <IconButton onClick={this.sendComment}>
+                                            <SendIcon />
+                                            </IconButton>
+                                            </React.Fragment>
+                                  
+                                }/>
+                            </ListItem>
+                        </List>
                  </Collapse>
 
                 </Card>

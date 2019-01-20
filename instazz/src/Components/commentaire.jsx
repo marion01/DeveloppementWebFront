@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
 
 export default class Commentaire extends Component{
@@ -33,16 +33,13 @@ export default class Commentaire extends Component{
       
 
         return (
-            <div>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="Recipe" >R</Avatar>
-                    }
-                    title={this.state.nomDate}
-                />
-                <Typography>{this.state.commentaire.commentaire}</Typography>
-                <Divider />
-            </div>
+            <ListItem alignItems="flex-start">
+
+                <ListItemAvatar>
+                    <Avatar aria-label="Recipe" >R</Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={this.state.nomDate} secondary={this.state.commentaire.commentaire} />
+             </ListItem>
         );
     }
 }

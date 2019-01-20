@@ -3,6 +3,7 @@ import axios from 'axios';
 
 
 //ajouter l'auteur
+//ne fonctionne pas
 function submitPost(form) {
     axios.post('http://localhost:5000/api/v1/posts/post', {
         img: {
