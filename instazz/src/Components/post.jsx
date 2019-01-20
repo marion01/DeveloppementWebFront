@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Commentaire from './commentaire.jsx'
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -55,8 +57,9 @@ class Post extends Component{
     state = {
         expanded: false,
         post: '',
-        auteur: '',
-        img:''
+        img: '',
+        commentaires: [],
+        pseudoAuteur: ''
     };
 
     componentDidMount() {
@@ -68,15 +71,8 @@ class Post extends Component{
                 const post = res.data;
                 this.setState({ post: post.doc });
 
-                //recupération des données de l'auteur du post
-                //combiner nom + photo de l'auteur avec le post pour ne pas avoir à faire cet appel ?
-                var idAuteur = this.state.post.auteur.ref
-                var urlAuteur = 'http://localhost:5000/api/v1/utilisateurs/' + idAuteur
-                axios.get(urlAuteur)
-                    .then((res) => {
-                        const auteur = res.data;
-                        this.setState({ auteur: auteur.doc });
-                    })
+                var pseudo = this.state.post.auteur.pseudo
+                this.setState({ pseudoAuteur: pseudo })
 
                 //récupération de la photo
                 var imageName = this.state.post.img.rel
@@ -86,7 +82,6 @@ class Post extends Component{
                         responseType: 'arraybuffer'
                     })
                     .then(response => {
-                        console.log(response)
                         var buffer = new Buffer(response.data, 'binary').toString('base64')
                         buffer = 'data:image/jpg;base64,' + buffer
                         this.setState({img: buffer})
@@ -111,6 +106,18 @@ class Post extends Component{
     render() {
         const { classes } = this.props;
 
+        let commentaires;
+        if (this.state.commentaires.length === 0) {
+            commentaires = <Typography>Aucun commentaire</Typography>;
+        } else {
+            commentaires = <CardContent>
+                {this.state.commentaires.map(
+                    commentaire =>
+                        <Commentaire key={commentaire._id} idCommentaire={commentaire._id}></Commentaire>
+                )};
+                 </CardContent>
+        }
+
         return (
             <div>
                 <br></br>
@@ -119,13 +126,12 @@ class Post extends Component{
                         avatar={
                             <Avatar aria-label="Recipe" className={classes.avatar}>R</Avatar>
                         }
-                        title={this.state.auteur.nom}
+                        title={this.state.pseudoAuteur}
                         subheader={this.state.post.date}
                     />
                 <CardMedia
                         className={classes.media}
                         image={this.state.img}
-                    title="Paella dish"
                 />
                 <CardContent>
                     <Typography component="p">{this.state.post.texte}</Typography>
@@ -144,9 +150,7 @@ class Post extends Component{
                 </CardActions>
 
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                        <Typography paragraph>Commentaires</Typography>
-                    </CardContent>
+                            {commentaires}
                  </Collapse>
 
                 </Card>

@@ -109,7 +109,7 @@ class NavBar extends Component{
                         <nav>
                             <ul>
                                 <div>
-                                <Button onClick={this.toggleDrawer("left", true)} class="nav-item"><img src={logo} alt="logo" height="50" /></Button>
+                                <Button onClick={this.toggleDrawer("left", true)} className="nav-item"><img src={logo} alt="logo" height="50" /></Button>
                                     <Drawer
                                         open={this.state.left}
                                         onClose={this.toggleDrawer("left", false)}

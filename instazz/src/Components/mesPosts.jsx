@@ -14,7 +14,6 @@ export default class MesPosts extends Component{
             .then((res) => {
                 var posts = res.data;
                 this.setState({ posts: posts.doc });
-                console.log(res.data);
             })
     }
 
