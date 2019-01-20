@@ -42,6 +42,12 @@ const styles = theme => ({
     avatar: {
         backgroundColor: red[500],
     },
+
+    card: {
+        display: 'block',
+        width: '50vw',
+        transitionDuration: '0.3s',
+    }
 });
 
 
@@ -114,7 +120,7 @@ class Post extends Component{
                             <Avatar aria-label="Recipe" className={classes.avatar}>R</Avatar>
                         }
                         title={this.state.auteur.nom}
-                        subheader="date"
+                        subheader={this.state.post.date}
                     />
                 <CardMedia
                         className={classes.media}
