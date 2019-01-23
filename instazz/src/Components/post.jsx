@@ -212,7 +212,7 @@ class Post extends Component{
                                         <IconButton onClick={this.sendComment}>
                                             <SendIcon />
                                             </IconButton>
-                                            </React.Fragment>
+                                        </React.Fragment>
                                   
                                 }/>
                             </ListItem>

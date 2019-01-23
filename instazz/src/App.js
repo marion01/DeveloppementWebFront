@@ -21,12 +21,33 @@ class App extends Component {
         this.setState({ user: false });
     }
 
+
+    isConnected = () => {
+        let token = localStorage.getItem("token")
+        //si un token est stocké
+        if (token != null) {
+            let tokenDecoded = atob(token.split(".")[1])
+            console.log(tokenDecoded)
+            return true
+        }
+        return false
+    } 
+
+    //pour savoir quel nav bar -> verification de la présence d'un token et de sa validité avec 1ère partie en base 64
+
     render() {
-      const user = this.state.user;
+        let navBar;
+        if (this.isConnected()) {
+            console.log("navBarUtilisateur")
+            navBar = <NavBarUtilisateur></NavBarUtilisateur>
+        } else {
+            console.log("navBarVisiteur")
+            navBar = <NavBarVisiteur></NavBarVisiteur>
+        }
+
       return (
       <div className="App">
-          {user ? <NavBarUtilisateur handleSignOut={this.handleSignOut}></NavBarUtilisateur>
-                      : <NavBarVisiteur handleSignIn={this.handleSignIn}></NavBarVisiteur>}
+              {navBar} 
       </div>
     );
   }
