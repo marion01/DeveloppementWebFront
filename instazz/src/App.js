@@ -33,8 +33,6 @@ class App extends Component {
         return false
     } 
 
-    //pour savoir quel nav bar -> verification de la présence d'un token et de sa validité avec 1ère partie en base 64
-
     render() {
         let navBar;
         if (this.isConnected()) {

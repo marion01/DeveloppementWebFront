@@ -8,7 +8,7 @@ class FormulaireInscription extends Component{
         this.state = { value: '' };
     }
 
-    connexion() {
+    connexion = () => {
 
         //gerer le cas de vide
         let pseudo = document.getElementById('pseudo').value
@@ -34,7 +34,6 @@ class FormulaireInscription extends Component{
             localStorage.setItem("token", res.data.token);
             if (res.data.success) {
                 //redirection vers home
-                //ne fonctionne pas erreur cannot find property 'props'
                 this.props.history.push("/")
                 console.log("connection réussie")
             } else {
@@ -45,6 +44,9 @@ class FormulaireInscription extends Component{
         })
     }
 
+    ComponentDidUpdate() {
+        console.log("app.js")
+    }
 
       render() {
             return (
