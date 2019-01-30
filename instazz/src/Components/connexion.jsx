@@ -8,6 +8,8 @@ export default class FormulaireInscription extends Component{
     }
 
 
+
+
       render() {
             return (
                 <div className="App-corps">

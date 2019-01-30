@@ -20,6 +20,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
 
@@ -68,7 +69,9 @@ class Upload extends Component{
         date: '',
         textPost: '',
         previewClicked: false,
-        file: ''
+        file: '',
+        imageBase64updated: '',
+        imageBase64: ''
     }
 
     savePost = () => {
@@ -142,14 +145,44 @@ class Upload extends Component{
 
         this.setState({ textPost: document.getElementById('description').value })
 
-        let file = document.getElementById('file-input').files[0];
-        this.setState({file: file})
+        var buffer = this.state.imageBase64updated
+        console.log(buffer)
+        buffer = 'data:image/jpg;base64,' + buffer
+        this.setState({ img: buffer })
+        this.setState({ imageBase64: buffer })
+        console.log(buffer)
+    }
+
+    handleImageChange = () => {
+        var f = document.getElementById('file-input').files[0]; // FileList object
+        console.log(f);
+        //var buffer = new Buffer(f.data, 'binary').toString('base64')
+        //console.log(buffer)
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        console.log("test")
+
+        var base64;
+        const scope = this
+        reader.onload = (function (theFile) {
+            return function (e) {
+                var binaryData = e.target.result;
+                //Converting Binary Data to base 64
+                var base64String = window.btoa(binaryData);
+                //saving base64
+                scope.setState({ imageBase64updated: base64String });
+            };
+        })(f);
+        // Read in the image file as a data URL.
+        reader.readAsBinaryString(f);
+        
     }
 
 
     render() {
         const { classes } = this.props;
         var message;
+
         if (this.state.previewClicked) {
             message = <div>
                 <br></br>
@@ -163,7 +196,7 @@ class Upload extends Component{
                     />
                     <CardMedia
                         className={classes.media}
-                        image={this.state.file}
+                        image={this.state.imageBase64}
                     />
                     <CardContent>
                         <Typography component="p">{this.state.textPost}</Typography>
@@ -177,22 +210,27 @@ class Upload extends Component{
             message = <div></div>
         }
         
-      return <div className="App-corps">
-              <h2>Charger un post</h2>
-              <br></br>
-              <div name="form">
-                   <input id="file-input" type="file" name="photo" />
+        return <div className="App-corps">
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={6}>
+                  <h2>Charger un post</h2>
                   <br></br>
-                  <br></br>
-                  <label htmlFor="description">Entrez une description:  </label>
-                  <textarea name="description" rows="4" cols="30" id="description" type="text" />
-                  <br></br>
-                  <br></br>
-              <input onClick={this.submitPost} type="button" value="Valider" />
-              <input onClick={this.miseAJourPreview} type="button" value="Visualisation" />
-               </div>
-
-          {message}
+                  <div name="form">
+                  <input id="file-input" type="file" name="photo" onChange={(e) => this.handleImageChange(e)}/>
+                      <br></br>
+                      <br></br>
+                      <label htmlFor="description">Entrez une description:  </label>
+                      <textarea name="description" rows="4" cols="30" id="description" type="text" />
+                      <br></br>
+                      <br></br>
+                  <input onClick={this.submitPost} type="button" value="Valider" />
+                  <input onClick={this.miseAJourPreview} type="button" value="Visualisation" />
+                    </div>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    {message}
+                </Grid>
+            </Grid>
             </div>
       }
 }
