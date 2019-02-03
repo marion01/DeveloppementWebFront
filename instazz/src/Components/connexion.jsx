@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from "react-router";
 
-class FormulaireInscription extends Component{
+class Connexion extends Component{
     constructor(props) {
         super(props);
         this.state = { value: '' };
@@ -33,6 +33,7 @@ class FormulaireInscription extends Component{
             console.log(res);
             localStorage.setItem("token", res.data.token);
             if (res.data.success) {
+                this.props.handleConnexion();
                 //redirection vers home
                 this.props.history.push("/")
                 console.log("connection réussie")
@@ -70,4 +71,4 @@ class FormulaireInscription extends Component{
       }
 }
 
-export default withRouter(FormulaireInscription)
+export default withRouter(Connexion)

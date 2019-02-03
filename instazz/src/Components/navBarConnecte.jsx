@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Menu from './menu.jsx'
+import Menu from './menuConnecte.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
@@ -24,7 +24,6 @@ const PageMesPosts = () => <MesPosts></MesPosts>;
 
 
 
-
 const styles = {
     list: {
       width: 250
@@ -34,9 +33,6 @@ const styles = {
   
 
 class NavBar extends Component{
-    static defaultProps = {
-        handleSignOut: ''
-    }
 
     constructor(props) {
         super(props);
@@ -51,7 +47,13 @@ class NavBar extends Component{
 
     state = {
         top: false
-      };
+    };
+
+
+    deconnexion = () => {
+        localStorage.clear();
+        this.props.handleConnexion();
+    }
     
 
 
@@ -94,7 +96,7 @@ class NavBar extends Component{
                     </Link>
 
                     {["Se déconnecter"].map((text, index) => (
-                        <ListItem onClick={this.props.handleSignOut} button key={text}>
+                        <ListItem onClick={this.deconnexion} button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}

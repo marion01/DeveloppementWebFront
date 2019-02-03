@@ -7,20 +7,10 @@ import NavBarUtilisateur from './Components/navBarConnecte.jsx'
 
 class App extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { user: false };
+    handleConnexion = () => {
+        console.log("handle connexion");
+        this.forceUpdate()
     }
-
-    handleSignIn = () => {
-        //test mdp
-        this.setState({ user: true});
-    }
-
-    handleSignOut = () => {
-        this.setState({ user: false });
-    }
-
 
     isConnected = () => {
         let token = localStorage.getItem("token")
@@ -37,10 +27,10 @@ class App extends Component {
         let navBar;
         if (this.isConnected()) {
             console.log("navBarUtilisateur")
-            navBar = <NavBarUtilisateur></NavBarUtilisateur>
+            navBar = <NavBarUtilisateur handleConnexion={this.handleConnexion}></NavBarUtilisateur>
         } else {
             console.log("navBarVisiteur")
-            navBar = <NavBarVisiteur></NavBarVisiteur>
+            navBar = <NavBarVisiteur handleConnexion={this.handleConnexion}></NavBarVisiteur>
         }
 
       return (
