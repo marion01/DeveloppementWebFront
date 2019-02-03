@@ -72,7 +72,8 @@ class Post extends Component{
         post: '',
         img: '',
         commentaires: [],
-        pseudoAuteur: ''
+        pseudoAuteur: '',
+        firstLetter: ''
     };
 
     componentDidMount() {
@@ -86,6 +87,7 @@ class Post extends Component{
 
                 var pseudo = this.state.post.auteur.pseudo
                 this.setState({ pseudoAuteur: pseudo })
+                this.setState({ firstLetter: pseudo.charAt(0)})
 
                 //récupération de la photo
                 var imageName = this.state.post.img.rel
@@ -121,8 +123,11 @@ class Post extends Component{
 
     sendComment = () => {
         var date = new Date()
+        let idAuteur = localStorage.getItem("id")
+        let pseudoAuteur = localStorage.getItem("pseudo")
 
         let headers = new Headers();
+
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
         headers.append('Access-Control-Allow-Origin', '*');
@@ -130,8 +135,8 @@ class Post extends Component{
         var body = {
             commentaire: document.getElementById('comment').value,
             auteur: {
-                pseudo: "utilisateur connecté",
-                //ref:
+                pseudo: pseudoAuteur,
+                ref: idAuteur
             },
             post: this.state.post._id,
             date: date.toDateString() 
@@ -172,7 +177,7 @@ class Post extends Component{
             <Card className={classes.card}>
                 <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>R</Avatar>
+                            <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetter}</Avatar>
                         }
                         title={this.state.pseudoAuteur}
                         subheader={this.state.post.date}

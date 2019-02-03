@@ -8,8 +8,8 @@ export default class MesPosts extends Component{
     }
 
     componentDidMount() {
-        var idAuteur = '5c361bc8f294d13124c2f950'
-        var url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
+        let idAuteur = localStorage.getItem("id")
+        let url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
         axios.get(url)
             .then((res) => {
                 var posts = res.data;
