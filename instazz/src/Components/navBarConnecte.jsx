@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Menu from './menu.jsx'
+import Menu from './menuConnecte.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
@@ -24,7 +24,6 @@ const PageMesPosts = () => <MesPosts></MesPosts>;
 
 
 
-
 const styles = {
     list: {
       width: 250
@@ -34,13 +33,16 @@ const styles = {
   
 
 class NavBar extends Component{
-    static defaultProps = {
-        handleSignOut: ''
+
+    state = {
+        pseudo: ''
     }
 
-    constructor(props) {
-        super(props);
-        this.state = { value: '' };
+
+
+    componentDidMount() {
+        let pseudo = localStorage.getItem("pseudo")
+        this.setState({pseudo: pseudo})
     }
 
     toggleDrawer = (side, open) => () => {
@@ -51,7 +53,13 @@ class NavBar extends Component{
 
     state = {
         top: false
-      };
+    };
+
+
+    deconnexion = () => {
+        localStorage.clear();
+        this.props.handleConnexion();
+    }
     
 
 
@@ -59,10 +67,12 @@ class NavBar extends Component{
 
         const { classes } = this.props;
 
+        let text = "Vous êtes connecté en tant que " + this.state.pseudo
+
         const sideList = (
             <div className={classes.list}>
                 <List>
-                    {["Vous êtes connecté en tant que X"].map((text, index) => (
+                    {[text].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
@@ -94,7 +104,7 @@ class NavBar extends Component{
                     </Link>
 
                     {["Se déconnecter"].map((text, index) => (
-                        <ListItem onClick={this.props.handleSignOut} button key={text}>
+                        <ListItem onClick={this.deconnexion} button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
@@ -147,93 +157,3 @@ NavBar.propTypes = {
   };
   
   export default withStyles(styles)(NavBar);
-
-
-/*
-
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-
-const styles = {
-  list: {
-    width: 250
-  },
-  fullList: {
-    width: "auto"
-  }
-};
-
-class TemporaryDrawer extends React.Component {
-  state = {
-    top: false,
-    left: false,
-    bottom: false,
-    right: false
-  };
-
-  toggleDrawer = (side, open) => () => {
-    this.setState({
-      [side]: open
-    });
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    const sideList = (
-      <div className={classes.list}>
-        <List>
-          {["Vous êtes connecté en tant que X"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["Mon profil", "Se déconnecter"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
-
-    return (
-      <div>
-        <Button onClick={this.toggleDrawer("left", true)}>Open Left</Button>
-        <Drawer
-          open={this.state.left}
-          onClose={this.toggleDrawer("left", false)}
-        >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer("left", false)}
-            onKeyDown={this.toggleDrawer("left", false)}
-          >
-            {sideList}
-          </div>
-        </Drawer>
-      </div>
-    );
-  }
-}
-
-TemporaryDrawer.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(TemporaryDrawer);
-*/
