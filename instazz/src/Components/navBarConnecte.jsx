@@ -4,6 +4,7 @@ import Menu from './menuConnecte.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
+import Actu from './actu.jsx'
 import logo from '../asset/logo.png'
 
 import PropTypes from 'prop-types';
@@ -21,6 +22,7 @@ const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
 const PageMesPosts = () => <MesPosts></MesPosts>;
+const PageActu = () => <Actu></Actu>;
 
 
 
@@ -87,6 +89,13 @@ class NavBar extends Component{
                             </ListItem>
                         ))}
                     </Link>
+                    <Link to="/actu/">
+                        {["Actu"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </Link>
                     <Link to="/upload/">
                         {["Charger un post"].map((text, index) => (
                             <ListItem button key={text}>
@@ -144,6 +153,7 @@ class NavBar extends Component{
                         <Route path="/profil/" component={PageProfil} />
                         <Route path="/upload/" component={PageUpload} />
                         <Route path="/mesPosts/" component={PageMesPosts} />
+                        <Route path="/actu/" component={PageActu} />
                     </div>
                 </Router>
             </div>

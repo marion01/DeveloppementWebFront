@@ -7,14 +7,35 @@ export default class MesPosts extends Component{
         posts: []
     }
 
-    componentDidMount() {
+    getPosts = () => {
         let idAuteur = localStorage.getItem("id")
         let url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
         axios.get(url)
             .then((res) => {
                 var posts = res.data;
                 this.setState({ posts: posts.doc });
+                this.sortPostsBy('date');
             })
+    }
+
+    componentDidMount() {
+        this.getPosts();
+        console.log(this.state.posts)
+        
+    }
+
+    compareBy(key) {
+        return function (a, b) {
+            if (a[key] < b[key]) return -1;
+            if (a[key] > b[key]) return 1;
+            return 0;
+        };
+    }
+
+    sortPostsBy(key) {
+        let arrayCopy = this.state.posts;
+        arrayCopy.sort(this.compareBy(key));
+        this.setState({ posts: arrayCopy });
     }
 
     render() {

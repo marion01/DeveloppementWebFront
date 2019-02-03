@@ -19,7 +19,7 @@ class App extends Component {
         if (token != null) {
             let tokenDecoded = atob(token.split(".")[1])
             let tokenJSON = JSON.parse(tokenDecoded);
-            console.log(tokenJSON);
+            //console.log(tokenJSON);
             var pseudo = tokenJSON.data.name;
             localStorage.setItem("pseudo", pseudo);
             //recover id of user and save it in local storage

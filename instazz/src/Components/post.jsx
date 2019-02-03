@@ -73,24 +73,25 @@ class Post extends Component{
         img: '',
         commentaires: [],
         pseudoAuteur: '',
-        firstLetter: ''
+        firstLetter: '',
+        date: ''
     };
 
     componentDidMount() {
 
-        //recupération des données du post
+        //recupï¿½ration des donnï¿½es du post
         var url = 'http://localhost:5000/api/v1/posts/' + this.props.idPost
         axios.get(url)
             .then((res) => {
                 const post = res.data;
                 this.setState({ post: post.doc });
-
-                var pseudo = this.state.post.auteur.pseudo
+                var pseudo = post.doc.auteur.pseudo
                 this.setState({ pseudoAuteur: pseudo })
-                this.setState({ firstLetter: pseudo.charAt(0)})
+                this.setState({ firstLetter: pseudo.charAt(0) })
+                this.setState({ date: post.doc.date })
 
-                //récupération de la photo
-                var imageName = this.state.post.img.rel
+                //rï¿½cupï¿½ration de la photo
+                var imageName = post.doc.img.rel
                 var urlImage = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
                 axios
                     .get(urlImage, {
@@ -101,17 +102,25 @@ class Post extends Component{
                         buffer = 'data:image/jpg;base64,' + buffer
                         this.setState({img: buffer})
                     })
-            });
+                    .catch(error => {
+                        console.log(error.response)
+                    });
+            }).catch (error => {
+            console.log(error.response)
+        })
     }
 
     recoverComments = () => {
-        //récupération des commentaires du post  => na marcge pas
+        //rï¿½cupï¿½ration des commentaires du post  => na marcge pas
         var urlCommentaire = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
         axios.get(urlCommentaire)
             .then((res) => {
                 const commentaires = res.data;
                 this.setState({ commentaires: commentaires.doc });
             })
+            .catch(error => {
+                console.log(error.response)
+            });
     }
 
 
@@ -151,7 +160,7 @@ class Post extends Component{
                 document.getElementById('comment').value = ""
                 console.log("post commentaire");
         })
-        .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+        .catch(() => console.log("Canï¿½t access " + url + " response. Blocked by browser?"))
 
 
 
@@ -171,6 +180,9 @@ class Post extends Component{
                  </div>
         }
 
+        let date = this.state.date
+        let dateSplit = date.split("T")[0]
+
         return (
             <div>
                 <br></br>
@@ -180,7 +192,7 @@ class Post extends Component{
                             <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetter}</Avatar>
                         }
                         title={this.state.pseudoAuteur}
-                        subheader={this.state.post.date}
+                        subheader={dateSplit}
                     />
                 <CardMedia
                         className={classes.media}
