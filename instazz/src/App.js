@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import NavBarVisiteur from './Components/navBar.jsx'
 import NavBarUtilisateur from './Components/navBarConnecte.jsx'
-import axios from 'axios';
-
-
 
 class App extends Component {
 
@@ -20,15 +17,10 @@ class App extends Component {
             let tokenDecoded = atob(token.split(".")[1])
             let tokenJSON = JSON.parse(tokenDecoded);
             console.log(tokenJSON);
-            var pseudo = tokenJSON.data.name;
+            var pseudo = tokenJSON.data.pseudo;
             localStorage.setItem("pseudo", pseudo);
-            //recover id of user and save it in local storage
-            var url = 'http://localhost:5000/api/v1/utilisateurs/getIdFromPseudo/' + pseudo
-            axios.get(url)
-                .then((res) => {
-                    var user = res.data;
-                    localStorage.setItem("id", user.doc._id);
-                })
+            var id = tokenJSON.data.id;
+            localStorage.setItem("id", id);
             return true
         }
         return false

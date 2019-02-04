@@ -15,7 +15,7 @@ class Connexion extends Component{
         let mdp = document.getElementById('MotDePasse').value
 
         let body = {
-            email: pseudo,
+            pseudo: pseudo,
             password: mdp
         }
 
