@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,23 +13,14 @@ export default class Commentaire extends Component{
     };
 
     componentDidMount() {
+        let commentaire = this.props.Commentaire
+        this.setState({ commentaire: commentaire })
 
-        //recupération des données du post
-        var url = 'http://localhost:5000/api/v1/commentaires/' + this.props.idCommentaire
-        axios.get(url)
-            .then((res) => {
-                const com = res.data;
-                this.setState({ commentaire: com.doc });
-                
-                var nd = this.state.commentaire.auteur.pseudo + " - " + this.state.commentaire.date
-                this.setState({ nomDate: nd })
-            });
+        var nd = commentaire.auteur.pseudo + " - " + commentaire.date
+        this.setState({ nomDate: nd })
     }
 
-
-
     render() {
-      
 
         return (
             <ListItem alignItems="flex-start">

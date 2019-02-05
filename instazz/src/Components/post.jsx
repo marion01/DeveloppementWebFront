@@ -74,49 +74,51 @@ class Post extends Component{
         commentaires: [],
         pseudoAuteur: '',
         firstLetter: '',
-        date: ''
+        date: '',
+        imgLoading: true,
+        commentaireLoading: true
     };
 
     componentDidMount() {
 
-        //recup�ration des donn�es du post
-        var url = 'http://localhost:5000/api/v1/posts/' + this.props.idPost
-        axios.get(url)
-            .then((res) => {
-                const post = res.data;
-                this.setState({ post: post.doc });
-                var pseudo = post.doc.auteur.pseudo
-                this.setState({ pseudoAuteur: pseudo })
-                this.setState({ firstLetter: pseudo.charAt(0) })
-                this.setState({ date: post.doc.date })
+        let post = this.props.Post;
+        this.setState({ post: post });
+        var pseudo = post.auteur.pseudo;
+        this.setState({ pseudoAuteur: pseudo })
+        this.setState({ firstLetter: pseudo.charAt(0) })
+        this.setState({ date: post.date })
 
-                //r�cup�ration de la photo
-                var imageName = post.doc.img.rel
-                var urlImage = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
-                axios
-                    .get(urlImage, {
-                        responseType: 'arraybuffer'
-                    })
-                    .then(response => {
-                        var buffer = new Buffer(response.data, 'binary').toString('base64')
-                        buffer = 'data:image/jpg;base64,' + buffer
-                        this.setState({img: buffer})
-                    })
-                    .catch(error => {
-                        console.log(error.response)
-                    });
-            }).catch (error => {
-            console.log(error.response)
-        })
+
+        //r�cup�ration de la photo
+        var imageName = post.img.rel
+        var urlImage = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
+        axios
+            .get(urlImage, {
+                responseType: 'arraybuffer'
+            })
+            .then(response => {
+                var buffer = new Buffer(response.data, 'binary').toString('base64')
+                buffer = 'data:image/jpg;base64,' + buffer
+                this.setState({ img: buffer })
+                this.setState({ imgLoading: false })
+            })
+            .catch(error => {
+                console.log(error.response)
+            });
+
+        
     }
 
     recoverComments = () => {
-        //r�cup�ration des commentaires du post  => na marcge pas
+        this.setState({ commentaireLoading: true })
+
+        //r�cup�ration des commentaires du post 
         var urlCommentaire = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
         axios.get(urlCommentaire)
             .then((res) => {
                 const commentaires = res.data;
                 this.setState({ commentaires: commentaires.doc });
+                this.setState({ commentaireLoading: false })
             })
             .catch(error => {
                 console.log(error.response)
@@ -170,14 +172,27 @@ class Post extends Component{
         const { classes } = this.props;
 
         let commentaires;
-        if (this.state.commentaires.length === 0) {
+        if (this.state.commentaireLoading) {
+            //s'affiche mais en blanc donc ne se voit pas -> voir css
+            commentaires = <div>Loading ...</div>
         } else {
-            commentaires = <div>
-                {this.state.commentaires.map(
-                    commentaire =>
-                        <Commentaire key={commentaire._id} idCommentaire={commentaire._id}></Commentaire>
-                )}
-                 </div>
+            if (this.state.commentaires.length === 0) {
+            } else {
+                commentaires = <div>
+                    {this.state.commentaires.map(
+                        commentaire =>
+                            <Commentaire key={commentaire._id} Commentaire={commentaire}></Commentaire>
+                    )}
+                </div>
+            }
+        }
+        
+
+        var img;
+        if (this.state.imgLoading) {
+            img = "Loading ...";
+        } else {
+            img = this.state.img;
         }
 
         let date = this.state.date
@@ -196,7 +211,7 @@ class Post extends Component{
                     />
                 <CardMedia
                         className={classes.media}
-                        image={this.state.img}
+                        image={img}
                 />
                 <CardContent>
                     <Typography component="p">{this.state.post.texte}</Typography>
@@ -219,7 +234,7 @@ class Post extends Component{
                         <List>
                             {commentaires}
                             <ListItem>
-                                <Avatar aria-label="Recipe" >R</Avatar>
+                                <Avatar aria-label="Recipe" >{this.state.firstLetter}</Avatar>
                                 <ListItemText
                                 primary="Entrez un commentaire"
                                     secondary={

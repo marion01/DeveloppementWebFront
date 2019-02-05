@@ -4,7 +4,8 @@ import axios from 'axios';
 
 export default class MesPosts extends Component{
     state = {
-        posts: []
+        posts: [],
+        loading: true
     }
 
     getPosts = () => {
@@ -15,6 +16,7 @@ export default class MesPosts extends Component{
                 var posts = res.data;
                 this.setState({ posts: posts.doc });
                 this.sortPostsBy('date');
+                this.setState({ loading: false });
             })
     }
 
@@ -39,15 +41,21 @@ export default class MesPosts extends Component{
     }
 
     render() {
+        var content;
+        if (this.state.loading) {
+            content = <div>Loading...</div>;
+        } else {
+            content = <div>
+                {this.state.posts.map(
+                    post =>
+                        <Post key={post._id} Post={post}></Post>
+                        )}
+                       </div>
+        }
         return (
             <div className="App-corps">
                 <h1>Mes posts</h1>
-                <div>
-                    {this.state.posts.map(
-                        post =>
-                            <Post key={post._id} idPost={post._id}></Post>
-                    )}
-                </div>
+                {content}
             </div>
         )
     }

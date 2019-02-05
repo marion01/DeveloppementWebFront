@@ -45,7 +45,7 @@ export default class Actu extends Component{
             var posts = <div>
                 {this.state.posts.map(
                     post =>
-                        <Post key={post._id} idPost={post._id}></Post>
+                        <Post key={post._id} Post={post}></Post>
                 )}
             </div>
         }
