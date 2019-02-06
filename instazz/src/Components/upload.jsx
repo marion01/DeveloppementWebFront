@@ -62,63 +62,84 @@ class Upload extends Component{
         previewClicked: false,
         file: '',
         imageBase64updated: '',
-        imageBase64: ''
+        imageBase64: '',
+        firstLetterPseudo: '',
+        pseudo: '',
+        id: ''
     }
 
-    savePost = () => {
-        console.log("savePost")
-        let textPost = document.getElementById('description').value
-        let date = new Date()
-        let file = document.getElementById('file-input')
+    savePost = async () => {
+        try {
+            console.log("savePost")
+            let textPost = document.getElementById('description').value
+            let date = new Date()
+            let file = document.getElementById('file-input')
 
-        let imageName = date.toDateString() + "-" + file.files[0].name;
+            let imageName = date.toDateString() + "-" + file.files[0].name;
 
-        console.log("image: " + imageName)
+            console.log("image: " + imageName)
 
-        let data = {
-            img: {
-                rel: imageName,
-                //href: String,
-            },
-            texte: textPost,
-            date: date.toDateString(),
-            auteur: {
-                pseudo: "utilisateur conecté",
-                //ref:
+            let body = {
+                img: {
+                    rel: imageName
+                },
+                texte: textPost,
+                date: date.toISOString(),
+                auteur: {
+                    pseudo: this.state.pseudo,
+                    ref: this.state.id
+                }
             }
+
+            console.log(body)
+            let url = 'http://localhost:5000/api/v1/posts/post'
+
+
+            const access_token = localStorage.getItem("token");
+            const options = {
+                method: "post",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url,
+                data: body
+            };
+            await axios(options);
+            console.log("post post réussit");
+        } catch (err) {
+            alert("erreur");
+            console.log("echec post post")
+            console.log(err)
         }
+    };
 
-        console.log(data)
-        let url = 'http://localhost:5000/api/v1/posts/post'
+    saveImage = async () => {
+        try {
+            console.log("saveImage")
+            let file = document.getElementById('file-input').files[0];
+            let body = new FormData();
+            body.append('photo', file)
+            let url = 'http://localhost:5000/api/v1/posts/postImage';
 
-        axios.post(url, data)
-            .then((res) => {
-                console.log("post image");
-            })
-    }
-
-
-    uploadSuccess = ({ data }) => {
-        //faire qqch
-        console.log("réussite")
-}
-
-    uploadFail = (error) => {
-        //faire qqch
-        console.log("echec")
-    }
-
-
-    saveImage= () => {
-        console.log("saveImage")
-        let file = document.getElementById('file-input').files[0];
-        let data = new FormData();
-        data.append('photo', file)
-        let url = 'http://localhost:5000/api/v1/posts/postImage';
-        axios.post(url, data)
-            .then(response => this.uploadSuccess(response))
-            .catch(error => this.uploadFail(error));
-    }
+            const access_token = localStorage.getItem("token");
+            const options = {
+                method: "post",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url,
+                data: body
+            };
+            await axios(options);
+            console.log("réussite post image")
+        } catch (err) {
+            alert("erreur");
+            console.log("echec post image")
+            console.log(err)
+        }
+    };
 
     submitPost = () => {
         this.savePost()
@@ -126,32 +147,19 @@ class Upload extends Component{
     }
 
     miseAJourPreview = () => {
-        console.log("test")
         this.setState({previewClicked: true})
-
-        let date = new Date()
-
-        this.setState({ date: date.toDateString() })
-        console.log(this.state.date)
 
         this.setState({ textPost: document.getElementById('description').value })
 
+        //calcul image base 64 a afficher
         var buffer = this.state.imageBase64updated
-        console.log(buffer)
         buffer = 'data:image/jpg;base64,' + buffer
-        this.setState({ img: buffer })
         this.setState({ imageBase64: buffer })
-        console.log(buffer)
     }
 
     handleImageChange = () => {
         var f = document.getElementById('file-input').files[0]; // FileList object
-        console.log(f);
-        //var buffer = new Buffer(f.data, 'binary').toString('base64')
-        //console.log(buffer)
         var reader = new FileReader();
-        // Closure to capture the file information.
-        console.log("test")
 
         const scope = this
         reader.onload = (function (theFile) {
@@ -168,6 +176,35 @@ class Upload extends Component{
         
     }
 
+    displayDate = (dateISO) => {
+        let dateJour = dateISO.split("T")[0]
+        let dateHeure = dateISO.split("T")[1]
+        let dateWithoutMillisecond;
+        if (dateHeure != null) {
+            dateWithoutMillisecond = dateHeure.split(".")[0]
+        }
+        return dateJour + " " + dateWithoutMillisecond
+    }
+
+    componentDidMount() {
+        //calcul date
+        var date = new Date()
+        date = this.displayDate(date.toISOString())
+        this.setState({ date: date})
+
+        //recup pseudo connecté
+        const pseudo = localStorage.getItem("pseudo");
+        this.setState({ pseudo: pseudo })
+
+        //recup id connecté
+        const id = localStorage.getItem("id");
+        this.setState({ id: id })
+
+        //recup firstLetter pseudo
+        this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() })
+    }
+
+
 
     render() {
         const { classes } = this.props;
@@ -179,9 +216,9 @@ class Upload extends Component{
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>R</Avatar>
+                            <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
                         }
-                        title="utilisateur connecté"
+                        title={this.state.pseudo}
                         subheader={this.state.date}
                     />
                     <CardMedia

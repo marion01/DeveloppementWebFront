@@ -61,7 +61,7 @@ const styles = theme => ({
 
     commentaire: {
         resize: 'vertical',
-        width: '40vw'
+        width: '30vw'
     },
 });
 
@@ -107,8 +107,8 @@ class Post extends Component{
 
     compareBy(key) {
         return function (a, b) {
-            if (a[key] < b[key]) return -1;
-            if (a[key] > b[key]) return 1;
+            if (a[key] > b[key]) return -1;
+            if (a[key] < b[key]) return 1;
             return 0;
         };
     }
@@ -125,7 +125,7 @@ class Post extends Component{
         this.setState({ post: post });
         var pseudo = post.auteur.pseudo;
         this.setState({ pseudoAuteur: pseudo })
-        this.setState({ firstLetter: pseudo.charAt(0) })
+        this.setState({ firstLetter: pseudo.charAt(0).toUpperCase() })
         this.setState({ date: post.date })
 
         this.getImage(post);        
@@ -162,41 +162,53 @@ class Post extends Component{
        
     };
 
-    sendComment = () => {
-        var date = new Date()
-        let idAuteur = localStorage.getItem("id")
-        let pseudoAuteur = localStorage.getItem("pseudo")
-
-        let headers = new Headers();
-
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
-        headers.append('Access-Control-Allow-Origin', '*');
-      
-        var body = {
-            commentaire: document.getElementById('comment').value,
-            auteur: {
-                pseudo: pseudoAuteur,
-                ref: idAuteur
-            },
-            post: this.state.post._id,
-            date: date.toDateString() 
-        };
-        console.log(body)
-        let url = 'http://localhost:5000/api/v1/commentaires/post'
-        axios.post(url, body,{
-            headers: headers
-        })
-            .then((res) => {
-                this.recoverComments()
-                document.getElementById('comment').value = ""
-                console.log("post commentaire");
-        })
-        .catch(() => console.log("Can�t access " + url + " response. Blocked by browser?"))
-
-
-
+    displayDate = (dateISO) => {
+        let dateJour = dateISO.split("T")[0]
+        let dateHeure = dateISO.split("T")[1]
+        let dateWithoutMillisecond;
+        if (dateHeure != null) {
+            dateWithoutMillisecond = dateHeure.split(".")[0]
+        }
+        return dateJour + " " + dateWithoutMillisecond
     }
+
+    sendComment = async () => {
+        try {
+            var date = new Date()
+            console.log(date)
+            let idAuteur = localStorage.getItem("id")
+            let pseudoAuteur = localStorage.getItem("pseudo")
+
+            var body = {
+                commentaire: document.getElementById('comment').value,
+                auteur: {
+                    pseudo: pseudoAuteur,
+                    ref: idAuteur
+                },
+                post: this.state.post._id,
+                date: date.toISOString()
+            };
+
+            const access_token = localStorage.getItem("token");
+            var url = 'http://localhost:5000/api/v1/commentaires/post'
+            const options = {
+                method: "post",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url,
+                data: body
+            };
+            await axios(options);
+            document.getElementById('comment').value = ""
+            this.recoverComments()
+            console.log("post commentaire");
+        } catch (err) {
+            alert("erreur");
+            console.log(err)
+        }
+    };
 
     render() {
         const { classes } = this.props;
@@ -225,8 +237,7 @@ class Post extends Component{
             img = this.state.img;
         }
 
-        let date = this.state.date
-        let dateSplit = date.split("T")[0]
+        let date = this.displayDate(this.state.date)
 
         return (
             <div>
@@ -237,7 +248,7 @@ class Post extends Component{
                             <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetter}</Avatar>
                         }
                         title={this.state.pseudoAuteur}
-                        subheader={dateSplit}
+                        subheader={date}
                     />
                 <CardMedia
                         className={classes.media}

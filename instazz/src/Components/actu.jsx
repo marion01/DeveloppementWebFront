@@ -64,7 +64,7 @@ export default class Actu extends Component {
         }
         return (
             <div className="App-corps">
-                <h1>Mes posts</h1>
+                <h1>Fil d'actualité</h1>
                 {content}
             </div>
         )
