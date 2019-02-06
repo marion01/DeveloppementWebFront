@@ -105,6 +105,20 @@ class Post extends Component{
         }
     };
 
+    compareBy(key) {
+        return function (a, b) {
+            if (a[key] < b[key]) return -1;
+            if (a[key] > b[key]) return 1;
+            return 0;
+        };
+    }
+
+    sortCommentairesBy = (key) => {
+        let arrayCopy = this.state.commentaires;
+        arrayCopy.sort(this.compareBy(key));
+        this.setState({ commentaires: arrayCopy });
+    }
+
     componentDidMount() {
 
         let post = this.props.Post;
@@ -134,6 +148,7 @@ class Post extends Component{
             let res = await axios(options);
             const commentaires = res.data;
             this.setState({ commentaires: commentaires.doc });
+            this.sortCommentairesBy('date')
             this.setState({ commentaireLoading: false })
         } catch (err) {
             alert("erreur");
@@ -247,22 +262,22 @@ class Post extends Component{
 
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <List>
-                            {commentaires}
                             <ListItem>
                                 <Avatar aria-label="Recipe" >{this.state.firstLetter}</Avatar>
                                 <ListItemText
-                                primary="Entrez un commentaire"
+                                    primary="Entrez un commentaire"
                                     secondary={
                                         <React.Fragment>
-                                        <textarea className={classes.commentaire} name="comment" id="comment" >
-                                        </textarea>
-                                        <IconButton onClick={this.sendComment}>
-                                            <SendIcon />
+                                            <textarea className={classes.commentaire} name="comment" id="comment" >
+                                            </textarea>
+                                            <IconButton onClick={this.sendComment}>
+                                                <SendIcon />
                                             </IconButton>
                                         </React.Fragment>
-                                  
-                                }/>
+
+                                    } />
                             </ListItem>
+                            {commentaires}
                         </List>
                  </Collapse>
 
