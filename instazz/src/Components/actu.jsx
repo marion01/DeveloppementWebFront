@@ -2,28 +2,38 @@ import React, { Component } from 'react';
 import Post from './post.jsx'
 import axios from 'axios';
 
-export default class Actu extends Component{
+export default class Actu extends Component {
     state = {
-        posts: []
+        posts: [],
+        loading: true
     }
 
-    componentDidMount() {
-        var url = 'http://localhost:5000/api/v1/posts';
-        const access_token = localStorage.getItem("token");
-        let headers= {
-            Authorization: access_token,
-            "Content-Type": "application/json"
+    getPosts = async () => {
+        try {
+            const access_token = localStorage.getItem("token");
+            let url = 'http://localhost:5000/api/v1/posts'
+            const options = {
+                method: "get",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url
+            };
+            let res = await axios(options);
+            console.log("res data: "+res.data)
+            this.setState({ posts: res.data });
+            console.log("posts: "+this.state.posts)
+            this.sortPostsBy('date');
+            this.setState({ loading: false });
+        } catch (err) {
+            alert("erreur");
+            console.log(err)
         }
-        axios.get(url, headers)
-            .then((res) => {
-                var posts = res.data;
-                console.log(posts)
-                this.setState({ posts: posts});
-              //  this.sortBy('date');
-            })
-            .catch(error => {
-                console.log(error.response)
-            });
+    };
+
+    componentDidMount() {
+        this.getPosts();
     }
 
     compareBy(key) {
@@ -34,15 +44,18 @@ export default class Actu extends Component{
         };
     }
 
-    sortBy(key) {
-        let arrayCopy = [this.state.posts];
+    sortPostsBy = (key) => {
+        let arrayCopy = this.state.posts;
         arrayCopy.sort(this.compareBy(key));
         this.setState({ posts: arrayCopy });
     }
 
     render() {
-        if (this.state.posts) {
-            var posts = <div>
+        var content;
+        if (this.state.loading) {
+            content = <div>Loading...</div>;
+        } else {
+            content = <div>
                 {this.state.posts.map(
                     post =>
                         <Post key={post._id} Post={post}></Post>
@@ -51,8 +64,8 @@ export default class Actu extends Component{
         }
         return (
             <div className="App-corps">
-                <h1>Actu</h1>
-                {posts}
+                <h1>Mes posts</h1>
+                {content}
             </div>
         )
     }
