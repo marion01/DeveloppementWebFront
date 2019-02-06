@@ -142,8 +142,15 @@ class Upload extends Component{
     };
 
     submitPost = () => {
+        //save in dataBase
         this.savePost()
         this.saveImage()
+
+        //clear the uploadPage
+        this.setState({ previewClicked: false })
+        document.getElementById('description').value = ''
+        document.getElementById('file-input').value = ''
+
     }
 
     miseAJourPreview = () => {
@@ -208,10 +215,10 @@ class Upload extends Component{
 
     render() {
         const { classes } = this.props;
-        var message;
+        var visualisation;
 
         if (this.state.previewClicked) {
-            message = <div>
+            visualisation = <div>
                 <br></br>
                 <Card className={classes.card}>
                     <CardHeader
@@ -234,7 +241,7 @@ class Upload extends Component{
                  <br></br>
             </div>
         } else {
-            message = <div></div>
+            visualisation = <div></div>
         }
         
         return <div className="App-corps">
@@ -255,7 +262,7 @@ class Upload extends Component{
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    {message}
+                    {visualisation}
                 </Grid>
             </Grid>
             </div>
