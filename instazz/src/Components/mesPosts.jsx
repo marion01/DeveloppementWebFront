@@ -8,22 +8,32 @@ export default class MesPosts extends Component{
         loading: true
     }
 
-    getPosts = () => {
-        let idAuteur = localStorage.getItem("id")
-        let url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
-        axios.get(url)
-            .then((res) => {
-                var posts = res.data;
-                this.setState({ posts: posts.doc });
-                this.sortPostsBy('date');
-                this.setState({ loading: false });
-            })
-    }
+    getPosts = async () => {
+        try {
+            const access_token = localStorage.getItem("token");
+            let idAuteur = localStorage.getItem("id")
+            let url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
+            const options = {
+                method: "get",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url
+            };
+            let res = await axios(options);
+            this.setState({ posts: res.data.doc });
+            console.log(this.state.posts)
+            this.sortPostsBy('date');
+            this.setState({ loading: false });
+        } catch (err) {
+            alert("erreur");
+            console.log(err)
+        }
+    };
 
     componentDidMount() {
-        this.getPosts();
-        console.log(this.state.posts)
-        
+        this.getPosts();        
     }
 
     compareBy(key) {
@@ -34,7 +44,7 @@ export default class MesPosts extends Component{
         };
     }
 
-    sortPostsBy(key) {
+    sortPostsBy = (key) => {
         let arrayCopy = this.state.posts;
         arrayCopy.sort(this.compareBy(key));
         this.setState({ posts: arrayCopy });

@@ -79,6 +79,32 @@ class Post extends Component{
         commentaireLoading: true
     };
 
+    //recover the image of the post
+    getImage = async (post) => {
+        try {
+            const access_token = localStorage.getItem("token");
+            var imageName = post.img.rel
+            var url = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
+            const options = {
+                method: "get",
+                responseType: 'arraybuffer',
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url
+            };
+            let res = await axios(options);
+            var buffer = new Buffer(res.data, 'binary').toString('base64')
+            buffer = 'data:image/jpg;base64,' + buffer
+            this.setState({ img: buffer })
+            this.setState({ imgLoading: false })
+        } catch (err) {
+            alert("erreur");
+            console.log(err)
+        }
+    };
+
     componentDidMount() {
 
         let post = this.props.Post;
@@ -88,43 +114,32 @@ class Post extends Component{
         this.setState({ firstLetter: pseudo.charAt(0) })
         this.setState({ date: post.date })
 
-
-        //r�cup�ration de la photo
-        var imageName = post.img.rel
-        var urlImage = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
-        axios
-            .get(urlImage, {
-                responseType: 'arraybuffer'
-            })
-            .then(response => {
-                var buffer = new Buffer(response.data, 'binary').toString('base64')
-                buffer = 'data:image/jpg;base64,' + buffer
-                this.setState({ img: buffer })
-                this.setState({ imgLoading: false })
-            })
-            .catch(error => {
-                console.log(error.response)
-            });
-
-        
+        this.getImage(post);        
     }
 
-    recoverComments = () => {
-        this.setState({ commentaireLoading: true })
-
-        //r�cup�ration des commentaires du post 
-        var urlCommentaire = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
-        axios.get(urlCommentaire)
-            .then((res) => {
-                const commentaires = res.data;
-                this.setState({ commentaires: commentaires.doc });
-                this.setState({ commentaireLoading: false })
-            })
-            .catch(error => {
-                console.log(error.response)
-            });
-    }
-
+    //recover the comments of the post
+    recoverComments = async () => {
+        try {
+            this.setState({ commentaireLoading: true })
+            const access_token = localStorage.getItem("token");
+            var url = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
+            const options = {
+                method: "get",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: url
+            };
+            let res = await axios(options);
+            const commentaires = res.data;
+            this.setState({ commentaires: commentaires.doc });
+            this.setState({ commentaireLoading: false })
+        } catch (err) {
+            alert("erreur");
+            console.log(err)
+        }
+    };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
