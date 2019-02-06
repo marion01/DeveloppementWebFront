@@ -21,13 +21,10 @@ export default class Actu extends Component {
                 url: url
             };
             let res = await axios(options);
-            console.log("res data: "+res.data)
             this.setState({ posts: res.data });
-            console.log("posts: "+this.state.posts)
             this.sortPostsBy('date');
             this.setState({ loading: false });
         } catch (err) {
-            alert("erreur");
             console.log(err)
         }
     };

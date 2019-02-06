@@ -100,7 +100,6 @@ class Post extends Component{
             this.setState({ img: buffer })
             this.setState({ imgLoading: false })
         } catch (err) {
-            alert("erreur");
             console.log(err)
         }
     };
@@ -151,7 +150,6 @@ class Post extends Component{
             this.sortCommentairesBy('date')
             this.setState({ commentaireLoading: false })
         } catch (err) {
-            alert("erreur");
             console.log(err)
         }
     };
@@ -175,7 +173,6 @@ class Post extends Component{
     sendComment = async () => {
         try {
             var date = new Date()
-            console.log(date)
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
 
@@ -205,7 +202,6 @@ class Post extends Component{
             this.recoverComments()
             console.log("post commentaire");
         } catch (err) {
-            alert("erreur");
             console.log(err)
         }
     };

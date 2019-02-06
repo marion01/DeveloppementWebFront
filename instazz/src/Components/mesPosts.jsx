@@ -27,7 +27,6 @@ export default class MesPosts extends Component{
             this.sortPostsBy('date');
             this.setState({ loading: false });
         } catch (err) {
-            alert("erreur");
             console.log(err)
         }
     };

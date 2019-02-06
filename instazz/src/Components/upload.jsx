@@ -77,8 +77,6 @@ class Upload extends Component{
 
             let imageName = date.toDateString() + "-" + file.files[0].name;
 
-            console.log("image: " + imageName)
-
             let body = {
                 img: {
                     rel: imageName
@@ -91,7 +89,6 @@ class Upload extends Component{
                 }
             }
 
-            console.log(body)
             let url = 'http://localhost:5000/api/v1/posts/post'
 
 
@@ -108,7 +105,6 @@ class Upload extends Component{
             await axios(options);
             console.log("post post réussit");
         } catch (err) {
-            alert("erreur");
             console.log("echec post post")
             console.log(err)
         }
@@ -135,7 +131,6 @@ class Upload extends Component{
             await axios(options);
             console.log("réussite post image")
         } catch (err) {
-            alert("erreur");
             console.log("echec post image")
             console.log(err)
         }
