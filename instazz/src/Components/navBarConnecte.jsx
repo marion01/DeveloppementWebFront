@@ -4,34 +4,23 @@ import Menu from './menu.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
-import logo from '../asset/logo.png'
+import Contact from './contact.jsx'
+import menu from '../asset/menu.png'
 
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
+import Avatar from '@material-ui/core/Avatar';
 
-
-const PageContact = () => <h2>Contact</h2>;
+const PageContact = () => <Contact></Contact>;
 const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
 const PageMesPosts = () => <MesPosts></MesPosts>;
 
-
-
-
-const styles = {
-    list: {
-      width: 250
-    }
-  };
-
-  
 
 class NavBar extends Component{
     static defaultProps = {
@@ -57,14 +46,15 @@ class NavBar extends Component{
 
     render() {
 
-        const { classes } = this.props;
-
         const sideList = (
-            <div className={classes.list}>
+            <div className="App-sideList">
                 <List>
+                    <ListItem>
+                        <Avatar className="App-Avatar">H</Avatar>
+                    </ListItem>
                     {["Vous êtes connecté en tant que X"].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemText primary={text} />
+                        <ListItem >
+                            <ListItemText primary={text} align="center"/>
                         </ListItem>
                     ))}
                 </List>
@@ -78,7 +68,7 @@ class NavBar extends Component{
                         ))}
                     </Link>
                     <Link to="/upload/">
-                        {["Charger un post"].map((text, index) => (
+                        {["Ecrire un post"].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -109,7 +99,7 @@ class NavBar extends Component{
                         <nav>
                             <ul>
                                 <div>
-                                <Button onClick={this.toggleDrawer("left", true)} className="nav-item"><img src={logo} alt="logo" height="50" /></Button>
+                                    <img src={menu} alt="menu" height="50" onClick={this.toggleDrawer("left", true)} className="nav-logo"/>
                                     <Drawer
                                         open={this.state.left}
                                         onClose={this.toggleDrawer("left", false)}
@@ -125,7 +115,7 @@ class NavBar extends Component{
                                     </Drawer>                                    
                                     
                                 </div>
-                                <li><Link to="/">Acceuil</Link></li>
+                                <li><Link to="/">Accueil</Link></li>
                                 <li><Link to="/contact/">Contact</Link></li>
                             </ul>
                         </nav>
@@ -142,11 +132,8 @@ class NavBar extends Component{
 }
 
 
-NavBar.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
   
-  export default withStyles(styles)(NavBar);
+  export default (NavBar);
 
 
 /*

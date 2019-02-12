@@ -15,21 +15,37 @@ ul {
   background-color: white;
 }
 
+.nav-logo{
+    display: block;
+    text-align: center;
+    padding: 3px 3px;
+    text-decoration: none;
+    float: left; /* Pour que les liens s’affichent horizontalement */
+    position: relative; /* Crée un contexte de positionnement pour les sous-listes */
+}
+
+    .nav-logo:hover {
+        color: white;
+        background-color: #164465;
+        display: block; /* Affiche cette sous-liste au survol de son conteneur */
+        cursor: pointer;
+    }
+
 li {
   float: left;
 }
 
 li a {
-  display: block;
-  color:black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+    display: block;
+    color: #26a5ce;
+    text-align: center;
+    padding: 17px 19px;
+    text-decoration: none;
 }
 
 li a:hover {
-  color:white;
-  background-color: #111;
+    color: white;
+    background-color: #164465;
 }
 
 .App-header {
@@ -44,20 +60,41 @@ li a:hover {
   color: white;
 }
 
+p {
+    margin: 0px;
+}
+.App-ban {
+    background-color: #26a5ce;
+    min-height: 20%;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-ban-img{
+    height : 150px;
+}
+
 .App-corps {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #eaeaea;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
   color: #61dafb;
 }
+
 
 .sub-nav {
   display: none; /* Masque la sous-liste */
@@ -69,12 +106,12 @@ li a:hover {
   margin-top: 20px; /* Pour que le sous-menu recouvre son parent, facilitant le passage de la souris de l’un à l’autre */
 }
 .nav-item:hover .sub-nav {
-  display: block; /* Affiche cette sous-liste au survol de son conteneur */
+    display: block; /* Affiche cette sous-liste au survol de son conteneur */
 }
 
 .nav-item {
-  float: left; /* Pour que les liens s’affichent horizontalement */
-  position: relative; /* Crée un contexte de positionnement pour les sous-listes */
+    float: left; /* Pour que les liens s’affichent horizontalement */
+    position: relative; /* Crée un contexte de positionnement pour les sous-listes */
 }
 
 @keyframes App-logo-spin {
@@ -84,4 +121,199 @@ li a:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-corps-card {
+    height : auto;
+    display: flex;
+    margin : 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+}
+
+.App-paper {
+    width: 90%;
+    height: auto;
+    padding: 30px;
+    min-height: 200px;
+    align-items: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+    
+}
+
+.App-text-title {
+    color: #26a5ce;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.card {
+    /*max-width: 80%;*/
+    width: 100%;
+    height: 30%;
+    min-height: 200px;
+    align-items: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+    color: black;
+}
+
+.App-button {
+    width: auto;
+    padding: 20px 20px;
+    color: #26a5ce;
+    background-color: white;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+    border-radius: 8px;
+    border-color: #26a5ce;
+    font-size: 16px;
+}
+
+.App-button:hover {
+    background-color: #e6f3f8;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+}
+
+.App-card-img {
+    height: 300px;
+}
+
+.App-form{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+body {
+    display: grid;
+}
+
+.inp {
+    position: relative;
+    margin: 12px auto;
+    width: auto;
+    max-width: 400px;
+}
+
+.inp .label {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    font-size: 16px;
+    color: #9098a9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+    padding: 0px 12px;
+}
+
+.inp .border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;
+}
+
+.inp input {
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    color: #000;
+}
+
+.inp input:focus {
+    outline: none;
+    border: 1px solid #26a5ce;
+}
+
+.inp input:focus + span, .inp input:not(:placeholder-shown) + span {
+    color: #26a5ce;
+    transform: translateX(20px) translateY(-25px) scale(0.75);
+    padding: 5px;
+    background-color: white;
+}
+
+.App-sideList {
+    width: 100%;
+}
+.App-Avatar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.inp-textarea {
+    position: relative;
+    margin: 12px auto;
+    width: auto;
+    max-width: 400px;
+    min-height: 100px;
+}
+
+.inp-textarea .label-textarea {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 16px;
+    color: #9098a9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+    padding: 0px 12px;
+}
+
+.inp-textarea .border-textarea {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;
+}
+
+.inp-textarea textarea {
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    color: #000;
+}
+
+.inp-textarea textarea:focus {
+    outline: none;
+    border: 1px solid #26a5ce;
+}
+
+.inp-textarea textarea:focus + span, .inp-textarea textarea:not(:placeholder-shown) + span {
+    color: #26a5ce;
+    transform: translateX(20px) translateY(+14px) scale(0.75);
+    padding: 5px;
+    background-color: white;
 }

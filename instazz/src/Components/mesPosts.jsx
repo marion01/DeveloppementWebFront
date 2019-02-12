@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Post from './post.jsx'
 import axios from 'axios';
 
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
 export default class MesPosts extends Component{
     state = {
         posts: []
@@ -19,16 +22,23 @@ export default class MesPosts extends Component{
 
     render() {
         return (
-            <div className="App-corps">
-                <h1>Mes posts</h1>
-                <div>
-                    {this.state.posts.map(
-                        post =>
-                            <Post key={post._id} idPost={post._id}></Post>
-                    )}
+            <div>
+                <div className="App-ban">
+                    <h1>Mes posts</h1>
+                </div>
+                <div className="App-corps-card">
+                    <Paper className="App-paper" elevation={1}>
+                        <div className="App-text-title">
+                            {this.state.posts.map(
+                                post =>
+                                    <Post key={post._id} idPost={post._id}></Post>
+                            )}
+                        </div>
+
+                    </Paper>
                 </div>
             </div>
-        )
+        );
     }
 }
 

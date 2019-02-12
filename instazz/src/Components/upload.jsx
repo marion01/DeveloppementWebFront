@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
 //ajouter l'auteur
 //ne fonctionne pas
 function submitPost(form) {
@@ -27,20 +30,36 @@ export default class Upload extends Component{
 
 
   render() {
-      return <div className="App-corps">
-              <h2>Charger un post</h2>
-              <br></br>
-              <form name="form" method="post" action="">
-                  <label for="url">url de l'image:   </label>
-                  <input name="url" id="url"/>
-                  <br></br>
-                  <br></br>
-                  <label for="description">Entrez une description:  </label>
-                  <textarea name="description" rows="4" cols="30" id="description" type="text" />
-                  <br></br>
-                  <br></br>
-              <input onClick={submitPost(this.form)} type="button" value="Valider"/>
-               </form>
-            </div>
-      }
- }
+      return (
+          <div>
+          <div className="App-ban">
+              <h1>Ecrire un post</h1>
+          </div>
+          <div className="App-corps-card">
+              <Paper className="App-paper" elevation={1}>
+                  <form name="form" method="post" action="">
+                      <div className="App-text-title">
+
+                          <label class="inp">
+                              <input name="Image" required={true} type="text" class="inp" placeholder="&nbsp;" />
+                              <span class="label">Image</span>
+                              <span class="border"></span>
+                          </label>
+                          <label class="inp-textarea">
+                                  <textarea name="mdp" type="text" required={true} class="inp-textarea" placeholder="&nbsp;" />
+                              <span class="label-textarea">Description</span>
+                              <span class="border-textarea"></span>
+                          </label>
+                      </div>
+                      <Typography component="p">
+                          <br></br>
+                          <button onClick={submitPost(this.form)} type="button" value="Valider" className="App-button">Envoyer le post</button>
+                      </Typography>
+                 </form>
+
+              </Paper>
+          </div>
+          </div>
+        );
+    }
+}
