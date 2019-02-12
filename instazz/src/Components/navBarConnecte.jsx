@@ -6,6 +6,8 @@ import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
 import Actu from './actu.jsx'
 import logo from '../asset/logo.png'
+import menu from '../asset/menu.png'
+import Avatar from '@material-ui/core/Avatar';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,9 +17,10 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
+import Contact from './contact.jsx'
 
 
-const PageContact = () => <h2>Contact</h2>;
+const PageContact = () => <Contact></Contact>;
 const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
@@ -66,17 +69,17 @@ class NavBar extends Component{
 
 
     render() {
-
-        const { classes } = this.props;
-
         let text = "Vous êtes connecté en tant que " + this.state.pseudo
 
         const sideList = (
-            <div className={classes.list}>
+            <div className="App-sideList">
                 <List>
+                    <ListItem>
+                        <Avatar className="App-Avatar">H</Avatar>
+                    </ListItem>
                     {[text].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemText primary={text} />
+                        <ListItem >
+                            <ListItemText primary={text} align="center" />
                         </ListItem>
                     ))}
                 </List>
@@ -97,7 +100,7 @@ class NavBar extends Component{
                         ))}
                     </Link>
                     <Link to="/upload/">
-                        {["Charger un post"].map((text, index) => (
+                        {["Ecrire un post"].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -113,7 +116,7 @@ class NavBar extends Component{
                     </Link>
 
                     {["Se déconnecter"].map((text, index) => (
-                        <ListItem onClick={this.deconnexion} button key={text}>
+                        <ListItem onClick={this.props.handleSignOut} button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
@@ -128,7 +131,7 @@ class NavBar extends Component{
                         <nav>
                             <ul>
                                 <div>
-                                <Button onClick={this.toggleDrawer("left", true)} className="nav-item"><img src={logo} alt="logo" height="50" /></Button>
+                                    <img src={menu} alt="menu" height="50" onClick={this.toggleDrawer("left", true)} className="nav-logo" />
                                     <Drawer
                                         open={this.state.left}
                                         onClose={this.toggleDrawer("left", false)}
@@ -141,14 +144,14 @@ class NavBar extends Component{
                                         >
                                             {sideList}
                                         </div>
-                                    </Drawer>                                    
-                                    
+                                    </Drawer>
+
                                 </div>
-                                <li><Link to="/">Acceuil</Link></li>
+                                <li><Link to="/">Accueil</Link></li>
                                 <li><Link to="/contact/">Contact</Link></li>
                             </ul>
                         </nav>
-                        <Route path="/" exact component={PageMenu}/>
+                        <Route path="/" exact component={PageMenu} />
                         <Route path="/contact/" component={PageContact} />
                         <Route path="/profil/" component={PageProfil} />
                         <Route path="/upload/" component={PageUpload} />

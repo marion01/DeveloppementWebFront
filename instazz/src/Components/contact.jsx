@@ -13,9 +13,9 @@ export default class Contact extends Component{
                 <div className="App-corps-card">
                     <Paper className="App-paper" elevation={1}>
                         <div className="App-text-title">
-                            
+
                         </div>
-                        
+
                     </Paper>
                 </div>
             </div>

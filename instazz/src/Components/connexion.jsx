@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from "react-router";
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 class Connexion extends Component{
     constructor(props) {
@@ -52,24 +54,34 @@ class Connexion extends Component{
 
 
       render() {
-            return (
-                <div className="App-corps">
-                        <h1>Connexion</h1>
-                    <div>
-                        <label>pseuso</label>
-                              <input name="pseudo" id="pseudo" required={true}/>
-                              <br></br>
-                        <br></br>
-                        <label>mdp</label>
-                              <input name="MotDePasse" id="MotDePasse" required={true}/>
-                        </div> 
-                        <br></br>  
-                        <br></br>  
-                        <br></br>
-                    <button onClick={this.connexion} type="button">Se connecter</button>
+          return (
+              <div>
+                  <div className="App-ban">
+                      <h1>Connexion</h1>
                   </div>
+                  <div className="App-corps-card">
+                      <Paper className="App-paper" elevation={1}>
+                          <div className="App-text-title">
+                              <label className="inp">
+                                  <input id="pseudo" required={true} type="text" className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Pseudo</span>
+                                  <span className="border"></span>
+                              </label>
+                              <label className="inp">
+                                  <input id="MotDePasse" type="password" required={true} className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Mot de passe</span>
+                                  <span className="border"></span>
+                              </label>
+                          </div>
+                          <Typography component="p">
+                              <br></br>
+                              <button onClick={this.connexion} type="button" className="App-button">Se connecter</button>
+                          </Typography>
+                      </Paper>
+                  </div>
+              </div>
 
-            );
+          );
       }
 }
 
