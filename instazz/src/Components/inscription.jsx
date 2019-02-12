@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import FormulaireInput from './formulaireInput.jsx'
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 export default class FormulaireInscription extends Component{
 
@@ -8,25 +9,56 @@ export default class FormulaireInscription extends Component{
           }
 
       render() {
-            return (
-                <div className="App-corps">
-                        <h1>Inscription</h1>
-                        <from>
-                              <FormulaireInput name="Prenom" required={true}/>
+          return (
+              <div>
+                  <div className="App-ban">
+                      <h1>Inscription</h1>
+                  </div>
+                  <div className="App-corps-card">
+                      <Paper className="App-paper" elevation={1}>
+                              <div className="App-text-title">
+                                  <label class="inp">
+                                      <input name="Nom" required={true} type="text" class="inp" placeholder="&nbsp;" />
+                                      <span class="label">Nom</span>
+                                      <span class="border"></span>
+                              </label>
                               <br></br>
-                              <FormulaireInput name="Nom" required={true}/>
+                                  <label class="inp">
+                                      <input name="Prenom" required={true} type="text" class="inp" placeholder="&nbsp;" />
+                                      <span class="label">Prénom</span>
+                                      <span class="border"></span>
+                              </label>
                               <br></br>
-                              <FormulaireInput name="Mail" required={true}/>
+                              <label class="inp">
+                                  <input name="Mail" required={true} type="text" class="inp" placeholder="&nbsp;" />
+                                  <span class="label">Mail</span>
+                                  <span class="border"></span>
+                              </label>
                               <br></br>
-                              <FormulaireInput name="Pseudo" required={true}/>
+                              <label class="inp">
+                                  <input name="Pseudo" required={true} type="text" class="inp" placeholder="&nbsp;" />
+                                  <span class="label">Pseudo</span>
+                                  <span class="border"></span>
+                              </label>
                               <br></br>
-                              <FormulaireInput name="Mot de passe" required={true}/>
+                              <label class="inp">
+                                  <input name="mdp" type="password" required={true} class="inp" placeholder="&nbsp;" />
+                                  <span class="label">Mot de passe</span>
+                                  <span class="border"></span>
+                              </label>
                               <br></br>
-                              <FormulaireInput name="Confirmation de mot de passe" required={true}/>
-                        </from> 
-                        <br></br>  
-                        <br></br>  
-                        <button onClick={this.handleSubmit} type="button">S'inscrire</button>  
+                              <label class="inp">
+                                  <input name="mdpConfirmation" type="password" required={true} class="inp" placeholder="&nbsp;" />
+                                  <span class="label">Confirmation du mot de passe</span>
+                                  <span class="border"></span>
+                              </label>
+                              </div>
+                                  <Typography component="p">
+                                      <br></br>
+                                      <button onClick={this.handleSubmit} type="button" className="App-button">S'inscrire</button>
+                                  </Typography>
+                          </Paper>
+                    </div>
                   </div>
             );
       }

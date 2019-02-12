@@ -8,20 +8,12 @@ import logo from '../asset/logo.png'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
-
 
 const styles = {
     list: {
       width: 250
     }
   };
-
-  
 
 class NavBar extends Component{
     
@@ -54,17 +46,7 @@ class NavBar extends Component{
         const PageContact = () => <Contact></Contact>;
         const PageMenu = () => <Menu></Menu>;
 
-        const sideList = (
-            <div className={classes.list}>
-            <List>
-                    {["test1", "test2"].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                            ))}
-            </List>
-            </div>
-        );
+      
 
         const isMobile = window.innerWidth <= 500;
 
@@ -74,31 +56,15 @@ class NavBar extends Component{
                     <div className="App-hearder">
                         <nav>
                             <ul>
-                                {isMobile ?
                                     <div>
-                                        <Button onClick={this.toggleDrawer("left", true)} className="nav-item"><img src={logo} alt="logo" height="50" /></Button>
-                                        <Drawer
-                                            open={this.state.left}
-                                            onClose={this.toggleDrawer("left", false)}
-                                        >
-                                            <div
-                                                tabIndex={0}
-                                                role="button"
-                                                onClick={this.toggleDrawer("left", false)}
-                                                onKeyDown={this.toggleDrawer("left", false)}
-                                            >
-                                                {sideList}
-                                            </div>
-                                        </Drawer>
-
+                                        <Link to="/"><img src={logo} onClick={this.toggleDrawer("left", true)} className="nav-logo" alt="logo" height="50" /></Link>
                                     </div>
-                                    :
                                     <div>
-                                        <li><Link to="/">Acceuil</Link></li>
-                                        <li><Link to="/inscription/">S'inscrire</Link></li>
+                                        <li><Link to="/">Accueil</Link></li>
                                         <li><Link to="/connexion/">Se connecter</Link></li>
+                                        <li><Link to="/inscription/">S'inscrire</Link></li>
                                         <li><Link to="/contact/">Contact</Link></li>
-                                    </div>}
+                                    </div>
                               
                             </ul>
                         </nav>
