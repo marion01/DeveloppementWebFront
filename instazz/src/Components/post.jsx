@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import axios from 'axios';
 
 import Commentaire from './commentaire.jsx'
@@ -12,26 +12,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
+import Grid from '@material-ui/core/Grid';
 
 
 const styles = theme => ({
-
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    actions: {
-        display: 'flex',
-    },
     expand: {
         transform: 'rotate(0deg)',
         transition: theme.transitions.create('transform', {
@@ -41,21 +31,15 @@ const styles = theme => ({
         [theme.breakpoints.up('sm')]: {
             marginRight: -8,
         },
+        color: '#26a5ce'
     },
 
-    left: {
-        align:'right'
-    },
     expandOpen: {
         transform: 'rotate(180deg)',
     },
-    avatar: {
-        backgroundColor: red[500],
-    },
-
     card: {
         display: 'block',
-        width: '50vw',
+        align: 'center',
         transitionDuration: '0.3s',
     },
 
@@ -66,7 +50,7 @@ const styles = theme => ({
 });
 
 
-class Post extends Component{
+class Post extends Component {
     state = {
         expanded: false,
         post: '',
@@ -127,7 +111,7 @@ class Post extends Component{
         this.setState({ firstLetter: pseudo.charAt(0).toUpperCase() })
         this.setState({ date: post.date })
 
-        this.getImage(post);        
+        this.getImage(post);
     }
 
     //recover the comments of the post
@@ -157,17 +141,23 @@ class Post extends Component{
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
         this.recoverComments();
-       
+
     };
 
     displayDate = (dateISO) => {
-        let dateJour = dateISO.split("T")[0]
+        var mois = [
+            "Janvier", "Février", "Mars",
+            "Avril", "Mai", "Juin", "Juillet",
+            "Août", "Sptembre", "Octobre",
+            "Novembre", "Décembre"]
+        let date = dateISO.split("T")[0].split("-")
         let dateHeure = dateISO.split("T")[1]
         let dateWithoutMillisecond;
         if (dateHeure != null) {
-            dateWithoutMillisecond = dateHeure.split(".")[0]
+            dateHeure = dateHeure.split(".")[0].split(":")
+            dateHeure = " à " + dateHeure[0] + "h" + dateHeure[1] + ":" + dateHeure[2]
         }
-        return dateJour + " " + dateWithoutMillisecond
+        return "Le " + date[2] + " " + mois[parseInt(date[1])] + " " + date[0] + dateHeure
     }
 
     sendComment = async () => {
@@ -224,7 +214,7 @@ class Post extends Component{
                 </div>
             }
         }
-        
+
 
         var img;
         if (this.state.imgLoading) {
@@ -238,55 +228,60 @@ class Post extends Component{
         return (
             <div>
                 <br></br>
-            <Card className={classes.card}>
-                <CardHeader
-                        avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetter}</Avatar>
-                        }
-                        title={this.state.pseudoAuteur}
-                        subheader={date}
+                <Card className="App-card-post">
+                    <CardHeader
+                        avatar={<div className="App-Avatar-medium">{this.state.firstLetter}</div>}
+                        title={<label className="App-title-user">{this.state.pseudoAuteur}</label>}
+                        subheader={<label className="App-title-date">{date}</label>}
                     />
-                <CardMedia
-                        className={classes.media}
+                    <CardMedia
+                        className="App-post-img"
                         image={img}
-                />
-                <CardContent>
-                    <Typography component="p">{this.state.post.texte}</Typography>
-                </CardContent>
-                    <CardActions className={classes.actions} disableActionSpacing>
-                        <Typography className={classes.left}>Afficher les commentaires</Typography>
-                    <IconButton
-                        className={classnames(classes.expand, {
-                            [classes.expandOpen]: this.state.expanded,
-                        })}
-                        onClick={this.handleExpandClick}
-                        aria-expanded={this.state.expanded}
-                        aria-label="Show more"
-                    >
-                        <ExpandMoreIcon />
-                    </IconButton>
-                </CardActions>
+                    />
+                    <CardContent>
+                        <label component="p" className="App-post-text">{this.state.post.texte}</label>
+                    </CardContent>
+                    <CardActions className="App-card-action" disableActionSpacing>
+                        <label className="App-subTitle">Commentaires</label>
+                        <IconButton
+                            className={classnames(classes.expand, {
+                                [classes.expandOpen]: this.state.expanded,
+                            })}
+                            onClick={this.handleExpandClick}
+                            aria-expanded={this.state.expanded}
+                            aria-label="Show more"
+                        >
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
 
-                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                    <Collapse in={this.state.expanded} className="App-expand-list" timeout="auto" unmountOnExit>
                         <List>
                             <ListItem>
-                                <Avatar aria-label="Recipe" >{this.state.firstLetter}</Avatar>
                                 <ListItemText
-                                    primary="Entrez un commentaire"
-                                    secondary={
+                                    primary={
                                         <React.Fragment>
-                                            <textarea className={classes.commentaire} name="comment" id="comment" >
-                                            </textarea>
-                                            <IconButton onClick={this.sendComment}>
-                                                <SendIcon />
-                                            </IconButton>
+                                            <Grid container spacing={0}>
+                                                <Grid item xs={11}>
+                                            <label class="inp-textarea">
+                                                <textarea id="comment" type="text" required={true} class="inp-textarea" placeholder="&nbsp;" />
+                                                <span class="label-textarea">Commenter</span>
+                                                <span class="border-textarea"></span>
+                                                    </label>
+                                                </Grid>
+                                                <Grid item xs={1}>
+                                                    <IconButton onClick={this.sendComment} className="App-send-comment">
+                                                        <SendIcon className="App-icon"/>
+                                                    </IconButton>
+                                                </Grid>
+                                                </Grid>
                                         </React.Fragment>
 
                                     } />
                             </ListItem>
                             {commentaires}
                         </List>
-                 </Collapse>
+                    </Collapse>
 
                 </Card>
             </div>

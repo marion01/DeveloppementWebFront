@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ï»¿import React, { Component } from 'react';
 import axios from 'axios';
 
 
@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
 
@@ -45,7 +46,7 @@ const styles = theme => ({
 
     card: {
         display: 'block',
-        width: '50vw',
+        width: '30vw',
         transitionDuration: '0.3s',
     },
 
@@ -55,7 +56,7 @@ const styles = theme => ({
     },
 });
 
-class Upload extends Component{
+class Upload extends Component {
     state = {
         date: '',
         textPost: '',
@@ -103,7 +104,7 @@ class Upload extends Component{
                 data: body
             };
             await axios(options);
-            console.log("post post réussit");
+            console.log("post post rÃ©ussit");
         } catch (err) {
             console.log("echec post post")
             console.log(err)
@@ -129,7 +130,7 @@ class Upload extends Component{
                 data: body
             };
             await axios(options);
-            console.log("réussite post image")
+            console.log("rÃ©ussite post image")
         } catch (err) {
             console.log("echec post image")
             console.log(err)
@@ -148,36 +149,6 @@ class Upload extends Component{
 
     }
 
-    miseAJourPreview = () => {
-        this.setState({previewClicked: true})
-
-        this.setState({ textPost: document.getElementById('description').value })
-
-        //calcul image base 64 a afficher
-        var buffer = this.state.imageBase64updated
-        buffer = 'data:image/jpg;base64,' + buffer
-        this.setState({ imageBase64: buffer })
-    }
-
-    handleImageChange = () => {
-        var f = document.getElementById('file-input').files[0]; // FileList object
-        var reader = new FileReader();
-
-        const scope = this
-        reader.onload = (function (theFile) {
-            return function (e) {
-                var binaryData = e.target.result;
-                //Converting Binary Data to base 64
-                var base64String = window.btoa(binaryData);
-                //saving base64
-                scope.setState({ imageBase64updated: base64String });
-            };
-        })(f);
-        // Read in the image file as a data URL.
-        reader.readAsBinaryString(f);
-        
-    }
-
     displayDate = (dateISO) => {
         let dateJour = dateISO.split("T")[0]
         let dateHeure = dateISO.split("T")[1]
@@ -192,13 +163,13 @@ class Upload extends Component{
         //calcul date
         var date = new Date()
         date = this.displayDate(date.toISOString())
-        this.setState({ date: date})
+        this.setState({ date: date })
 
-        //recup pseudo connecté
+        //recup pseudo connectÃ©
         const pseudo = localStorage.getItem("pseudo");
         this.setState({ pseudo: pseudo })
 
-        //recup id connecté
+        //recup id connectÃ©
         const id = localStorage.getItem("id");
         this.setState({ id: id })
 
@@ -206,62 +177,74 @@ class Upload extends Component{
         this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() })
     }
 
+    UpdateCommentary = () => {
+        this.setState({ textPost: document.getElementById('description').value })
+    }
 
+    UpdateImage = () => {
+
+        this.setState({ imageBase64: URL.createObjectURL(document.getElementById('file-input').files[0]) });
+    }
 
     render() {
         const { classes } = this.props;
-        var visualisation;
 
-        if (this.state.previewClicked) {
-            visualisation = <div>
-                <br></br>
-                <Card className={classes.card}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
-                        }
-                        title={this.state.pseudo}
-                        subheader={this.state.date}
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={this.state.imageBase64}
-                    />
-                    <CardContent>
-                        <Typography component="p">{this.state.textPost}</Typography>
-                    </CardContent>
-                </Card>
-                <br></br>
-                <br></br>
-                 <br></br>
+        return (
+            <div>
+                <div className="App-ban">
+                    <h1>Ecrire un post</h1>
+                </div>
+                <div className="App-corps">
+                    <Paper className="App-paper" elevation={1}>
+                        <Grid container className="App-grid-post" spacing={24}>
+                            <Grid item xs={12} sm={6}>
+                                <form>
+                                    <div>
+                                        <label for="file-input">SÃ©lectionner une image Ã  uploader</label>
+                                        <input type="file" id="file-input" name="image_uploads" accept=".jpg, .jpeg, .png" name="photo" onChange={this.UpdateImage} one />
+                                    </div>
+                                </form>
+                                <br></br>
+                                <br></br>
+                                <label class="inp-textarea">
+                                    <textarea id="description" name="mdp" type="text" required={true} class="inp-textarea" placeholder="&nbsp;" onChange={this.UpdateCommentary} />
+                                    <span class="label-textarea">Description</span>
+                                    <span class="border-textarea"></span>
+                                </label>
+                                <br></br>
+                                <input onClick={this.submitPost} type="button" value="Valider" className="App-button" />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <div>
+                                    <br></br>
+                                    <Card className="App-card-post">
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
+                                            }
+                                            title={this.state.pseudo}
+                                            subheader={this.state.date}
+                                        />
+                                        <CardMedia id="image-post"
+                                            className={classes.media}
+                                            image={this.state.imageBase64}
+                                        />
+                                        <CardContent>
+                                            <Typography component="p">{this.state.textPost}</Typography>
+                                        </CardContent>
+                                    </Card>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </div>
+
             </div>
-        } else {
-            visualisation = <div></div>
-        }
-        
-        return <div className="App-corps">
-            <Grid container spacing={24}>
-                <Grid item xs={12} sm={6}>
-                  <h2>Charger un post</h2>
-                  <br></br>
-                  <div name="form">
-                  <input id="file-input" type="file" name="photo" onChange={(e) => this.handleImageChange(e)}/>
-                      <br></br>
-                      <br></br>
-                      <label htmlFor="description">Entrez une description:  </label>
-                      <textarea name="description" rows="4" cols="30" id="description" type="text" />
-                      <br></br>
-                      <br></br>
-                  <input onClick={this.submitPost} type="button" value="Valider" />
-                  <input onClick={this.miseAJourPreview} type="button" value="Visualisation" />
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    {visualisation}
-                </Grid>
-            </Grid>
-            </div>
-      }
+        );
+    }
 }
 
 
@@ -270,3 +253,6 @@ Upload.propTypes = {
 };
 
 export default withStyles(styles)(Upload);
+
+
+//<input id="file-input" className="App-button" type="file" text="jlkjklj" accept=".jpg, .jpeg, .png" name="photo" onChange={(e) => this.handleImageChange(e)} />

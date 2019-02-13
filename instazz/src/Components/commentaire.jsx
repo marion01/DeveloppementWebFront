@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-
-import Avatar from '@material-ui/core/Avatar';
+﻿import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
 
 
 export default class Commentaire extends Component{
@@ -14,13 +11,18 @@ export default class Commentaire extends Component{
     };
 
     displayDate = (dateISO) => {
-        let dateJour = dateISO.split("T")[0]
+        var mois = [
+            "Janvier", "Février", "Mars",
+            "Avril", "Mai", "Juin", "Juillet",
+            "Août", "Sptembre", "Octobre",
+            "Novembre", "Décembre"]
+        let date = dateISO.split("T")[0].split("-")
         let dateHeure = dateISO.split("T")[1]
-        let dateWithoutMillisecond;
         if (dateHeure != null) {
-            dateWithoutMillisecond = dateHeure.split(".")[0]
+            dateHeure = dateHeure.split(".")[0].split(":")
+            dateHeure = " à " + dateHeure[0] + "h" + dateHeure[1] + ":" + dateHeure[2]
         }
-        return dateJour + " " + dateWithoutMillisecond
+        return "Le " + date[2] + " " + mois[parseInt(date[1])] + " " + date[0] + dateHeure
     }
 
     componentDidMount() {
@@ -38,12 +40,12 @@ export default class Commentaire extends Component{
        
 
         return (
-            <ListItem alignItems="flex-start">
-
-                <ListItemAvatar>
-                    <Avatar aria-label="Recipe" >{this.state.firstLetterPseudo}</Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={this.state.nomDate} secondary={this.state.commentaire.commentaire} />
+            <ListItem>
+                <div className="App-Avatar-small" >{this.state.firstLetterPseudo}</div>
+                <div className="App-div-comment">
+                    <label className="App-title-date">{this.state.nomDate}</label>
+                    <div className="App-comment">{this.state.commentaire.commentaire}</div>
+                </div>
              </ListItem>
         );
     }

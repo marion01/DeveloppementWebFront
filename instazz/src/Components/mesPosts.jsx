@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Post from './post.jsx'
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
 
 export default class MesPosts extends Component{
     state = {
@@ -54,17 +55,26 @@ export default class MesPosts extends Component{
         if (this.state.loading) {
             content = <div>Loading...</div>;
         } else {
-            content = <div>
-                {this.state.posts.map(
+            content = (
+                this.state.posts.map(
                     post =>
-                        <Post key={post._id} Post={post}></Post>
-                        )}
-                       </div>
+                        <Grid item xs={12} sm={6}>
+                            <Post key={post._id} Post={post}></Post>
+                        </Grid>
+
+                ))
         }
         return (
-            <div className="App-corps">
-                <h1>Mes posts</h1>
-                {content}
+
+            <div>
+                <div className="App-ban">
+                    <h1>Mes posts</h1>
+                </div>
+                <div className="App-corps-diapo">
+                    <Grid container className="App-grid-post">
+                        {content}
+                    </Grid>
+                </div>
             </div>
         )
     }

@@ -5,9 +5,7 @@ import Profil from './profil.jsx'
 import Upload from './upload.jsx'
 import MesPosts from './mesPosts.jsx'
 import Actu from './actu.jsx'
-import logo from '../asset/logo.png'
 import menu from '../asset/menu.png'
-import Avatar from '@material-ui/core/Avatar';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,7 +14,6 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
 import Contact from './contact.jsx'
 
 
@@ -40,14 +37,16 @@ const styles = {
 class NavBar extends Component{
 
     state = {
-        pseudo: ''
-    }
+        pseudo:'',
+        firstLetterPseudo: ''
+    };
 
 
 
     componentDidMount() {
         let pseudo = localStorage.getItem("pseudo")
-        this.setState({pseudo: pseudo})
+        this.setState({ pseudo: pseudo })
+        this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() });
     }
 
     toggleDrawer = (side, open) => () => {
@@ -74,9 +73,9 @@ class NavBar extends Component{
         const sideList = (
             <div className="App-sideList">
                 <List>
-                    <ListItem>
-                        <Avatar className="App-Avatar">H</Avatar>
-                    </ListItem>
+                    <center>
+                        <div className="App-Avatar-medium">{this.state.firstLetterPseudo}</div>
+                    </center>
                     {[text].map((text, index) => (
                         <ListItem >
                             <ListItemText primary={text} align="center" />
@@ -93,7 +92,7 @@ class NavBar extends Component{
                         ))}
                     </Link>
                     <Link to="/actu/">
-                        {["Actu"].map((text, index) => (
+                        {["Fil d'actualité"].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemText primary={text} />
                             </ListItem>
