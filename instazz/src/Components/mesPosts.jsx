@@ -58,7 +58,7 @@ export default class MesPosts extends Component{
             content = (
                 this.state.posts.map(
                     post =>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={6} key={post._id}>
                             <Post key={post._id} Post={post}></Post>
                         </Grid>
 

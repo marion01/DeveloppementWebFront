@@ -152,7 +152,6 @@ class Post extends Component {
             "Novembre", "Décembre"]
         let date = dateISO.split("T")[0].split("-")
         let dateHeure = dateISO.split("T")[1]
-        let dateWithoutMillisecond;
         if (dateHeure != null) {
             dateHeure = dateHeure.split(".")[0].split(":")
             dateHeure = " à " + dateHeure[0] + "h" + dateHeure[1] + ":" + dateHeure[2]

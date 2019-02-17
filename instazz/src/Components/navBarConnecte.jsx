@@ -77,7 +77,7 @@ class NavBar extends Component{
                         <div className="App-Avatar-medium">{this.state.firstLetterPseudo}</div>
                     </center>
                     {[text].map((text, index) => (
-                        <ListItem >
+                        <ListItem key={text}>
                             <ListItemText primary={text} align="center" />
                         </ListItem>
                     ))}

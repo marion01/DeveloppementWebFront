@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
-
+import ErrorMessage from './errorMessage'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -60,13 +60,18 @@ class Upload extends Component {
     state = {
         date: '',
         textPost: '',
-        previewClicked: false,
         file: '',
-        imageBase64updated: '',
         imageBase64: '',
         firstLetterPseudo: '',
         pseudo: '',
-        id: ''
+        id: '',
+        infoMessage: {
+            open: false,
+            type: '',
+            message: '',
+            handleClose: this.handleCloseMessage
+        },
+        loading: true
     }
 
     savePost = async () => {
@@ -76,8 +81,13 @@ class Upload extends Component {
             let date = new Date()
             let file = document.getElementById('file-input')
 
-            let imageName = date.toDateString() + "-" + file.files[0].name;
+            //the description or the image hasn't been selected
+            if (file.files.length === 0 || textPost ==='') {
+                return false;
+            }
 
+            let imageName = date.toDateString() + "-" + file.files[0].name;
+            
             let body = {
                 img: {
                     rel: imageName
@@ -104,9 +114,10 @@ class Upload extends Component {
                 data: body
             };
             await axios(options);
-            console.log("post post réussit");
+            console.log("réussite");
+            return true;
         } catch (err) {
-            console.log("echec post post")
+            console.log("echec")
             console.log(err)
         }
     };
@@ -137,16 +148,41 @@ class Upload extends Component {
         }
     };
 
-    submitPost = () => {
-        //save in dataBase
-        this.savePost()
-        this.saveImage()
+    updateInfoMessage = (open, type, message) => {
+        this.setState({
+            infoMessage: {
+                open: open,
+                type: type,
+                message: message,
+                handleClose: this.handleCloseMessage
+            },
+        });
+    }
 
-        //clear the uploadPage
-        this.setState({ previewClicked: false })
+    submitPost = async () => {
+        console.log("submit post")
+        let postSucceed;
+
+        //save in dataBase
+        postSucceed = await this.savePost()
+        if (postSucceed) {
+            this.saveImage()
+
+            //clear the uploadPage
+            this.clearPage()
+
+            this.updateInfoMessage(true, "success", "votre post a bien été enregistré")
+        } else {
+            //display an error message
+            this.updateInfoMessage(true, "error", "l'image ou la description est manquante")
+        }
+    }
+
+    clearPage = () => {
         document.getElementById('description').value = ''
         document.getElementById('file-input').value = ''
-
+        this.setState({ textPost: '' })
+        this.setState({ imageBase64: "entrer une image" })
     }
 
     displayDate = (dateISO) => {
@@ -158,6 +194,14 @@ class Upload extends Component {
         }
         return dateJour + " " + dateWithoutMillisecond
     }
+
+    handleCloseMessage = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.updateInfoMessage(false, 'error', '');
+       
+    };
 
     componentDidMount() {
         //calcul date
@@ -175,19 +219,52 @@ class Upload extends Component {
 
         //recup firstLetter pseudo
         this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() })
+
+        //iniatialize image to not have an empty img attribute
+        this.setState({ imageBase64: "entrer une image" });
+
+        this.setState({loading: false})
     }
 
     UpdateCommentary = () => {
         this.setState({ textPost: document.getElementById('description').value })
+        if (this.state.infoMessage.open === "open") {
+            this.handleCloseMessage();
+        }
     }
 
     UpdateImage = () => {
 
         this.setState({ imageBase64: URL.createObjectURL(document.getElementById('file-input').files[0]) });
+        if (this.state.infoMessage.open === "open") {
+            this.handleCloseMessage();
+        }
     }
 
     render() {
         const { classes } = this.props;
+        var card;
+
+        if (this.state.loading) {
+            card = <div>Loading...</div>;
+        } else {
+            card = <Card className="App-card-post">
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
+                    }
+                    title={this.state.pseudo}
+                    subheader={this.state.date}
+                />
+                <CardMedia id="image-post"
+                    className={classes.media}
+                    image={this.state.imageBase64}
+                />
+                <CardContent>
+                    <Typography component="p">{this.state.textPost}</Typography>
+                </CardContent>
+            </Card>
+        }
 
         return (
             <div>
@@ -200,45 +277,32 @@ class Upload extends Component {
                             <Grid item xs={12} sm={6}>
                                 <form>
                                     <div>
-                                        <label for="file-input">Sélectionner une image à uploader</label>
-                                        <input type="file" id="file-input" name="image_uploads" accept=".jpg, .jpeg, .png" name="photo" onChange={this.UpdateImage} one />
+                                        <label htmlFor="file-input">Sélectionner une image à uploader</label>
+                                        <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="photo" onChange={this.UpdateImage} />
                                     </div>
                                 </form>
                                 <br></br>
                                 <br></br>
-                                <label class="inp-textarea">
-                                    <textarea id="description" name="mdp" type="text" required={true} class="inp-textarea" placeholder="&nbsp;" onChange={this.UpdateCommentary} />
-                                    <span class="label-textarea">Description</span>
-                                    <span class="border-textarea"></span>
+                                <label className="inp-textarea">
+                                    <textarea id="description" name="mdp" type="text" required={true} className="inp-textarea" placeholder="&nbsp;" onChange={this.UpdateCommentary} />
+                                    <span className="label-textarea">Description</span>
+                                    <span className="border-textarea"></span>
                                 </label>
                                 <br></br>
                                 <input onClick={this.submitPost} type="button" value="Valider" className="App-button" />
+                             
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <div>
                                     <br></br>
-                                    <Card className="App-card-post">
-                                        <CardHeader
-                                            avatar={
-                                                <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
-                                            }
-                                            title={this.state.pseudo}
-                                            subheader={this.state.date}
-                                        />
-                                        <CardMedia id="image-post"
-                                            className={classes.media}
-                                            image={this.state.imageBase64}
-                                        />
-                                        <CardContent>
-                                            <Typography component="p">{this.state.textPost}</Typography>
-                                        </CardContent>
-                                    </Card>
+                                    {card}
                                     <br></br>
                                     <br></br>
                                     <br></br>
                                 </div>
                             </Grid>
                         </Grid>
+                        <ErrorMessage attributes={this.state.infoMessage} />
                     </Paper>
                 </div>
 
