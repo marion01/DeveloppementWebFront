@@ -56,8 +56,8 @@ export default class Actu extends Component {
             content = (
                 this.state.posts.map(
                         post =>
-                            <Grid item xs={12} sm={6}>
-                                <Post key={post._id} Post={post}></Post>
+                            <Grid item xs={12} sm={6} key={post._id}>
+                                <Post key={post._id} Post={post} delete={false}></Post>
                             </Grid> 
                                                
                 ))

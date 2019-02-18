@@ -19,6 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
 import Grid from '@material-ui/core/Grid';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const styles = theme => ({
@@ -165,35 +166,61 @@ class Post extends Component {
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
 
-            var body = {
-                commentaire: document.getElementById('comment').value,
-                auteur: {
-                    pseudo: pseudoAuteur,
-                    ref: idAuteur
-                },
-                post: this.state.post._id,
-                date: date.toISOString()
-            };
+            if (document.getElementById('comment').value !== '') {
+                var body = {
+                    commentaire: document.getElementById('comment').value,
+                    auteur: {
+                        pseudo: pseudoAuteur,
+                        ref: idAuteur
+                    },
+                    post: this.state.post._id,
+                    date: date.toISOString()
+                };
 
-            const access_token = localStorage.getItem("token");
-            var url = 'http://localhost:5000/api/v1/commentaires/post'
-            const options = {
-                method: "post",
-                headers: {
-                    Authorization: access_token,
-                    "Content-Type": "application/json"
-                },
-                url: url,
-                data: body
-            };
-            await axios(options);
-            document.getElementById('comment').value = ""
-            this.recoverComments()
-            console.log("post commentaire");
+                const access_token = localStorage.getItem("token");
+                var url = 'http://localhost:5000/api/v1/commentaires/post/'
+                const options = {
+                    method: "post",
+                    headers: {
+                        Authorization: access_token,
+                        "Content-Type": "application/json"
+                    },
+                    url: url,
+                    data: body
+                };
+                await axios(options);
+                document.getElementById('comment').value = ""
+                this.recoverComments()
+                console.log("post commentaire");
+            }
         } catch (err) {
             console.log(err)
         }
     };
+
+    deletePost = async () => {
+        console.log("delete post")
+
+        try {
+            let idPost = this.state.post._id
+            console.log(idPost)
+            const access_token = localStorage.getItem("token");
+            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
+            const options = {
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                }
+            };
+            await axios.delete(url, options);
+            console.log("delete done")
+
+            this.props.updateParent();
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
 
     render() {
         const { classes } = this.props;
@@ -221,6 +248,13 @@ class Post extends Component {
         } else {
             img = this.state.img;
         }
+
+        let deleteIcon ='';
+        if (this.props.delete) {
+            deleteIcon = <IconButton onClick={this.deletePost}>
+                <DeleteIcon />
+            </IconButton>
+        } 
 
         let date = this.displayDate(this.state.date)
 
@@ -252,6 +286,7 @@ class Post extends Component {
                         >
                             <ExpandMoreIcon />
                         </IconButton>
+                        {deleteIcon}
                     </CardActions>
 
                     <Collapse in={this.state.expanded} className="App-expand-list" timeout="auto" unmountOnExit>
@@ -262,15 +297,15 @@ class Post extends Component {
                                         <React.Fragment>
                                             <Grid container spacing={0}>
                                                 <Grid item xs={11}>
-                                            <label class="inp-textarea">
-                                                <textarea id="comment" type="text" required={true} class="inp-textarea" placeholder="&nbsp;" />
-                                                <span class="label-textarea">Commenter</span>
-                                                <span class="border-textarea"></span>
+                                            <label className="inp-textarea">
+                                                <textarea id="comment" type="text" required={true} className="inp-textarea" placeholder="&nbsp;" />
+                                                <span className="label-textarea">Commenter</span>
+                                                <span className="border-textarea"></span>
                                                     </label>
                                                 </Grid>
                                                 <Grid item xs={1}>
                                                     <IconButton onClick={this.sendComment} className="App-send-comment">
-                                                        <SendIcon className="App-icon"/>
+                                                        <SendIcon className="App-icon" />
                                                     </IconButton>
                                                 </Grid>
                                                 </Grid>

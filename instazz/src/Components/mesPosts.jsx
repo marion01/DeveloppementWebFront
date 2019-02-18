@@ -24,13 +24,16 @@ export default class MesPosts extends Component{
             };
             let res = await axios(options);
             this.setState({ posts: res.data.doc });
-            console.log(this.state.posts)
             this.sortPostsBy('date');
             this.setState({ loading: false });
         } catch (err) {
             console.log(err)
         }
     };
+
+    update = () => {
+        this.getPosts();
+    }
 
     componentDidMount() {
         this.getPosts();        
@@ -59,7 +62,7 @@ export default class MesPosts extends Component{
                 this.state.posts.map(
                     post =>
                         <Grid item xs={12} sm={6} key={post._id}>
-                            <Post key={post._id} Post={post}></Post>
+                            <Post key={post._id} Post={post} delete={true} updateParent={this.update} ></Post>
                         </Grid>
 
                 ))
