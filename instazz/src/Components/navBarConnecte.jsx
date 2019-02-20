@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Menu from './menuConnecte.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
@@ -59,13 +59,10 @@ class NavBar extends Component{
         top: false
     };
 
-
     deconnexion = () => {
         localStorage.clear();
         this.props.handleConnexion();
     }
-    
-
 
     render() {
         let text = "Vous êtes connecté en tant que " + this.state.pseudo
@@ -115,7 +112,7 @@ class NavBar extends Component{
                     </Link>
 
                     {["Se déconnecter"].map((text, index) => (
-                        <ListItem onClick={this.props.handleSignOut} button key={text}>
+                        <ListItem onClick={this.props.handleDeconnexion} button key={text}>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}

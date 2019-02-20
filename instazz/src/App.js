@@ -10,18 +10,32 @@ class App extends Component {
         this.forceUpdate()
     }
 
+    handleDeconnexion = () => {
+        console.log("handle deconnexion");
+        localStorage.removeItem('token');
+        localStorage.removeItem('pseudo');
+        localStorage.removeItem('id');
+        this.forceUpdate()
+    }
+
     isConnected = () => {
         let token = localStorage.getItem("token")
         //si un token est stocké
         if (token != null) {
             let tokenDecoded = atob(token.split(".")[1])
             let tokenJSON = JSON.parse(tokenDecoded);
-            console.log(tokenJSON);
-            var pseudo = tokenJSON.data.pseudo;
-            localStorage.setItem("pseudo", pseudo);
-            var id = tokenJSON.data.id;
-            localStorage.setItem("id", id);
-            return true
+            if (tokenJSON.exp < Date.now() / 1000) {
+                console.log("token invalide")
+                localStorage.removeItem('token');
+                return false;
+            } else {
+                console.log("token valide")
+                var pseudo = tokenJSON.data.pseudo;
+                localStorage.setItem("pseudo", pseudo);
+                var id = tokenJSON.data.id;
+                localStorage.setItem("id", id);
+                return true
+            }
         }
         return false
     } 
@@ -29,10 +43,8 @@ class App extends Component {
     render() {
         let navBar;
         if (this.isConnected()) {
-            console.log("navBarUtilisateur")
-            navBar = <NavBarUtilisateur handleConnexion={this.handleConnexion}></NavBarUtilisateur>
+            navBar = <NavBarUtilisateur handleDeconnexion={this.handleDeconnexion}></NavBarUtilisateur>
         } else {
-            console.log("navBarVisiteur")
             navBar = <NavBarVisiteur handleConnexion={this.handleConnexion}></NavBarVisiteur>
         }
 

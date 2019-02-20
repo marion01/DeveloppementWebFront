@@ -17,40 +17,40 @@ export default class FormulaireInscription extends Component{
                   <div className="App-corps-card">
                       <Paper className="App-paper" elevation={1}>
                               <div className="App-text-title">
-                                  <label class="inp">
-                                      <input name="Nom" required={true} type="text" class="inp" placeholder="&nbsp;" />
-                                      <span class="label">Nom</span>
-                                      <span class="border"></span>
+                              <label className="inp">
+                                      <input name="Nom" required={true} type="text" className="inp" placeholder="&nbsp;" />
+                                      <span className="label">Nom</span>
+                                      <span className="border"></span>
                               </label>
                               <br></br>
-                                  <label class="inp">
-                                      <input name="Prenom" required={true} type="text" class="inp" placeholder="&nbsp;" />
-                                      <span class="label">Prénom</span>
-                                      <span class="border"></span>
+                              <label className="inp">
+                                      <input name="Prenom" required={true} type="text" className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Prénom</span>
+                                  <span className="border"></span>
                               </label>
                               <br></br>
-                              <label class="inp">
-                                  <input name="Mail" required={true} type="text" class="inp" placeholder="&nbsp;" />
-                                  <span class="label">Mail</span>
-                                  <span class="border"></span>
+                              <label className="inp">
+                                  <input name="Mail" required={true} type="text" className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Mail</span>
+                                  <span className="border"></span>
                               </label>
                               <br></br>
-                              <label class="inp">
-                                  <input name="Pseudo" required={true} type="text" class="inp" placeholder="&nbsp;" />
-                                  <span class="label">Pseudo</span>
-                                  <span class="border"></span>
+                              <label className="inp">
+                                  <input name="Pseudo" required={true} type="text" className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Pseudo</span>
+                                  <span className="border"></span>
                               </label>
                               <br></br>
-                              <label class="inp">
-                                  <input name="mdp" type="password" required={true} class="inp" placeholder="&nbsp;" />
-                                  <span class="label">Mot de passe</span>
-                                  <span class="border"></span>
+                              <label className="inp">
+                                  <input name="mdp" type="password" required={true} className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Mot de passe</span>
+                                  <span className="border"></span>
                               </label>
                               <br></br>
-                              <label class="inp">
-                                  <input name="mdpConfirmation" type="password" required={true} class="inp" placeholder="&nbsp;" />
-                                  <span class="label">Confirmation du mot de passe</span>
-                                  <span class="border"></span>
+                              <label className="inp">
+                                  <input name="mdpConfirmation" type="password" required={true} className="inp" placeholder="&nbsp;" />
+                                  <span className="label">Confirmation du mot de passe</span>
+                                  <span className="border"></span>
                               </label>
                               </div>
                                   <Typography component="p">

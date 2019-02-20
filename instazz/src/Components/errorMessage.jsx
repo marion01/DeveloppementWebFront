@@ -101,7 +101,6 @@ class CustomizedSnackbars extends React.Component {
 
     componentDidMount() {
         let info = this.props.attributes;
-        console.log(info)
         this.setState({ open: info.open })
         this.setState({ type: info.type })
         this.setState({ message: info.message })

@@ -167,6 +167,7 @@ class Post extends Component {
             let pseudoAuteur = localStorage.getItem("pseudo")
 
             if (document.getElementById('comment').value !== '') {
+                console.log(document.getElementById('comment').value)
                 var body = {
                     commentaire: document.getElementById('comment').value,
                     auteur: {
@@ -202,22 +203,37 @@ class Post extends Component {
         console.log("delete post")
 
         try {
-            let idPost = this.state.post._id
-            console.log(idPost)
             const access_token = localStorage.getItem("token");
-            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
+
+            let imageName = this.state.post.img.rel;
+            let urlDeleteImg = 'http://localhost:5000/api/v1/posts/deleteImg/' + imageName   
+            const options2 = {
+                method: "post",
+                headers: {
+                    Authorization: access_token,
+                    "Content-Type": "application/json"
+                },
+                url: urlDeleteImg
+            };
+            await axios(options2);
+
+
             const options = {
                 headers: {
                     Authorization: access_token,
                     "Content-Type": "application/json"
                 }
             };
+            let idPost = this.state.post._id
+            console.log(idPost)
+            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
             await axios.delete(url, options);
             console.log("delete done")
 
             this.props.updateParent();
         } catch (err) {
             console.log(err)
+            console.log(err.response)
         }
 
     }
@@ -227,7 +243,6 @@ class Post extends Component {
 
         let commentaires;
         if (this.state.commentaireLoading) {
-            //s'affiche mais en blanc donc ne se voit pas -> voir css
             commentaires = <div>Loading ...</div>
         } else {
             if (this.state.commentaires.length === 0) {

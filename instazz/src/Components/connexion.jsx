@@ -3,14 +3,43 @@ import axios from 'axios';
 import { withRouter } from "react-router";
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import ErrorMessage from './errorMessage'
 
 class Connexion extends Component{
-    constructor(props) {
-        super(props);
-        this.state = { value: '' };
+    state = {
+        infoMessage: {
+            open: false,
+            type: '',
+            message: '',
+            handleClose: this.handleCloseMessage
+        }
     }
 
+    updateInfoMessage = (open, type, message) => {
+        this.setState({
+            infoMessage: {
+                open: open,
+                type: type,
+                message: message,
+                handleClose: this.handleCloseMessage
+            },
+        });
+    }
+
+    handleCloseMessage = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.updateInfoMessage(false, 'error', '');
+
+    };
+
     connexion = () => {
+
+        //delete  previous error
+        if (this.state.infoMessage.open === "open") {
+            this.handleCloseMessage();
+        }
 
         //gerer le cas de vide
         let pseudo = document.getElementById('pseudo').value
@@ -31,19 +60,23 @@ class Connexion extends Component{
             headers: headers
         })
         .then((res) => {
-            console.log("post login");
-            console.log(res);
-            localStorage.setItem("token", res.data.token);
             if (res.data.success) {
+                console.log("post login");
+                localStorage.setItem("token", res.data.token);
+                this.props.history.push("/")
                 this.props.handleConnexion();
                 //redirection vers home
-                this.props.history.push("/")
+                
                 console.log("connection réussie")
             } else {
                 //afficher message erreur
                 console.log("erreur de connection")
+                this.updateInfoMessage(true, "error", "mot de passe ou login incorrect")
             }
-           
+        })
+        .catch((err) => {
+            console.log(err.response)
+            this.updateInfoMessage(true, "error", "mot de passe ou login incorrect")
         })
     }
 
@@ -51,9 +84,7 @@ class Connexion extends Component{
         console.log("app.js")
     }
 
-
-
-      render() {
+    render() {
           return (
               <div>
                   <div className="App-ban">
@@ -78,6 +109,7 @@ class Connexion extends Component{
                               <button onClick={this.connexion} type="button" className="App-button">Se connecter</button>
                           </Typography>
                       </Paper>
+                      <ErrorMessage attributes={this.state.infoMessage} />
                   </div>
               </div>
 

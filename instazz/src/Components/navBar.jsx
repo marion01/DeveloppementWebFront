@@ -40,15 +40,10 @@ class NavBar extends Component{
 
 
     render() {
-        const { classes } = this.props;
         const PageConnexion = () => <Connexion handleConnexion={this.props.handleConnexion} ></ Connexion>;
         const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
         const PageContact = () => <Contact></Contact>;
         const PageMenu = () => <Menu></Menu>;
-
-      
-
-        const isMobile = window.innerWidth <= 500;
 
         return (
             <div>

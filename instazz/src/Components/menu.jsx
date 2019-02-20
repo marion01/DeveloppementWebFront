@@ -30,7 +30,7 @@ export default class Menu extends Component{
                <p>l'Application pour partager des photos entre ZZ</p> 
           </div>
           <div className="App-corps-diapo">
-          <Grid container spacing={10}>
+          <Grid container>
               <Grid item xs={12} sm={6}>
                   <div className="App-corps-card">
                       <Card className="card">
