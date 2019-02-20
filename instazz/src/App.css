@@ -256,6 +256,10 @@ body {
     background-color: white;
 }
 
+.input-valid {
+    border: 1px solid limegreen;
+}
+
 .App-sideList {
     width: 100%;
 }
@@ -463,4 +467,24 @@ form input {
     line-height: 300px;
     text-align: center;
     background: #26a5ce;
+}
+
+
+.check-default {
+    text-align: justify;
+    font-size: 10px;
+    color: #9098a9;
+    vertical-align: top;
+    display: block;
+    width: 300px;
+}
+
+.check-wrong {
+    text-align: justify;
+    font-size: 10px;
+    color: red;
+    font-weight: bold;
+    vertical-align: top;
+    display: block;
+    width: 300px;
 }
