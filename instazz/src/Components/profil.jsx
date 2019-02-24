@@ -2,7 +2,9 @@
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
   
-
+/**
+ * Component to handle profil page
+ */
 export default class Profil extends Component{
     state = {
         pseudo: '',

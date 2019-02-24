@@ -90,6 +90,9 @@ MySnackbarContent.propTypes = {
 
 const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);
 
+/**
+ * Component to handle errorMessage component
+ */
 class CustomizedSnackbars extends React.Component {
 
     state = {

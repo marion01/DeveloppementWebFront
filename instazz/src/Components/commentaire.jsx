@@ -2,7 +2,9 @@
 import ListItem from '@material-ui/core/ListItem';
 
 
-
+/**
+ * Component to handle commentary element
+ */
 export default class Commentaire extends Component{
     state = {
         commentaire: '',
@@ -10,6 +12,7 @@ export default class Commentaire extends Component{
         firstLetterPseudo: ''
     };
 
+    //make thr right format to display a date
     displayDate = (dateISO) => {
         var mois = [
             "Janvier", "Février", "Mars",
@@ -27,18 +30,18 @@ export default class Commentaire extends Component{
 
     componentDidMount() {
         let commentaire = this.props.Commentaire
-        this.setState({ commentaire: commentaire })
-
         let date = this.displayDate(commentaire.date)
         let pseudo = commentaire.auteur.pseudo
         var nd = pseudo + " - " + date
-        this.setState({ nomDate: nd })
-        this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() });
+        this.setState({
+            commentaire: commentaire,
+            nomDate: nd,
+            firstLetterPseudo: pseudo.charAt(0).toUpperCase()
+        })
+
     }
 
     render() {
-       
-
         return (
             <ListItem>
                 <div className="App-Avatar-small" >{this.state.firstLetterPseudo}</div>

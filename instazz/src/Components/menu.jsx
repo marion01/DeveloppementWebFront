@@ -15,7 +15,9 @@ import Grid from '@material-ui/core/Grid';
 const PageInscription = () => <FormulaireInscription></FormulaireInscription>;
 const PageConnexion = () => <Connexion></Connexion>;
 
-
+/**
+ * Component to handle menu page when user is disconnected
+ */
 export default class Menu extends Component{
   handleClick=()=>{
     alert('I am alert, nice to meet you');

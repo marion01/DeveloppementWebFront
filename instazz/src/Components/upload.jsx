@@ -56,6 +56,9 @@ const styles = theme => ({
     },
 });
 
+/**
+ * Component to handle upload page
+ */
 class Upload extends Component {
     state = {
         date: '',
@@ -74,6 +77,7 @@ class Upload extends Component {
         loading: true
     }
 
+    //send a request to the API to save a post
     savePost = async () => {
         try {
             console.log("savePost")
@@ -113,6 +117,7 @@ class Upload extends Component {
                 url: url,
                 data: body
             };
+            //API call
             await axios(options);
             console.log("réussite");
             return true;
@@ -122,6 +127,7 @@ class Upload extends Component {
         }
     };
 
+    //store the image of the post on server
     saveImage = async () => {
         try {
             console.log("saveImage")
@@ -148,6 +154,7 @@ class Upload extends Component {
         }
     };
 
+    //update the info message
     updateInfoMessage = (open, type, message) => {
         this.setState({
             infoMessage: {
@@ -159,6 +166,7 @@ class Upload extends Component {
         });
     }
 
+    //submit a request to save the post
     submitPost = async () => {
         console.log("submit post")
         let postSucceed;
@@ -178,6 +186,7 @@ class Upload extends Component {
         }
     }
 
+    //clear all the element of the page for a new post
     clearPage = () => {
         document.getElementById('description').value = ''
         document.getElementById('file-input').value = ''
@@ -185,6 +194,7 @@ class Upload extends Component {
         this.setState({ imageBase64: "entrer une image" })
     }
 
+    //get the right format for the date
     displayDate = (dateISO) => {
         let dateJour = dateISO.split("T")[0]
         let dateHeure = dateISO.split("T")[1]
@@ -195,6 +205,7 @@ class Upload extends Component {
         return dateJour + " " + dateWithoutMillisecond
     }
 
+    //handle close message
     handleCloseMessage = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -226,6 +237,7 @@ class Upload extends Component {
         this.setState({loading: false})
     }
 
+    //update description of the post in the visualisation
     UpdateCommentary = () => {
         this.setState({ textPost: document.getElementById('description').value })
         if (this.state.infoMessage.open === "open") {
@@ -233,8 +245,8 @@ class Upload extends Component {
         }
     }
 
+    //update image of the post in the visualisation
     UpdateImage = () => {
-
         this.setState({ imageBase64: URL.createObjectURL(document.getElementById('file-input').files[0]) });
         if (this.state.infoMessage.open === "open") {
             this.handleCloseMessage();
@@ -317,6 +329,3 @@ Upload.propTypes = {
 };
 
 export default withStyles(styles)(Upload);
-
-
-//<input id="file-input" className="App-button" type="file" text="jlkjklj" accept=".jpg, .jpeg, .png" name="photo" onChange={(e) => this.handleImageChange(e)} />

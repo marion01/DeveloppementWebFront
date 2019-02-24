@@ -21,7 +21,6 @@ import SendIcon from '@material-ui/icons/Send';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-
 const styles = theme => ({
     expand: {
         transform: 'rotate(0deg)',
@@ -50,7 +49,9 @@ const styles = theme => ({
     },
 });
 
-
+/**
+ * Component to handle post element
+ */
 class Post extends Component {
     state = {
         expanded: false,
@@ -69,6 +70,8 @@ class Post extends Component {
         try {
             const access_token = localStorage.getItem("token");
             var imageName = post.img.rel
+
+            //parameters for the api call
             var url = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
             const options = {
                 method: "get",
@@ -79,16 +82,21 @@ class Post extends Component {
                 },
                 url: url
             };
+            //call to the api
             let res = await axios(options);
-            var buffer = new Buffer(res.data, 'binary').toString('base64')
-            buffer = 'data:image/jpg;base64,' + buffer
-            this.setState({ img: buffer })
-            this.setState({ imgLoading: false })
+
+            //transform the data of the image in base64 to be displayed
+            var buffer = 'data:image/jpg;base64,' + new Buffer(res.data, 'binary').toString('base64');
+            this.setState({
+                img: buffer,
+                imgLoading: false
+            })
         } catch (err) {
             console.log(err)
         }
     };
 
+    //compare two element by a key
     compareBy(key) {
         return function (a, b) {
             if (a[key] > b[key]) return -1;
@@ -97,6 +105,7 @@ class Post extends Component {
         };
     }
 
+    //sort the commentary by key
     sortCommentairesBy = (key) => {
         let arrayCopy = this.state.commentaires;
         arrayCopy.sort(this.compareBy(key));
@@ -106,11 +115,14 @@ class Post extends Component {
     componentDidMount() {
 
         let post = this.props.Post;
-        this.setState({ post: post });
         var pseudo = post.auteur.pseudo;
-        this.setState({ pseudoAuteur: pseudo })
-        this.setState({ firstLetter: pseudo.charAt(0).toUpperCase() })
-        this.setState({ date: post.date })
+
+        this.setState({
+            post: post,
+            pseudoAuteur: pseudo,
+            firstLetter: pseudo.charAt(0).toUpperCase(),
+            date: post.date
+        })
 
         this.getImage(post);
     }
@@ -139,12 +151,16 @@ class Post extends Component {
         }
     };
 
+    //handle when the expand button is cliked
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
-        this.recoverComments();
+        if (this.state.expanded === true) {
+            this.recoverComments();
+        }
 
     };
 
+    //make the correct format for the date to display
     displayDate = (dateISO) => {
         var mois = [
             "Janvier", "Février", "Mars",
@@ -160,14 +176,16 @@ class Post extends Component {
         return "Le " + date[2] + " " + mois[parseInt(date[1])] + " " + date[0] + dateHeure
     }
 
+    //save a comment 
     sendComment = async () => {
         try {
             var date = new Date()
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
 
+            //save the comment if only it is not empty
             if (document.getElementById('comment').value !== '') {
-                console.log(document.getElementById('comment').value)
+                //body of the request
                 var body = {
                     commentaire: document.getElementById('comment').value,
                     auteur: {
@@ -180,6 +198,7 @@ class Post extends Component {
 
                 const access_token = localStorage.getItem("token");
                 var url = 'http://localhost:5000/api/v1/commentaires/post/'
+                //options of the request
                 const options = {
                     method: "post",
                     headers: {
@@ -189,8 +208,13 @@ class Post extends Component {
                     url: url,
                     data: body
                 };
+                //call the API
                 await axios(options);
+
+                //clear the comment textarea
                 document.getElementById('comment').value = ""
+
+                //update the comments
                 this.recoverComments()
                 console.log("post commentaire");
             }
@@ -199,6 +223,7 @@ class Post extends Component {
         }
     };
 
+    //delete a post and all the comment associated
     deletePost = async () => {
         console.log("delete post")
 
@@ -225,8 +250,8 @@ class Post extends Component {
                 }
             };
             let idPost = this.state.post._id
-            console.log(idPost)
             var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
+            //delete request to the API
             await axios.delete(url, options);
             console.log("delete done")
 

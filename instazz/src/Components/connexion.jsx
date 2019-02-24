@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ErrorMessage from './errorMessage'
 
+/**
+ * Component to handle connexion page
+ */
 class Connexion extends Component{
     state = {
         infoMessage: {
@@ -15,6 +18,7 @@ class Connexion extends Component{
         }
     }
 
+    //update error message
     updateInfoMessage = (open, type, message) => {
         this.setState({
             infoMessage: {
@@ -26,6 +30,7 @@ class Connexion extends Component{
         });
     }
 
+    //handle when the error message is closed
     handleCloseMessage = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -34,6 +39,7 @@ class Connexion extends Component{
 
     };
 
+    //handle the connexion of a user
     connexion = () => {
 
         //delete  previous error
@@ -50,23 +56,16 @@ class Connexion extends Component{
             password: mdp
         }
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
-        headers.append('Access-Control-Allow-Origin', '*');
-
         let url = 'http://localhost:5000/api/v1/login'
-        axios.post(url, body, {
-            headers: headers
-        })
+        axios.post(url, body)
         .then((res) => {
             if (res.data.success) {
                 console.log("post login");
                 localStorage.setItem("token", res.data.token);
-                this.props.history.push("/")
-                this.props.handleConnexion();
                 //redirection vers home
-                
+                this.props.history.push("/")
+                //change navbar in app.js
+                this.props.handleConnexion();                
                 console.log("connection réussie")
             } else {
                 //afficher message erreur

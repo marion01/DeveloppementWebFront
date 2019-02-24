@@ -3,12 +3,16 @@ import Post from './post.jsx'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
+/**
+ * Component to handle actuality page
+ */
 export default class Actu extends Component {
     state = {
         posts: [],
         loading: true
     }
 
+    //recover all the posts of all the users and sort them
     getPosts = async () => {
         try {
             const access_token = localStorage.getItem("token");
@@ -34,6 +38,7 @@ export default class Actu extends Component {
         this.getPosts();
     }
 
+    //compare two key
     compareBy(key) {
         return function (a, b) {
             if (a[key] > b[key]) return -1;
@@ -42,6 +47,7 @@ export default class Actu extends Component {
         };
     }
 
+    //sort posts by key
     sortPostsBy = (key) => {
         let arrayCopy = this.state.posts;
         arrayCopy.sort(this.compareBy(key));

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 
+/**
+ * Component to handle connexion page
+ */
 export default class Contact extends Component{
 
     render() {  

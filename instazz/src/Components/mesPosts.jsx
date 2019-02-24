@@ -3,12 +3,16 @@ import Post from './post.jsx'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
+/**
+ * Component to handle mesPosts page
+ */
 export default class MesPosts extends Component{
     state = {
         posts: [],
         loading: true
     }
 
+    //recover all the post of the connected user
     getPosts = async () => {
         try {
             const access_token = localStorage.getItem("token");
@@ -31,6 +35,7 @@ export default class MesPosts extends Component{
         }
     };
 
+    //update the post
     update = () => {
         this.getPosts();
     }
@@ -39,6 +44,7 @@ export default class MesPosts extends Component{
         this.getPosts();        
     }
 
+    //compare two element by the key
     compareBy(key) {
         return function (a, b) {
             if (a[key] > b[key]) return -1;
@@ -47,6 +53,7 @@ export default class MesPosts extends Component{
         };
     }
 
+    //sort post by the key
     sortPostsBy = (key) => {
         let arrayCopy = this.state.posts;
         arrayCopy.sort(this.compareBy(key));

@@ -33,7 +33,9 @@ const styles = {
   };
 
   
-
+/**
+ * Component to handle navBar element when user is connected
+ */
 class NavBar extends Component{
 
     state = {
@@ -42,11 +44,12 @@ class NavBar extends Component{
     };
 
 
-
     componentDidMount() {
         let pseudo = localStorage.getItem("pseudo")
-        this.setState({ pseudo: pseudo })
-        this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() });
+        this.setState({
+            pseudo: pseudo,
+            firstLetterPseudo: pseudo.charAt(0).toUpperCase()
+        })
     }
 
     toggleDrawer = (side, open) => () => {
@@ -59,6 +62,7 @@ class NavBar extends Component{
         top: false
     };
 
+    //handle deconnexion of a user
     deconnexion = () => {
         localStorage.clear();
         this.props.handleConnexion();

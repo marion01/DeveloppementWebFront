@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
+/**
+ * Component to handle insription page
+ */
 export default class FormulaireInscription extends Component{
 
       handleSubmit=()=>{

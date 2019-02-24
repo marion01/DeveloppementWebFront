@@ -2,6 +2,9 @@
 import logo from '../asset/logo.png'
 import Paper from '@material-ui/core/Paper';
 
+/**
+ * Component to handle menu page when user is connected
+ */
 export default class Menu extends Component{
   handleClick=()=>{
     alert('I am alert, nice to meet you');
