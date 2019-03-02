@@ -80,7 +80,6 @@ class Upload extends Component {
     //send a request to the API to save a post
     savePost = async () => {
         try {
-            console.log("savePost")
             let textPost = document.getElementById('description').value
             let date = new Date()
             let file = document.getElementById('file-input')
@@ -119,10 +118,10 @@ class Upload extends Component {
             };
             //API call
             await axios(options);
-            console.log("réussite");
+            console.log("save post done");
             return true;
         } catch (err) {
-            console.log("echec")
+            console.log("save post echec")
             console.log(err)
         }
     };
@@ -130,7 +129,6 @@ class Upload extends Component {
     //store the image of the post on server
     saveImage = async () => {
         try {
-            console.log("saveImage")
             let file = document.getElementById('file-input').files[0];
             let body = new FormData();
             body.append('photo', file)
@@ -147,9 +145,9 @@ class Upload extends Component {
                 data: body
             };
             await axios(options);
-            console.log("réussite post image")
+            console.log("save image done")
         } catch (err) {
-            console.log("echec post image")
+            console.log("save image echec")
             console.log(err)
         }
     };
@@ -168,7 +166,6 @@ class Upload extends Component {
 
     //submit a request to save the post
     submitPost = async () => {
-        console.log("submit post")
         let postSucceed;
 
         //save in dataBase
