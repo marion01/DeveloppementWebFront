@@ -194,14 +194,17 @@ class Upload extends Component {
                 <div className="App-ban">
                     <h1>Ecrire un post</h1>
                 </div>
-                <div className="App-corps">
+                <div className="App-corps-card">
                     <Paper className="App-paper" elevation={1}>
                         <Grid container className="App-grid-post" spacing={24}>
                             <Grid item xs={12} sm={6}>
+                                <label className="App-h2">Votre post</label>
+                                <br></br>
+                                <br></br>
                                 <form>
                                     <div>
-                                        <label for="file-input">Sélectionner une image à uploader</label>
-                                        <input type="file" id="file-input" name="image_uploads" accept=".jpg, .jpeg, .png" name="photo" onChange={this.UpdateImage} one />
+                                        <label for="file-input">Sélectionner une image</label>
+                                        <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="photo" onChange={this.UpdateImage} one />
                                     </div>
                                 </form>
                                 <br></br>
@@ -216,6 +219,7 @@ class Upload extends Component {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <div>
+                                    <label className="App-h2">Prévisualisation du post</label>
                                     <br></br>
                                     <Card className="App-card-post">
                                         <CardHeader

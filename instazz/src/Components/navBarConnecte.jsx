@@ -74,7 +74,7 @@ class NavBar extends Component{
             <div className="App-sideList">
                 <List>
                     <center>
-                        <div className="App-Avatar-medium">{this.state.firstLetterPseudo}</div>
+                        <div className="App-Avatar-small"><div>{this.state.firstLetterPseudo}</div></div>
                     </center>
                     {[text].map((text, index) => (
                         <ListItem >
@@ -130,7 +130,7 @@ class NavBar extends Component{
                         <nav>
                             <ul>
                                 <div>
-                                    <img src={menu} alt="menu" height="50" onClick={this.toggleDrawer("left", true)} className="nav-logo" />
+                                    <img src={menu} alt="menu" height="53" onClick={this.toggleDrawer("left", true)} className="nav-logo" />
                                     <Drawer
                                         open={this.state.left}
                                         onClose={this.toggleDrawer("left", false)}

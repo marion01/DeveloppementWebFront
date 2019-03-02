@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 class Connexion extends Component{
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = { value: '' };
     }
 
@@ -35,15 +36,14 @@ class Connexion extends Component{
             console.log(res);
             localStorage.setItem("token", res.data.token);
             if (res.data.success) {
-                this.props.handleConnexion();
                 //redirection vers home
-                this.props.history.push("/")
+                this.props.history.push("/");
+
                 console.log("connection réussie")
             } else {
                 //afficher message erreur
                 console.log("erreur de connection")
             }
-           
         })
     }
 

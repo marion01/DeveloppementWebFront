@@ -152,7 +152,6 @@ class Post extends Component {
             "Novembre", "Décembre"]
         let date = dateISO.split("T")[0].split("-")
         let dateHeure = dateISO.split("T")[1]
-        let dateWithoutMillisecond;
         if (dateHeure != null) {
             dateHeure = dateHeure.split(".")[0].split(":")
             dateHeure = " à " + dateHeure[0] + "h" + dateHeure[1] + ":" + dateHeure[2]
@@ -230,7 +229,7 @@ class Post extends Component {
                 <br></br>
                 <Card className="App-card-post">
                     <CardHeader
-                        avatar={<div className="App-Avatar-medium">{this.state.firstLetter}</div>}
+                        avatar={<div className="App-Avatar-xl"><div>{this.state.firstLetter}</div></div>}
                         title={<label className="App-title-user">{this.state.pseudoAuteur}</label>}
                         subheader={<label className="App-title-date">{date}</label>}
                     />
