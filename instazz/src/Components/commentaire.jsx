@@ -44,7 +44,7 @@ export default class Commentaire extends Component{
     render() {
         return (
             <ListItem>
-                <div className="App-Avatar-small" >{this.state.firstLetterPseudo}</div>
+                <div className="App-Avatar-xl" ><div>{this.state.firstLetterPseudo}</div></div>
                 <div className="App-div-comment">
                     <label className="App-title-date">{this.state.nomDate}</label>
                     <div className="App-comment">{this.state.commentaire.commentaire}</div>

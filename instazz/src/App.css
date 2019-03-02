@@ -15,18 +15,18 @@ ul {
 .nav-logo{
     display: block;
     text-align: center;
-    padding: 3px 3px;
+    padding: 0px 3px;
     text-decoration: none;
     float: left; /* Pour que les liens s’affichent horizontalement */
     position: relative; /* Crée un contexte de positionnement pour les sous-listes */
 }
 
-    .nav-logo:hover {
-        color: white;
-        background-color: #164465;
-        display: block; /* Affiche cette sous-liste au survol de son conteneur */
-        cursor: pointer;
-    }
+.nav-logo:hover {
+    color: white;
+    background-color: #164465;
+    display: block; /* Affiche cette sous-liste au survol de son conteneur */
+    cursor: pointer;
+}
 
 li {
   float: left;
@@ -60,12 +60,52 @@ li a:hover {
 p {
     margin: 0px;
 }
+
+.App-h1 {
+    color: #26a5ce;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align:center;
+    margin-bottom: 5%;
+}
+.App-h2 {
+    color: #26a5ce;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5%;
+}
+.App-h3 {
+    color: #26a5ce;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.App-p1 {
+    font-size: 0.875rem;
+    text-align: justify;
+    margin: 5% auto;
+}
+.App-p2 {
+    font-size: 0.850rem;
+    text-align: justify;
+    margin: 5% auto;
+}
+/*.App-p2-gris {
+    color: #838383;
+    font-size: 0.875rem;
+    text-align: justify;
+    margin: 5% auto;
+}*/
 .App-ban {
     background-color: #26a5ce;
     min-height: 20%;
     padding: 20px 20px;
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
@@ -86,6 +126,8 @@ p {
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    width: 86%;
+    padding: 7%;
 }
 .App-corps-diapo{
     margin-left: 5%;
@@ -127,7 +169,7 @@ p {
 .App-corps-card {
     height : auto;
     display: flex;
-    margin : 30px;
+    margin : 3% 0%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -136,9 +178,9 @@ p {
 }
 
 .App-paper {
-    width: 90%;
+    width: 86%;
     height: auto;
-    padding: 30px;
+    padding: 4%;
     min-height: 200px;
     align-items: center;
     background-color: white;
@@ -147,8 +189,18 @@ p {
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    font-size: calc(10px + 2vmin);  
+}
+
+.App-corps-card-list {
+    height: auto;
+    display: flex;
+    margin: 3% 3%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
     font-size: calc(10px + 2vmin);
-    
 }
 
 .App-text-title {
@@ -173,8 +225,9 @@ p {
 }
 
 .App-button {
+    height: 50px;
     width: auto;
-    padding: 20px 20px;
+    padding: 10px 20px;
     margin: 20px 20px;
     color: #26a5ce;
     background-color: white;
@@ -233,10 +286,10 @@ body {
 }
 
 .inp input {
-    width: 100%;
+    width:86%;
     border: 0;
     font-family: inherit;
-    padding: 12px 12px;
+    padding: 12px 7%;
     font-size: 16px;
     font-weight: 500;
     border: 1px solid #d3d3d3;
@@ -254,6 +307,10 @@ body {
     transform: translateX(20px) translateY(-25px) scale(0.75);
     padding: 5px;
     background-color: white;
+}
+
+.input-valid {
+    border: 1px solid limegreen;
 }
 
 .App-sideList {
@@ -344,6 +401,7 @@ form label, form button {
     border-radius: 8px;
     border-color: #26a5ce;
     font-size: 16px;
+    margin: auto;
 }
 
 form label:hover, form button:hover {
@@ -363,7 +421,7 @@ form input {
 }
 
 .App-title-user {
-    text-align: left;
+    text-align: center;
     font-size: 20px;
     color: #26a5ce;
     margin: 0px;
@@ -391,7 +449,7 @@ form input {
     color: #d3d3d3;
 }
 
-.App-Avatar-medium {
+/*.App-Avatar-medium {
     width: 50px;
     height: 50px;
     border-radius: 50px;
@@ -412,7 +470,7 @@ form input {
     line-height: 25px;
     text-align: center;
     background: #26a5ce;
-}
+}*/
 
 .App-post-text {
     text-align: justify;
@@ -454,7 +512,7 @@ form input {
     line-height: 1.4;
 }
 
-.App-Avatar-big {
+/*.App-Avatar-big {
     width: 300px;
     height: 300px;
     border-radius: 300px;
@@ -463,4 +521,56 @@ form input {
     line-height: 300px;
     text-align: center;
     background: #26a5ce;
+}*/
+
+.App-Avatar-xl {
+    width: 50px;
+}
+.App-Avatar-large {
+    width: 80%;
+}
+.App-Avatar-small {
+    width: 20%;
+}
+
+.App-Avatar-large:after, .App-Avatar-small:after, .App-Avatar-xl:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background: #26a5ce;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.App-Avatar-large div, .App-Avatar-small div, .App-Avatar-xl div {
+    float: left;
+    width: 100%;
+    padding-top: 50%;
+    line-height: 1em;
+    margin-top: -0.5em;
+    text-align: center;
+    color: white;
+}
+
+
+.check-default {
+    text-align: justify;
+    font-size: 10px;
+    color: #9098a9;
+    vertical-align: top;
+    display: block;
+    width: 250px;
+}
+
+.check-wrong {
+    text-align: justify;
+    font-size: 10px;
+    color: red;
+    font-weight: bold;
+    vertical-align: top;
+    display: block;
+    width: 250px;
 }

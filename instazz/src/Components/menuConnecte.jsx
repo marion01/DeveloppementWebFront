@@ -29,8 +29,8 @@ export default class Menu extends Component{
             </div>
             <div className="App-corps-card">
                 <Paper className="App-paper" elevation={1}>
-                        <label className="App-corps-text">Bienvenue {this.state.pseudo} sur Instazz!</label>
-                        <label className="App-corps-text">Vous êtes bien connecté !!</label>
+                        <label className="App-h1">Bienvenue {this.state.pseudo} sur Instazz!</label>
+                        <label className="App-p1">Vous êtes bien connecté !!</label>
                 </Paper>
                 </div>
             </div>

@@ -55,7 +55,7 @@ class NavBar extends Component{
                         <nav>
                             <ul>
                                     <div>
-                                        <Link to="/"><img src={logo} onClick={this.toggleDrawer("left", true)} className="nav-logo" alt="logo" height="50" /></Link>
+                                        <Link to="/"><img src={logo} onClick={this.toggleDrawer("left", true)} className="nav-logo" alt="logo" height="53" /></Link>
                                     </div>
                                     <div>
                                         <li><Link to="/">Accueil</Link></li>
