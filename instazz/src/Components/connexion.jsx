@@ -36,7 +36,6 @@ class Connexion extends Component{
             return;
         }
         this.updateInfoMessage(false, 'error', '');
-
     };
 
     //handle the connexion of a user
