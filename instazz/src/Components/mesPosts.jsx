@@ -43,7 +43,6 @@ export default class MesPosts extends Component{
     //get a page of post
     getPostsByPage = async () => {
         try {
-            console.log("currentPage" + this.state.currentPage)
             let body = {
                 page: this.state.currentPage,
                 per_page: this.state.nbPerPage

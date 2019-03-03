@@ -504,6 +504,7 @@ form input {
     text-align: justify;
     font-size: 14px;
     color: black;
+    white-space: pre-line;
 }
 
 .App-div-comment {
@@ -512,7 +513,7 @@ form input {
     line-height: 1.4;
 }
 
-/*.App-Avatar-big {
+    /*.App-Avatar-big {
     width: 300px;
     height: 300px;
     border-radius: 300px;
@@ -522,8 +523,7 @@ form input {
     text-align: center;
     background: #26a5ce;
 }*/
-
-.App-Avatar-xl {
+    .App-Avatar-xl {
     width: 50px;
 }
 .App-Avatar-large {
@@ -555,6 +555,9 @@ form input {
     color: white;
 }
 
+.App-avatar-color {
+    background-color: red !important;
+}
 
 .check-default {
     text-align: justify;
@@ -574,3 +577,39 @@ form input {
     display: block;
     width: 250px;
 }
+
+.App-message-icon {
+    font-size: 20px;
+}
+
+.App-message-icon-variant {
+    opacity: 0.9;
+}
+
+.App-message-message {
+    display: flex;
+    align-items: center;
+}
+
+.App-message-success {
+    background-color: green !important
+}
+
+.App-message-error {
+    background-color: red !important
+}
+
+.App-message-info {
+    background-color: gray !important
+}
+
+.App-message-warning {
+    background-color: orange !important
+}
+
+.App-upload-media {
+    height: 0;
+    padding-top: 56.25%;
+}
+
+

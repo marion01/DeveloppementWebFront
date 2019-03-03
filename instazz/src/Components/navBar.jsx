@@ -6,15 +6,6 @@ import Connexion from './connexion.jsx'
 import Contact from './contact.jsx'
 import logo from '../asset/logo.png'
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = {
-    list: {
-      width: 250
-    }
-  };
-
 /**
  * Component to handle navBar element when user is disconnected
  */
@@ -76,10 +67,5 @@ class NavBar extends Component{
         );
     }
 }
-
-
-NavBar.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
   
-  export default withStyles(styles)(NavBar);
+  export default NavBar;

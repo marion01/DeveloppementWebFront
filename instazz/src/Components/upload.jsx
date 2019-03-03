@@ -2,59 +2,14 @@
 import axios from 'axios';
 import ErrorMessage from './errorMessage'
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
-const styles = theme => ({
-
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    actions: {
-        display: 'flex',
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-        marginLeft: 'auto',
-        [theme.breakpoints.up('sm')]: {
-            marginRight: -8,
-        },
-    },
-
-    left: {
-        align: 'right'
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-
-    card: {
-        display: 'block',
-        width: '30vw',
-        transitionDuration: '0.3s',
-    },
-
-    commentaire: {
-        resize: 'vertical',
-        width: '40vw'
-    },
-});
 
 /**
  * Component to handle upload page
@@ -82,6 +37,7 @@ class Upload extends Component {
         try {
             let textPost = document.getElementById('description').value
             let date = new Date()
+            let dateISO = this.newISODate()
             let file = document.getElementById('file-input')
 
             //the description or the image hasn't been selected
@@ -96,7 +52,7 @@ class Upload extends Component {
                     rel: imageName
                 },
                 texte: textPost,
-                date: date.toISOString(),
+                date: dateISO,
                 auteur: {
                     pseudo: this.state.pseudo,
                     ref: this.state.id
@@ -191,6 +147,13 @@ class Upload extends Component {
         this.setState({ imageBase64: "entrer une image" })
     }
 
+    //get the correct date and time
+    newISODate = () => {
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19)
+        return localISOTime
+    }
+
     //get the right format for the date
     displayDate = (dateISO) => {
         let dateJour = dateISO.split("T")[0]
@@ -213,8 +176,8 @@ class Upload extends Component {
 
     componentDidMount() {
         //calcul date
-        var date = new Date()
-        date = this.displayDate(date.toISOString())
+        var date = this.newISODate()
+        date = this.displayDate(date)
         this.setState({ date: date })
 
         //recup pseudo connecté
@@ -251,7 +214,6 @@ class Upload extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         var card;
 
         if (this.state.loading) {
@@ -260,13 +222,13 @@ class Upload extends Component {
             card = <Card className="App-card-post">
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>{this.state.firstLetterPseudo}</Avatar>
+                        <Avatar aria-label="Recipe" className="App-avatar-color">{this.state.firstLetterPseudo}</Avatar>
                     }
                     title={this.state.pseudo}
                     subheader={this.state.date}
                 />
                 <CardMedia id="image-post"
-                    className={classes.media}
+                    className="App-upload-media"
                     image={this.state.imageBase64}
                 />
                 <CardContent>
@@ -320,9 +282,4 @@ class Upload extends Component {
     }
 }
 
-
-Upload.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Upload);
+export default Upload;

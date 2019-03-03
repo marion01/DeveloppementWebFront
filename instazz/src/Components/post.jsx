@@ -36,17 +36,7 @@ const styles = theme => ({
 
     expandOpen: {
         transform: 'rotate(180deg)',
-    },
-    card: {
-        display: 'block',
-        align: 'center',
-        transitionDuration: '0.3s',
-    },
-
-    commentaire: {
-        resize: 'vertical',
-        width: '30vw'
-    },
+    }
 });
 
 /**
@@ -153,11 +143,11 @@ class Post extends Component {
 
     //handle when the expand button is cliked
     handleExpandClick = () => {
-        this.setState(state => ({ expanded: !state.expanded }));
-        if (this.state.expanded === true) {
+        let expand = !this.state.expanded
+        this.setState({ expanded: expand });
+        if (expand === true) {
             this.recoverComments();
         }
-
     };
 
     //make the correct format for the date to display
@@ -176,10 +166,17 @@ class Post extends Component {
         return "Le " + date[2] + " " + mois[parseInt(date[1])] + " " + date[0] + dateHeure
     }
 
+    //get the correct date and time
+    newISODate = () => {
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19)
+        return localISOTime
+    }
+
     //save a comment 
     sendComment = async () => {
         try {
-            var date = new Date()
+            var date = this.newISODate()
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
 
@@ -193,7 +190,7 @@ class Post extends Component {
                         ref: idAuteur
                     },
                     post: this.state.post._id,
-                    date: date.toISOString()
+                    date: date
                 };
 
                 const access_token = localStorage.getItem("token");
@@ -270,14 +267,15 @@ class Post extends Component {
         if (this.state.commentaireLoading) {
             commentaires = <div>Loading ...</div>
         } else {
-            if (this.state.commentaires.length === 0) {
-            } else {
+            if (this.state.commentaires.length !== 0) {
                 commentaires = <div>
                     {this.state.commentaires.map(
                         commentaire =>
                             <Commentaire key={commentaire._id} Commentaire={commentaire}></Commentaire>
                     )}
                 </div>
+            } else {
+                commentaires = <div></div>
             }
         }
 

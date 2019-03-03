@@ -7,8 +7,6 @@ import MesPosts from './mesPosts.jsx'
 import Actu from './actu.jsx'
 import menu from '../asset/menu.png'
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -23,14 +21,6 @@ const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
 const PageMesPosts = () => <MesPosts></MesPosts>;
 const PageActu = () => <Actu></Actu>;
-
-
-
-const styles = {
-    list: {
-      width: 250
-    }
-  };
 
   
 /**
@@ -163,10 +153,5 @@ class NavBar extends Component{
         );
     }
 }
-
-
-NavBar.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
   
-  export default withStyles(styles)(NavBar);
+  export default NavBar;

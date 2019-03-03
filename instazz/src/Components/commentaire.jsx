@@ -38,7 +38,6 @@ export default class Commentaire extends Component{
             nomDate: nd,
             firstLetterPseudo: pseudo.charAt(0).toUpperCase()
         })
-
     }
 
     render() {
@@ -47,7 +46,7 @@ export default class Commentaire extends Component{
                 <div className="App-Avatar-xl" ><div>{this.state.firstLetterPseudo}</div></div>
                 <div className="App-div-comment">
                     <label className="App-title-date">{this.state.nomDate}</label>
-                    <div className="App-comment">{this.state.commentaire.commentaire}</div>
+                    <div className="App-comment"><p>{this.state.commentaire.commentaire}</p></div>
                 </div>
              </ListItem>
         );
