@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Menu from './menuConnecte.jsx'
 import Profil from './profil.jsx'
 import Upload from './upload.jsx'
@@ -12,28 +12,32 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Contact from './contact.jsx'
+import Error from './error.jsx'
 
-
-const PageContact = () => <Contact></Contact>;
 const PageMenu = () => <Menu></Menu>;
 const PageProfil = () => <Profil></Profil>;
 const PageUpload = () => <Upload></Upload>;
 const PageMesPosts = () => <MesPosts></MesPosts>;
 const PageActu = () => <Actu></Actu>;
+const PageError = () => <Error></Error>;
 
-  
-/**
+
+/*
  * Component to handle navBar element when user is connected
  */
-class NavBar extends Component{
-
+class NavBar extends Component {
+    // Variable for the component
     state = {
-        pseudo:'',
-        firstLetterPseudo: ''
+        // User pseudo
+        pseudo: '',
+        // Firest lette of the pseudo
+        firstLetterPseudo: '',
+        top: false
     };
 
-
+    /*
+     * Set up parameters before displaying the component
+     */
     componentDidMount() {
         let pseudo = localStorage.getItem("pseudo")
         this.setState({
@@ -42,25 +46,30 @@ class NavBar extends Component{
         })
     }
 
+    // Slide drawer menu
     toggleDrawer = (side, open) => () => {
         this.setState({
             [side]: open
         });
     };
 
-    state = {
-        top: false
-    };
-
-    //handle deconnexion of a user
+    /*
+     * Handle deconnexion of a user
+     */
     deconnexion = () => {
         localStorage.clear();
         this.props.handleConnexion();
+        this.props.history.push("/");
     }
 
+    /*
+     * Display the component
+     */
     render() {
+        // text of slide drawer
         let text = "Vous êtes connecté en tant que " + this.state.pseudo
 
+        // Slide drawer content
         const sideList = (
             <div className="App-sideList">
                 <List>
@@ -114,6 +123,7 @@ class NavBar extends Component{
             </div>
         );
 
+        // Return the component
         return (
             <div>
                 <Router>
@@ -135,23 +145,23 @@ class NavBar extends Component{
                                             {sideList}
                                         </div>
                                     </Drawer>
-
                                 </div>
                                 <li><Link to="/">Accueil</Link></li>
-                                <li><Link to="/contact/">Contact</Link></li>
                             </ul>
                         </nav>
-                        <Route path="/" exact component={PageMenu} />
-                        <Route path="/contact/" component={PageContact} />
-                        <Route path="/profil/" component={PageProfil} />
-                        <Route path="/upload/" component={PageUpload} />
-                        <Route path="/mesPosts/" component={PageMesPosts} />
-                        <Route path="/actu/" component={PageActu} />
+                        <Switch>
+                            <Route path="/" exact component={PageMenu} />
+                            <Route path="/profil/" component={PageProfil} />
+                            <Route path="/upload/" component={PageUpload} />
+                            <Route path="/mesPosts/" component={PageMesPosts} />
+                            <Route path="/actu/" component={PageActu} />
+                            <Route path="*" component={PageError} />
+                        </Switch>
                     </div>
                 </Router>
             </div>
         );
     }
 }
-  
-  export default NavBar;
+
+export default NavBar;

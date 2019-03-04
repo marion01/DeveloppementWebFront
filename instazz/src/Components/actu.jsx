@@ -4,50 +4,44 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-/**
+/*
  * Component to handle actuality page
  */
 export default class Actu extends Component {
+
+    // Variables for this component
     state = {
+        // List of Posts
         posts: [],
+        // If system is loading posts
         loading: true,
+        // Number of posts page to show
         nbPage: '',
-        nbPerPage: 4,
+        // Number of posts per page
+        nbPerPage: 8,
+        // The current page
         currentPage: 1
     }
 
-    //recover all the posts of all the users and sort them
-    //not used anymore
-    getPosts = async () => {
-        try {
-            const access_token = localStorage.getItem("token");
-            let url = 'http://localhost:5000/api/v1/posts'
-            const options = {
-                method: "get",
-                headers: {
-                    Authorization: access_token,
-                    "Content-Type": "application/json"
-                },
-                url: url
-            };
-            let res = await axios(options);
-            this.setState({ posts: res.data });
-            this.sortPostsBy('date');
-            this.setState({ loading: false });
-        } catch (err) {
-            console.log(err)
-        }
-    };
-
-    //get a page of post
+    /*
+     * Get pages of posts
+     */
     getPostsByPage = async () => {
         try {
+
+            // The body request
             let body = {
                 page: this.state.currentPage,
                 per_page: this.state.nbPerPage
             }
+
+            // Get the token
             const access_token = localStorage.getItem("token");
+
+            // The url to call
             let url = 'http://localhost:5000/api/v1/posts/page/all'
+
+            // The options of the call
             const options = {
                 method: "get",
                 headers: {
@@ -57,7 +51,11 @@ export default class Actu extends Component {
                 url: url,
                 params: body
             };
+
+            // Call API and get results
             let res = await axios(options);
+
+            // Get posts and display posts pages
             var posts = this.state.posts;
             posts = posts.concat(res.data.result)
             this.setState({
@@ -65,16 +63,24 @@ export default class Actu extends Component {
                 loading: false,
                 currentPage: this.state.currentPage + 1
             });
+
         } catch (err) {
             console.log(err)
         }
     };
 
-    //get the total number of posts
+    /*
+     * Get the total number of posts
+     */
     getNumberPostsToDisplay = async () => {
         try {
+            // Get token
             const access_token = localStorage.getItem("token");
+
+            // The url of the call
             let url = 'http://localhost:5000/api/v1/posts/count/all'
+
+            // The options of the call
             const options = {
                 method: "get",
                 headers: {
@@ -83,63 +89,59 @@ export default class Actu extends Component {
                 },
                 url: url
             };
+
+            // Call API and get results
             let res = await axios(options);
             this.setState({ nbPage: Math.ceil(res.data.count / this.state.nbPerPage) });
+
         } catch (err) {
             console.log(err)
         }
     }
-    
+
+    /*
+     * Prepare component parameters before displaying it
+     */
     componentDidMount() {
         this.getNumberPostsToDisplay();
         this.getPostsByPage();
     }
 
-    //compare two key
-    //not used anymore
-    compareBy(key) {
-        return function (a, b) {
-            if (a[key] > b[key]) return -1;
-            if (a[key] < b[key]) return 1;
-            return 0;
-        };
-    }
-
-    //sort posts by key
-    //not used anymore
-    sortPostsBy = (key) => {
-        let arrayCopy = this.state.posts;
-        arrayCopy.sort(this.compareBy(key));
-        this.setState({ posts: arrayCopy });
-    }
-
+    /*
+     * Display component
+     */
     render() {
+
+        // The content to render
         var content;
+
+        // Display message when the data are loading to prevent user
         if (this.state.loading) {
             content = <div>Loading...</div>;
         } else {
+
+            // Set up a list of Grid corresponding to the posts
             content = (
                 this.state.posts.map(
-                        post =>
-                            <Grid item xs={12} sm={6} key={post._id}>
-                                <Post key={post._id} Post={post} delete={false}></Post>
-                            </Grid> 
-                                               
+                    post =>
+                        <Grid item xs={12} sm={6} key={post._id}>
+                            <Post key={post._id} Post={post} delete={false}></Post>
+                        </Grid>
                 ))
 
+            // Set up the button to get more posts
             var displayMore;
+
             if (this.state.currentPage <= this.state.nbPage) {
                 displayMore = <Typography component="p">
                     <br></br>
                     <button onClick={this.getPostsByPage} type="button" className="App-button">Afficher plus</button>
                 </Typography>
-            } 
+            }
         }
 
-       
-
+        // Return the result withs the posts and the button
         return (
-
             <div>
                 <div className="App-ban">
                     <h1>Fil d'actualité</h1>

@@ -1,8 +1,6 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
-
 import Commentaire from './commentaire.jsx'
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -21,6 +19,9 @@ import SendIcon from '@material-ui/icons/Send';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+/*
+ * Set up the theme for posts 
+ */
 const styles = theme => ({
     expand: {
         transform: 'rotate(0deg)',
@@ -33,16 +34,16 @@ const styles = theme => ({
         },
         color: '#26a5ce'
     },
-
     expandOpen: {
         transform: 'rotate(180deg)',
     }
 });
 
-/**
+/*
  * Component to handle post element
  */
 class Post extends Component {
+    // Variables for the component
     state = {
         expanded: false,
         post: '',
@@ -55,13 +56,18 @@ class Post extends Component {
         commentaireLoading: true
     };
 
-    //recover the image of the post
+    /*
+     * Recover the image of the post
+     */
     getImage = async (post) => {
         try {
+            // Get token
             const access_token = localStorage.getItem("token");
+
+            // Get image
             var imageName = post.img.rel
 
-            //parameters for the api call
+            // Parameters for the api call
             var url = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
             const options = {
                 method: "get",
@@ -72,10 +78,11 @@ class Post extends Component {
                 },
                 url: url
             };
-            //call to the api
+
+            // Call to the api
             let res = await axios(options);
 
-            //transform the data of the image in base64 to be displayed
+            // Transform the data of the image in base64 to be displayed
             var buffer = 'data:image/jpg;base64,' + new Buffer(res.data, 'binary').toString('base64');
             this.setState({
                 img: buffer,
@@ -86,7 +93,9 @@ class Post extends Component {
         }
     };
 
-    //compare two element by a key
+    /*
+     * Compare two element by a key
+     */
     compareBy(key) {
         return function (a, b) {
             if (a[key] > b[key]) return -1;
@@ -95,34 +104,44 @@ class Post extends Component {
         };
     }
 
-    //sort the commentary by key
+    /*
+     * Sort the commentary by key
+     */
     sortCommentairesBy = (key) => {
         let arrayCopy = this.state.commentaires;
         arrayCopy.sort(this.compareBy(key));
         this.setState({ commentaires: arrayCopy });
     }
 
+    /*
+     * Set up parameters before displaying the component
+     */
     componentDidMount() {
-
         let post = this.props.Post;
         var pseudo = post.auteur.pseudo;
-
         this.setState({
             post: post,
             pseudoAuteur: pseudo,
             firstLetter: pseudo.charAt(0).toUpperCase(),
             date: post.date
         })
-
         this.getImage(post);
     }
 
-    //recover the comments of the post
+    /*
+     * Recover the comments of the post
+     */
     recoverComments = async () => {
         try {
-            this.setState({ commentaireLoading: true })
+            this.setState({ commentaireLoading: true });
+
+            // Get token
             const access_token = localStorage.getItem("token");
+
+            // The url for the call
             var url = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
+
+            // Options for the call
             const options = {
                 method: "get",
                 headers: {
@@ -131,6 +150,8 @@ class Post extends Component {
                 },
                 url: url
             };
+
+            // Call API and get resuts
             let res = await axios(options);
             const commentaires = res.data;
             this.setState({ commentaires: commentaires.doc });
@@ -141,7 +162,9 @@ class Post extends Component {
         }
     };
 
-    //handle when the expand button is cliked
+    /*
+     * Handle when the expand button is clicked
+     */
     handleExpandClick = () => {
         let expand = !this.state.expanded
         this.setState({ expanded: expand });
@@ -150,39 +173,50 @@ class Post extends Component {
         }
     };
 
-    //make the correct format for the date to display
+    /*
+     * Make the correct format for the date to display
+     */
     displayDate = (dateISO) => {
-        var mois = [
-            "Janvier", "Février", "Mars",
-            "Avril", "Mai", "Juin", "Juillet",
-            "Août", "Sptembre", "Octobre",
-            "Novembre", "Décembre"]
+        // Month name
+        var mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+            "Juillet", "Août", "Sptembre", "Octobre", "Novembre", "Décembre"]
+
+        // Split date infos
         let date = dateISO.split("T")[0].split("-")
+
+        // Get hour date
         let dateHeure = dateISO.split("T")[1]
         if (dateHeure != null) {
             dateHeure = dateHeure.split(".")[0].split(":")
             dateHeure = " à " + dateHeure[0] + "h" + dateHeure[1] + ":" + dateHeure[2]
         }
+
+        // Return the date sentence
         return "Le " + date[2] + " " + mois[parseInt(date[1])] + " " + date[0] + dateHeure
     }
 
-    //get the correct date and time
+    /*
+     * Get the correct date and time
+     */
     newISODate = () => {
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19)
         return localISOTime
     }
 
-    //save a comment 
+    /*
+     * Save a comment
+     */
     sendComment = async () => {
         try {
+            // Get infos
             var date = this.newISODate()
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
 
-            //save the comment if only it is not empty
+            // Save the comment if only it is not empty
             if (document.getElementById('comment').value !== '') {
-                //body of the request
+                // Body of the request
                 var body = {
                     commentaire: document.getElementById('comment').value,
                     auteur: {
@@ -193,9 +227,13 @@ class Post extends Component {
                     date: date
                 };
 
+                // Get token
                 const access_token = localStorage.getItem("token");
+
+                // Url of the call
                 var url = 'http://localhost:5000/api/v1/commentaires/post/'
-                //options of the request
+
+                // Options of the request
                 const options = {
                     method: "post",
                     headers: {
@@ -205,31 +243,37 @@ class Post extends Component {
                     url: url,
                     data: body
                 };
-                //call the API
+
+                // Call the API
                 await axios(options);
 
-                //clear the comment textarea
+                // Clear the comment textarea
                 document.getElementById('comment').value = ""
 
-                //update the comments
+                // Update the comments
                 this.recoverComments()
-                console.log("post commentaire");
             }
         } catch (err) {
             console.log(err)
         }
     };
 
-    //delete a post and all the comment associated
+    /*
+     * Delete a post and all the comment associated
+     */
     deletePost = async () => {
-        console.log("delete post")
-
         try {
+            // Get token
             const access_token = localStorage.getItem("token");
 
+            // Get image
             let imageName = this.state.post.img.rel;
-            let urlDeleteImg = 'http://localhost:5000/api/v1/posts/deleteImg/' + imageName   
-            const options2 = {
+
+            // Url of the call
+            let urlDeleteImg = 'http://localhost:5000/api/v1/posts/deleteImg/' + imageName
+
+            // Option for the call
+            const options1 = {
                 method: "post",
                 headers: {
                     Authorization: access_token,
@@ -237,32 +281,39 @@ class Post extends Component {
                 },
                 url: urlDeleteImg
             };
-            await axios(options2);
 
+            // Call API
+            await axios(options1);
 
-            const options = {
+            // Option for the second call
+            const options2 = {
                 headers: {
                     Authorization: access_token,
                     "Content-Type": "application/json"
                 }
             };
-            let idPost = this.state.post._id
-            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
-            //delete request to the API
-            await axios.delete(url, options);
-            console.log("delete done")
 
+            // Get id posts
+            let idPost = this.state.post._id
+
+            // Url of the call
+            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
+
+            // Delete request to the API
+            await axios.delete(url, options2);
             this.props.updateParent();
         } catch (err) {
             console.log(err)
-            console.log(err.response)
         }
-
     }
 
+    /*
+     * Display the component
+     */
     render() {
         const { classes } = this.props;
 
+        // Set up commentary
         let commentaires;
         if (this.state.commentaireLoading) {
             commentaires = <div>Loading ...</div>
@@ -279,7 +330,7 @@ class Post extends Component {
             }
         }
 
-
+        // Get image
         var img;
         if (this.state.imgLoading) {
             img = "Loading ...";
@@ -287,15 +338,19 @@ class Post extends Component {
             img = this.state.img;
         }
 
-        let deleteIcon ='';
+        let deleteIcon = '';
         if (this.props.delete) {
             deleteIcon = <IconButton onClick={this.deletePost}>
                 <DeleteIcon />
             </IconButton>
-        } 
+        }
 
+        // Get Date
         let date = this.displayDate(this.state.date)
 
+        /*
+         * Return the component
+         */
         return (
             <div>
                 <br></br>
@@ -326,7 +381,6 @@ class Post extends Component {
                         </IconButton>
                         {deleteIcon}
                     </CardActions>
-
                     <Collapse in={this.state.expanded} className="App-expand-list" timeout="auto" unmountOnExit>
                         <List>
                             <ListItem>
@@ -335,10 +389,10 @@ class Post extends Component {
                                         <React.Fragment>
                                             <Grid container spacing={0}>
                                                 <Grid item xs={11}>
-                                            <label className="inp-textarea">
-                                                <textarea id="comment" type="text" required={true} className="inp-textarea" placeholder="&nbsp;" />
-                                                <span className="label-textarea">Commenter</span>
-                                                <span className="border-textarea"></span>
+                                                    <label className="inp-textarea">
+                                                        <textarea id="comment" type="text" required={true} className="inp-textarea" placeholder="&nbsp;" />
+                                                        <span className="label-textarea">Commenter</span>
+                                                        <span className="border-textarea"></span>
                                                     </label>
                                                 </Grid>
                                                 <Grid item xs={1}>
@@ -346,15 +400,13 @@ class Post extends Component {
                                                         <SendIcon className="App-icon" />
                                                     </IconButton>
                                                 </Grid>
-                                                </Grid>
+                                            </Grid>
                                         </React.Fragment>
-
                                     } />
                             </ListItem>
                             {commentaires}
                         </List>
                     </Collapse>
-
                 </Card>
             </div>
         );

@@ -3,33 +3,42 @@ import './App.css';
 import NavBarVisiteur from './Components/navBar.jsx'
 import NavBarUtilisateur from './Components/navBarConnecte.jsx'
 
+/*
+ * Component to handle App
+ */
 class App extends Component {
 
+    /*
+     * Refresh component on connection
+     */
     handleConnexion = () => {
-        console.log("handle connexion");
         this.forceUpdate()
     }
 
+    /*
+     * Handle deconnection
+     */
     handleDeconnexion = () => {
-        console.log("handle deconnexion");
         localStorage.removeItem('token');
         localStorage.removeItem('pseudo');
         localStorage.removeItem('id');
         this.forceUpdate()
     }
 
+    /*
+     * Handle component when user is connected
+     */
     isConnected = () => {
         let token = localStorage.getItem("token")
-        //si un token est stocké
+
+        // If there is a token
         if (token != null) {
             let tokenDecoded = atob(token.split(".")[1])
             let tokenJSON = JSON.parse(tokenDecoded);
             if (tokenJSON.exp < Date.now() / 1000) {
-                console.log("token invalide")
                 localStorage.removeItem('token');
                 return false;
             } else {
-                console.log("token valide")
                 var pseudo = tokenJSON.data.pseudo;
                 localStorage.setItem("pseudo", pseudo);
                 var id = tokenJSON.data.id;
@@ -38,9 +47,14 @@ class App extends Component {
             }
         }
         return false
-    } 
+    }
 
+    /*
+     * Display the component
+     */
     render() {
+
+        // Set content
         let navBar;
         if (this.isConnected()) {
             navBar = <NavBarUtilisateur handleDeconnexion={this.handleDeconnexion}></NavBarUtilisateur>
@@ -48,12 +62,13 @@ class App extends Component {
             navBar = <NavBarVisiteur handleConnexion={this.handleConnexion}></NavBarVisiteur>
         }
 
-      return (
-      <div>
-              {navBar} 
-      </div>
-    );
-  }
+        // Return the component
+        return (
+            <div>
+                {navBar}
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,35 +1,16 @@
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
+/*
+ *  -------- Global styles --------
+ */
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: white;
-}
-
-.nav-logo{
-    display: block;
-    text-align: center;
-    padding: 0px 3px;
-    text-decoration: none;
-    float: left; /* Pour que les liens s’affichent horizontalement */
-    position: relative; /* Crée un contexte de positionnement pour les sous-listes */
-}
-
-.nav-logo:hover {
-    color: white;
-    background-color: #164465;
-    display: block; /* Affiche cette sous-liste au survol de son conteneur */
-    cursor: pointer;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
 }
 
 li {
-  float: left;
+    float: left;
 }
 
 li a {
@@ -45,29 +26,36 @@ li a:hover {
     background-color: #164465;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 p {
     margin: 0px;
 }
+
+body {
+    display: grid;
+}
+
+hr {
+    width: 96%;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ *  -------- Headers and paragraphs styles --------
+ */
 
 .App-h1 {
     color: #26a5ce;
     font-size: 2rem;
     font-weight: 400;
-    text-align:center;
+    text-align: center;
     margin-bottom: 5%;
 }
+
 .App-h2 {
     color: #26a5ce;
     font-size: 1.5rem;
@@ -75,6 +63,7 @@ p {
     text-align: center;
     margin-bottom: 5%;
 }
+
 .App-h3 {
     color: #26a5ce;
     font-size: 1rem;
@@ -87,18 +76,40 @@ p {
     font-size: 0.875rem;
     text-align: justify;
     margin: 5% auto;
+    color: black;
 }
+
 .App-p2 {
     font-size: 0.850rem;
     text-align: justify;
     margin: 5% auto;
 }
-/*.App-p2-gris {
-    color: #838383;
-    font-size: 0.875rem;
-    text-align: justify;
-    margin: 5% auto;
-}*/
+
+/*
+ *  -------- Navigation Bar styles --------
+ */
+
+.nav-logo{
+    display: block;
+    text-align: center;
+    padding: 0px 3px;
+    text-decoration: none;
+    float: left;
+    position: relative;
+}
+
+.nav-logo:hover {
+    color: white;
+    background-color: #164465;
+    display: block;
+    cursor: pointer;
+}
+
+/*
+ *  -------- Page component style --------
+ */
+
+/* Header ban page */
 .App-ban {
     background-color: #26a5ce;
     min-height: 20%;
@@ -117,59 +128,16 @@ p {
     height : 150px;
 }
 
-.App-corps {
-    background-color: #eaeaea;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    width: 86%;
-    padding: 7%;
-}
+/* Corps page */
 .App-corps-diapo{
     margin-left: 5%;
     margin-right: 5%;
 }
 
-.App-link {
-    color: #61dafb;
-}
-
-
-.sub-nav {
-  display: none; /* Masque la sous-liste */
-  position: absolute; /* Evite que la dimension du conteneur ne change quand la sous-liste est affichée */
-  left: 0; /* FIX IE7 : pour que le sous-menu s’aligne avec son conteneur */
-  top: 2em; /* FIX IE7 : pour que le sous-menu s’aligne avec son conteneur, on le positionne explicitement en bas du conteneur */
-  white-space: nowrap; /* Pour que le texte ne revienne pas à la ligne */
-  background: white; /* FIX IE7 : évite que la sous-liste ne disparaisse au moment où le curseur arrive au-dessus */
-  margin-top: 20px; /* Pour que le sous-menu recouvre son parent, facilitant le passage de la souris de l’un à l’autre */
-}
-.nav-item:hover .sub-nav {
-    display: block; /* Affiche cette sous-liste au survol de son conteneur */
-}
-
-.nav-item {
-    float: left; /* Pour que les liens s’affichent horizontalement */
-    position: relative; /* Crée un contexte de positionnement pour les sous-listes */
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .App-corps-card {
-    height : auto;
+    height: auto;
     display: flex;
-    margin : 3% 0%;
+    margin: 3% 0%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -189,7 +157,7 @@ p {
     align-items: center;
     justify-content: center;
     vertical-align: middle;
-    font-size: calc(10px + 2vmin);  
+    font-size: calc(10px + 2vmin);
 }
 
 .App-corps-card-list {
@@ -208,21 +176,104 @@ p {
     font-size: 1.2rem;
     font-weight: 400;
 }
-.card {
-    /*max-width: 80%;*/
-    width: 100%;
-    height: 30%;
-    min-height: 200px;
-    align-items: center;
-    background-color: white;
-    display: flex;
+
+.App-card-post {
+    display: block;
+    transition-duration: 0.3s;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    font-size: calc(10px + 2vmin);
-    color: black;
+    margin: 20px;
 }
+
+.App-grid-post {
+    display: flex;
+}
+
+.App-subTitle {
+    text-align: left;
+    color: #26a5ce;
+    font-size: 13px;
+}
+
+.App-title-user {
+    text-align: center;
+    font-size: 20px;
+    color: #26a5ce;
+    margin: 0px;
+    padding: 0px;
+}
+
+.App-corps-title {
+    text-align: left;
+    font-size: 18px;
+    color: #26a5ce;
+    margin: 0px;
+    padding: 0px;
+}
+
+.App-corps-text {
+    text-align: left;
+    font-size: 14px;
+    color: black;
+    margin-left: 100px;
+    padding: 0px;
+}
+
+.App-title-date {
+    text-align: left;
+    font-size: 12px;
+    color: #d3d3d3;
+}
+
+.App-post-text {
+    text-align: justify;
+    font-size: 14px;
+}
+
+.App-post-img {
+    height: 0;
+    padding-top: 56.25%; /*16:9*/
+}
+
+.App-card-action {
+    display: flex;
+}
+
+.App-send-comment {
+    top: 60%;
+}
+
+.App-icon {
+    color: #26a5ce;
+}
+
+.App-expand-list {
+    margin: 0px;
+    padding-bottom: 0px;
+}
+
+.App-comment {
+    text-align: justify;
+    font-size: 14px;
+    color: black;
+    white-space: pre-line;
+}
+
+.App-upload-media {
+    height: 0;
+    padding-top: 56.25%;
+}
+
+.App-div-comment {
+    width: 90%;
+    padding: 0px 10px;
+    line-height: 1.4;
+}
+
+/*
+ *  -------- Specific component style --------
+ */
+
+/* Button */
 
 .App-button {
     height: 50px;
@@ -242,18 +293,7 @@ p {
     border: 1px solid rgba(33, 150, 243, 0.5);
 }
 
-.App-card-img {
-    height: 300px;
-}
-
-.App-form{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-body {
-    display: grid;
-}
+/* Input label custom */
 
 .inp {
     position: relative;
@@ -309,18 +349,71 @@ body {
     background-color: white;
 }
 
-.input-valid {
-    border: 1px solid limegreen;
+.check-default {
+    text-align: justify;
+    font-size: 10px;
+    color: #9098a9;
+    vertical-align: top;
+    display: block;
+    width: 250px;
 }
 
+.check-wrong {
+    text-align: justify;
+    font-size: 10px;
+    color: red;
+    font-weight: bold;
+    vertical-align: top;
+    display: block;
+    width: 250px;
+}
+
+/* Slide Bar menu */
 .App-sideList {
     width: 100%;
 }
+
+/* Avatar */
 .App-Avatar {
     margin-left: auto;
     margin-right: auto;
 }
 
+.App-Avatar-xl {
+    width: 50px;
+}
+
+.App-Avatar-large {
+    width: 80%;
+}
+
+.App-Avatar-small {
+    width: 20%;
+}
+
+.App-Avatar-large:after, .App-Avatar-small:after, .App-Avatar-xl:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background: #26a5ce;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.App-Avatar-large div, .App-Avatar-small div, .App-Avatar-xl div {
+    float: left;
+    width: 100%;
+    padding-top: 50%;
+    line-height: 1em;
+    margin-top: -0.5em;
+    text-align: center;
+    color: white;
+}
+
+/* Input label textarea custom */
 
 .inp-textarea {
     position: relative;
@@ -377,21 +470,7 @@ body {
     background-color: white;
 }
 
-
-.App-card-post {
-    display: block;
-    transition-duration: 0.3s;
-    flex-direction: column;
-    margin: 20px;
-}
-
-.App-grid-post {
-    display: flex;
-}
-
-
-
-
+/* form custom */
 form label, form button {
     width: auto;
     padding: 5px 10px;
@@ -413,174 +492,32 @@ form input {
     display: none;
 }
 
-
-.App-subTitle {
-    text-align: left;
-    color: #26a5ce;
-    font-size: 13px;
-}
-
-.App-title-user {
-    text-align: center;
+/* Error messages */
+.App-message-icon {
     font-size: 20px;
-    color: #26a5ce;
-    margin: 0px;
-    padding: 0px;
 }
 
-.App-corps-title {
-    text-align: left;
-    font-size: 18px;
-    color: #26a5ce;
-    margin: 0px;
-    padding: 0px;
-}
-.App-corps-text {
-    text-align: left;
-    font-size: 14px;
-    color: black;
-    margin-left: 100px;
-    padding: 0px;
+.App-message-icon-variant {
+    opacity: 0.9;
 }
 
-.App-title-date {
-    text-align: left;
-    font-size: 12px;
-    color: #d3d3d3;
-}
-
-/*.App-Avatar-medium {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    font-size: 20px;
-    color: #fff;
-    line-height: 50px;
-    text-align: center;
-    background: #26a5ce;
-}
-
-.App-Avatar-small {
-    align-self:flex-start;
-    width: 25px;
-    height: 25px;
-    border-radius: 25px;
-    font-size: 20px;
-    color: #fff;
-    line-height: 25px;
-    text-align: center;
-    background: #26a5ce;
-}*/
-
-.App-post-text {
-    text-align: justify;
-    font-size: 14px;
-}
-
-.App-post-img {
-    height: 0;
-    padding-top: 56.25%; /*16:9*/
-}
-
-.App-card-action {
+.App-message-message {
     display: flex;
+    align-items: center;
 }
 
-
-.App-send-comment{
-    top: 60%;
+.App-message-success {
+    background-color: green !important
 }
 
-.App-icon {
-    color: #26a5ce;
+.App-message-error {
+    background-color: red !important
 }
 
-.App-expand-list{
-    margin: 0px;
-    padding-bottom: 0px;
+.App-message-info {
+    background-color: gray !important
 }
 
-.App-comment {
-    text-align: justify;
-    font-size: 14px;
-    color: black;
-}
-
-.App-div-comment {
-    width: 90%;
-    padding: 0px 10px;
-    line-height: 1.4;
-}
-
-/*.App-Avatar-big {
-    width: 300px;
-    height: 300px;
-    border-radius: 300px;
-    font-size: 20px;
-    color: #fff;
-    line-height: 300px;
-    text-align: center;
-    background: #26a5ce;
-}*/
-
-.App-Avatar-xl {
-    width: 50px;
-}
-.App-Avatar-large {
-    width: 80%;
-}
-.App-Avatar-small {
-    width: 20%;
-}
-
-.App-Avatar-large:after, .App-Avatar-small:after, .App-Avatar-xl:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    background: #26a5ce;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-
-.App-Avatar-large div, .App-Avatar-small div, .App-Avatar-xl div {
-    float: left;
-    width: 100%;
-    padding-top: 50%;
-    line-height: 1em;
-    margin-top: -0.5em;
-    text-align: center;
-    color: white;
-}
-
-
-.check-default {
-    text-align: justify;
-    font-size: 10px;
-    color: #9098a9;
-    vertical-align: top;
-    display: block;
-    width: 250px;
-}
-
-.check-wrong {
-    text-align: justify;
-    font-size: 10px;
-    color: red;
-    font-weight: bold;
-    vertical-align: top;
-    display: block;
-    width: 250px;
-}
-
-hr {
-    width: 96%;
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+.App-message-warning {
+    background-color: orange !important
 }
