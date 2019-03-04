@@ -185,7 +185,7 @@ class Inscription extends Component {
                 mdp: mdp,
                 mail: mail
             }
-            var url = 'http://localhost:5000/api/v1/utilisateurs/post'
+            var url = 'http://localhost:5000/api/v1/utilisateurs/'
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/json');
