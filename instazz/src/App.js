@@ -26,6 +26,13 @@ class App extends Component {
     }
 
     /*
+   * Set up parameters before displaying the component
+   */
+    componentDidMount() {
+        localStorage.setItem("baseRoute", "https://instazz-api.herokuapp.com/api/v1/");
+    }
+
+    /*
      * Handle component when user is connected
      */
     isConnected = () => {

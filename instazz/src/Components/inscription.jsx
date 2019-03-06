@@ -189,7 +189,7 @@ class Inscription extends Component {
     async getNbPseudo(pseudo) {
         try {
             // Url for the call
-            var url = 'http://localhost:5000/api/v1/searchPseudo/' + pseudo;
+            var url = localStorage.getItem("baseRoute") + 'searchPseudo/' + pseudo;
 
             // Empty header
             let headers = new Headers();
@@ -293,7 +293,7 @@ class Inscription extends Component {
                 }
 
                 // Url of the call
-                var url = 'http://localhost:5000/api/v1/utilisateurs/'
+                var url = localStorage.getItem("baseRoute") + 'utilisateurs/'
 
                 // Empty header
                 let headers = new Headers();

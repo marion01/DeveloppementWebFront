@@ -57,9 +57,7 @@ class NavBar extends Component {
      * Handle deconnexion of a user
      */
     deconnexion = () => {
-        localStorage.clear();
         this.props.handleDeconnexion();
-        
     }
 
     /*

@@ -57,7 +57,7 @@ class Connexion extends Component {
         }
 
         // The url of the call
-        let url = 'http://localhost:5000/api/v1/login'
+        let url = localStorage.getItem("baseRoute") + 'login'
 
         // Call the API
         axios.post(url, body)

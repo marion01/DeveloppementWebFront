@@ -68,7 +68,7 @@ class Post extends Component {
             var imageName = post.img.rel
 
             // Parameters for the api call
-            var url = 'http://localhost:5000/api/v1/posts/imageByName/' + imageName
+            var url = localStorage.getItem("baseRoute") + 'posts/imageByName/' + imageName
             const options = {
                 method: "get",
                 responseType: 'arraybuffer',
@@ -139,7 +139,7 @@ class Post extends Component {
             const access_token = localStorage.getItem("token");
 
             // The url for the call
-            var url = 'http://localhost:5000/api/v1/commentaires/getCommentairesOfPost/' + this.state.post._id
+            var url = localStorage.getItem("baseRoute") + 'commentaires/getCommentairesOfPost/' + this.state.post._id
 
             // Options for the call
             const options = {
@@ -229,7 +229,7 @@ class Post extends Component {
                 const access_token = localStorage.getItem("token");
 
                 // Url of the call
-                var url = 'http://localhost:5000/api/v1/commentaires/post/'
+                var url = localStorage.getItem("baseRoute") + 'commentaires/post/'
 
                 // Options of the request
                 const options = {
@@ -266,7 +266,7 @@ class Post extends Component {
             let imageName = this.state.post.img.rel;
 
             // Url of the call
-            let urlDeleteImg = 'http://localhost:5000/api/v1/posts/deleteImg/' + imageName
+            let urlDeleteImg = localStorage.getItem("baseRoute") + 'posts/deleteImg/' + imageName
 
             // Option for the call
             const options1 = {
@@ -293,7 +293,7 @@ class Post extends Component {
             let idPost = this.state.post._id
 
             // Url of the call
-            var url = 'http://localhost:5000/api/v1/posts/delete/' + idPost
+            var url = localStorage.getItem("baseRoute") + 'posts/delete/' + idPost
 
             // Delete request to the API
             await axios.delete(url, options2);

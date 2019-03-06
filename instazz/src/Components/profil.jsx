@@ -63,7 +63,7 @@ class Profil extends Component {
             const access_token = localStorage.getItem("token");
 
             // Utl to call
-            let url = 'http://localhost:5000/api/v1/utilisateurs/' + id
+            let url = localStorage.getItem("baseRoute") + 'utilisateurs/' + id
 
             // Options for the call
             const options = {
@@ -103,7 +103,7 @@ class Profil extends Component {
             const access_token = localStorage.getItem("token");
 
             // The url for the call
-            let url = 'http://localhost:5000/api/v1/utilisateurs/' + id
+            let url = localStorage.getItem("baseRoute") + 'utilisateurs/' + id
 
             // Options for the call
             const options = {
@@ -150,7 +150,8 @@ class Profil extends Component {
     CloseDialogConfirm = () => {
         this.setState({ openDialogConfirm: false });
         this.SupprimerUtilisateur();
-        localStorage.clear();
+        localStorage.removeItem('pseudo');
+        localStorage.removeItem('id');
         localStorage.removeItem('token');
         this.props.history.push("/");
         window.location.reload();
@@ -208,7 +209,7 @@ class Profil extends Component {
             const access_token = localStorage.getItem("token");
 
             // Url for the call
-            let url = 'http://localhost:5000/api/v1/utilisateurs/getPasswordValidity/'
+            let url = localStorage.getItem("baseRoute") + 'utilisateurs/getPasswordValidity/'
 
             // Options for the call
             const options = {
@@ -345,7 +346,7 @@ class Profil extends Component {
                 const access_token = localStorage.getItem("token");
 
                 // Url of the call
-                let url = 'http://localhost:5000/api/v1/utilisateurs/'
+                let url = localStorage.getItem("baseRoute") + 'utilisateurs/'
 
                 // Options of the call
                 const options = {
@@ -512,7 +513,7 @@ class Profil extends Component {
                 const access_token = localStorage.getItem("token");
 
                 // Url for the call
-                let url = 'http://localhost:5000/api/v1/utilisateurs/'
+                let url = localStorage.getItem("baseRoute") + 'utilisateurs/'
 
                 // Options for the call
                 const options = {

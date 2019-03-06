@@ -64,7 +64,7 @@ class Upload extends Component {
             }
 
             // Url for the call
-            let url = 'http://localhost:5000/api/v1/posts/post'
+            let url = localStorage.getItem("baseRoute") + 'posts/post'
 
             // Get token
             const access_token = localStorage.getItem("token");
@@ -101,7 +101,7 @@ class Upload extends Component {
             body.append('photo', file);
 
             // Url for the call
-            let url = 'http://localhost:5000/api/v1/posts/postImage';
+            let url = localStorage.getItem("baseRoute") + 'posts/postImage';
 
             // Get token
             const access_token = localStorage.getItem("token");

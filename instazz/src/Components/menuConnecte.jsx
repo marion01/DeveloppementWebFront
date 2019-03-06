@@ -21,7 +21,9 @@ export default class Menu extends Component {
     componentDidMount() {
         let pseudo = localStorage.getItem("pseudo")
         this.setState({ pseudo: pseudo })
-        this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() });
+        if (pseudo !== null) {
+            this.setState({ firstLetterPseudo: pseudo.charAt(0).toUpperCase() });
+        }
     }
 
     /*

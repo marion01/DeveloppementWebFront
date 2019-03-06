@@ -35,7 +35,7 @@ export default class MesPosts extends Component {
             let idAuteur = localStorage.getItem("id")
 
             // Url of the call
-            let url = 'http://localhost:5000/api/v1/posts/getPostsOfAutor/' + idAuteur
+            let url = localStorage.getItem("baseRoute") + 'posts/getPostsOfAutor/' + idAuteur
 
             // Options of the call
             const options = {
@@ -97,7 +97,7 @@ export default class MesPosts extends Component {
             let idAuteur = localStorage.getItem("id")
 
             // Url for the call
-            let url = 'http://localhost:5000/api/v1/posts/page/' + idAuteur
+            let url = localStorage.getItem("baseRoute") + 'posts/page/' + idAuteur
 
             // Options for the call
             const options = {
@@ -138,7 +138,7 @@ export default class MesPosts extends Component {
             let idAuteur = localStorage.getItem("id")
 
             // Url for the call
-            let url = 'http://localhost:5000/api/v1/posts/countForUser/' + idAuteur
+            let url = localStorage.getItem("baseRoute") + 'posts/countForUser/' + idAuteur
 
             // Options for the call
             const options = {

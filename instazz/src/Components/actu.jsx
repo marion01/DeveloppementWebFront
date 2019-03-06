@@ -39,7 +39,7 @@ export default class Actu extends Component {
             const access_token = localStorage.getItem("token");
 
             // The url to call
-            let url = 'http://localhost:5000/api/v1/posts/page/all'
+            let url = localStorage.getItem("baseRoute") + 'posts/page/all'
 
             // The options of the call
             const options = {
@@ -78,7 +78,7 @@ export default class Actu extends Component {
             const access_token = localStorage.getItem("token");
 
             // The url of the call
-            let url = 'http://localhost:5000/api/v1/posts/count/all'
+            let url = localStorage.getItem("baseRoute") + 'posts/count/all'
 
             // The options of the call
             const options = {
