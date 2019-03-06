@@ -18,7 +18,7 @@ class Inscription extends Component {
     // Variables for this component
     state = {
         // Indications for the password
-        CheckPwdDefault: "Doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et faire minimum 8 caractères",
+        CheckPwdDefault: "Doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère sprécial et faire minimum 8 caractères",
         // Indications for the pseudo
         CheckPseudoDefault: "Doit contenir des chiffres ou des lettres et faire entre 4 et 20 caractères",
         // Number of pseudo found

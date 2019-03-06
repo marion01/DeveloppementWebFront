@@ -58,8 +58,8 @@ class NavBar extends Component {
      */
     deconnexion = () => {
         localStorage.clear();
-        this.props.handleConnexion();
-        this.props.history.push("/");
+        this.props.handleDeconnexion();
+        
     }
 
     /*
@@ -113,12 +113,13 @@ class NavBar extends Component {
                             </ListItem>
                         ))}
                     </Link>
-
-                    {["Se déconnecter"].map((text, index) => (
-                        <ListItem onClick={this.props.handleDeconnexion} button key={text}>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <Link to="/">
+                        {["Se déconnecter"].map((text, index) => (
+                            <ListItem button onClick={this.deconnexion} key={text}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                            ))}
+                    </Link>
                 </List>
             </div>
         );
@@ -164,4 +165,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default NavBar

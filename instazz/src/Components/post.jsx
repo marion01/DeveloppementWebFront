@@ -213,7 +213,6 @@ class Post extends Component {
             var date = this.newISODate()
             let idAuteur = localStorage.getItem("id")
             let pseudoAuteur = localStorage.getItem("pseudo")
-
             // Save the comment if only it is not empty
             if (document.getElementById('comment').value !== '') {
                 // Body of the request
@@ -226,7 +225,6 @@ class Post extends Component {
                     post: this.state.post._id,
                     date: date
                 };
-
                 // Get token
                 const access_token = localStorage.getItem("token");
 
@@ -243,13 +241,11 @@ class Post extends Component {
                     url: url,
                     data: body
                 };
-
                 // Call the API
                 await axios(options);
 
                 // Clear the comment textarea
                 document.getElementById('comment').value = ""
-
                 // Update the comments
                 this.recoverComments()
             }

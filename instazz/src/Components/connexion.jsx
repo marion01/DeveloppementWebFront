@@ -19,9 +19,7 @@ class Connexion extends Component {
             // Type of error
             type: '',
             // Message of the error
-            message: '',
-            // Handle close error
-            handleClose: this.handleCloseMessage
+            message: ''
         }
     }
 
@@ -34,22 +32,10 @@ class Connexion extends Component {
             infoMessage: {
                 open: open,
                 type: type,
-                message: message,
-                handleClose: this.handleCloseMessage
+                message: message
             },
         });
     }
-
-    /*
-     * Handle when the error message is closed
-     */
-    handleCloseMessage = (event, reason) => {
-        // Dismiss it
-        if (reason === 'clickaway') {
-            return;
-        }
-        this.updateInfoMessage(false, 'error', '');
-    };
 
     /*
      * Handle the connexion of a user

@@ -27,7 +27,6 @@ class Upload extends Component {
             open: false,
             type: '',
             message: '',
-            handleClose: this.handleCloseMessage
         },
         loading: true
     }
@@ -134,8 +133,7 @@ class Upload extends Component {
             infoMessage: {
                 open: open,
                 type: type,
-                message: message,
-                handleClose: this.handleCloseMessage
+                message: message
             },
         });
     }
@@ -203,16 +201,6 @@ class Upload extends Component {
     }
 
     /*
-     * Handle close message
-     */
-    handleCloseMessage = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        this.updateInfoMessage(false, 'error', '');
-    };
-
-    /*
      * Set up parameters before displaying the component
      */
     componentDidMount() {
@@ -243,18 +231,14 @@ class Upload extends Component {
      */
     UpdateCommentary = () => {
         this.setState({ textPost: document.getElementById('description').value })
-        if (this.state.infoMessage.open === "open") {
-            this.handleCloseMessage();
-        }
     }
 
     /*
      * Update image of the post in the visualisation
      */
     UpdateImage = () => {
-        this.setState({ imageBase64: URL.createObjectURL(document.getElementById('file-input').files[0]) });
-        if (this.state.infoMessage.open === "open") {
-            this.handleCloseMessage();
+        if (document.getElementById('file-input').files.length !== 0) {
+            this.setState({ imageBase64: URL.createObjectURL(document.getElementById('file-input').files[0]) });
         }
     }
 

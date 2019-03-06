@@ -2,8 +2,6 @@ import React from 'react';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -26,7 +24,7 @@ const variantIcon = {
 function MySnackbarContent(props) {
 
     // Parameters
-    const { message, onClose, variant } = props;
+    const { message, variant } = props;
     const Icon = variantIcon[variant];
 
     // Get type of error depending on variant variable
@@ -47,11 +45,6 @@ function MySnackbarContent(props) {
                     {message}
                 </span>
             }
-            action={[
-                <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
-                    <CloseIcon className="App-message-icon" />
-                </IconButton>,
-            ]}
         />
     );
 }
@@ -95,9 +88,8 @@ class CustomizedSnackbars extends React.Component {
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
-                    open={this.props.attributes.open} autoHideDuration={3000} onClose={this.props.attributes.handleClose}>
+                    open={this.props.attributes.open} autoHideDuration={3000}>
                     <MySnackbarContentWrapper
-                        onClose={this.handleClose}
                         variant={this.props.attributes.type}
                         message={this.props.attributes.message}
                     />

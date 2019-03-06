@@ -29,7 +29,7 @@ class Profil extends Component {
         // mail
         mail: '',
         // Default indication for password
-        checkPwdDefault: "Doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et faire minimum 8 caractères",
+        checkPwdDefault: "Doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère sprécial et faire minimum 8 caractères",
         // If the different dialog box must be opened
         openDialogAlert: false,
         openDialogConfirm: false,
@@ -677,7 +677,7 @@ class Profil extends Component {
                                             </DialogContentText>
                                             <label className="inp">
                                                 <input name="mdp" type="password" id="mdp-new" className="inp" placeholder="&nbsp;" onChange={this.CheckMdpNewOnChange} />
-                                                <span className="label" id="label-mdp-new">Ancien mot de passe</span>
+                                                <span className="label" id="label-mdp-new">Nouveau mot de passe</span>
                                                 <span className="border"></span>
                                             </label>
                                             <br></br>
