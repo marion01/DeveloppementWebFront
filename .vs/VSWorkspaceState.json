@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\instazz",
-    "\\instazz\\public",
-    "\\instazz\\src",
-    "\\instazz\\src\\asset",
-    "\\instazz\\src\\Components"
+    "\\src"
   ],
-  "SelectedNode": "\\instazz\\src\\Components\\menu.jsx",
+  "SelectedNode": "\\src\\App.js",
   "PreviewInSolutionExplorer": false
 }

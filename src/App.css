@@ -1,0 +1,523 @@
+/*
+ *  -------- Global styles --------
+ */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #26a5ce;
+    text-align: center;
+    padding: 17px 19px;
+    text-decoration: none;
+}
+
+li a:hover {
+    color: white;
+    background-color: #164465;
+}
+
+p {
+    margin: 0px;
+}
+
+body {
+    display: grid;
+}
+
+hr {
+    width: 96%;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ *  -------- Headers and paragraphs styles --------
+ */
+
+.App-h1 {
+    color: #26a5ce;
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.App-h2 {
+    color: #26a5ce;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.App-h3 {
+    color: #26a5ce;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.App-p1 {
+    font-size: 0.875rem;
+    text-align: justify;
+    margin: 5% auto;
+    color: black;
+}
+
+.App-p2 {
+    font-size: 0.850rem;
+    text-align: justify;
+    margin: 5% auto;
+}
+
+/*
+ *  -------- Navigation Bar styles --------
+ */
+
+.nav-logo{
+    display: block;
+    text-align: center;
+    padding: 0px 3px;
+    text-decoration: none;
+    float: left;
+    position: relative;
+}
+
+.nav-logo:hover {
+    color: white;
+    background-color: #164465;
+    display: block;
+    cursor: pointer;
+}
+
+/*
+ *  -------- Page component style --------
+ */
+
+/* Header ban page */
+.App-ban {
+    background-color: #26a5ce;
+    min-height: 20%;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-ban-img{
+    height : 150px;
+}
+
+/* Corps page */
+.App-corps-diapo{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.App-corps-card {
+    height: auto;
+    display: flex;
+    margin: 3% 0%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+}
+
+.App-paper {
+    width: 86%;
+    height: auto;
+    padding: 4%;
+    min-height: 200px;
+    align-items: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+}
+
+.App-corps-card-list {
+    height: auto;
+    display: flex;
+    margin: 3% 3%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: calc(10px + 2vmin);
+}
+
+.App-text-title {
+    color: #26a5ce;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.App-card-post {
+    display: block;
+    transition-duration: 0.3s;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.App-grid-post {
+    display: flex;
+}
+
+.App-subTitle {
+    text-align: left;
+    color: #26a5ce;
+    font-size: 13px;
+}
+
+.App-title-user {
+    text-align: center;
+    font-size: 20px;
+    color: #26a5ce;
+    margin: 0px;
+    padding: 0px;
+}
+
+.App-corps-title {
+    text-align: left;
+    font-size: 18px;
+    color: #26a5ce;
+    margin: 0px;
+    padding: 0px;
+}
+
+.App-corps-text {
+    text-align: left;
+    font-size: 14px;
+    color: black;
+    margin-left: 100px;
+    padding: 0px;
+}
+
+.App-title-date {
+    text-align: left;
+    font-size: 12px;
+    color: #d3d3d3;
+}
+
+.App-post-text {
+    text-align: justify;
+    font-size: 14px;
+}
+
+.App-post-img {
+    height: 0;
+    padding-top: 56.25%; /*16:9*/
+}
+
+.App-card-action {
+    display: flex;
+}
+
+.App-send-comment {
+    top: 60%;
+}
+
+.App-icon {
+    color: #26a5ce;
+}
+
+.App-expand-list {
+    margin: 0px;
+    padding-bottom: 0px;
+}
+
+.App-comment {
+    text-align: justify;
+    font-size: 14px;
+    color: black;
+    white-space: pre-line;
+}
+
+.App-upload-media {
+    height: 0;
+    padding-top: 56.25%;
+}
+
+.App-div-comment {
+    width: 90%;
+    padding: 0px 10px;
+    line-height: 1.4;
+}
+
+/*
+ *  -------- Specific component style --------
+ */
+
+/* Button */
+
+.App-button {
+    height: 50px;
+    width: auto;
+    padding: 10px 20px;
+    margin: 20px 20px;
+    color: #26a5ce;
+    background-color: white;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+    border-radius: 8px;
+    border-color: #26a5ce;
+    font-size: 16px;
+}
+
+.App-button:hover {
+    background-color: #e6f3f8;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+}
+
+/* Input label custom */
+
+.inp {
+    position: relative;
+    margin: 12px auto;
+    width: auto;
+    max-width: 400px;
+}
+
+.inp .label {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    font-size: 16px;
+    color: #9098a9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+    padding: 0px 12px;
+}
+
+.inp .border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;
+}
+
+.inp input {
+    width:86%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 5%;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    color: #000;
+}
+
+.inp input:focus {
+    outline: none;
+    border: 1px solid #26a5ce;
+}
+
+.inp input:focus + span, .inp input:not(:placeholder-shown) + span {
+    color: #26a5ce;
+    transform: translateX(20px) translateY(-25px) scale(0.75);
+    padding: 5px;
+    background-color: white;
+}
+
+.check-default {
+    text-align: justify;
+    font-size: 10px;
+    color: #9098a9;
+    vertical-align: top;
+    display: block;
+    width: 250px;
+}
+
+.check-wrong {
+    text-align: justify;
+    font-size: 10px;
+    color: red;
+    font-weight: bold;
+    vertical-align: top;
+    display: block;
+    width: 250px;
+}
+
+/* Slide Bar menu */
+.App-sideList {
+    width: 100%;
+}
+
+/* Avatar */
+.App-Avatar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.App-Avatar-xl {
+    width: 50px;
+}
+
+.App-Avatar-large {
+    width: 80%;
+}
+
+.App-Avatar-small {
+    width: 20%;
+}
+
+.App-Avatar-large:after, .App-Avatar-small:after, .App-Avatar-xl:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background: #26a5ce;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.App-Avatar-large div, .App-Avatar-small div, .App-Avatar-xl div {
+    float: left;
+    width: 100%;
+    padding-top: 50%;
+    line-height: 1em;
+    margin-top: -0.5em;
+    text-align: center;
+    color: white;
+}
+
+/* Input label textarea custom */
+
+.inp-textarea {
+    position: relative;
+    margin: 12px auto;
+    width:auto;
+    max-width: 90%;
+    min-height: 100px;
+}
+
+.inp-textarea .label-textarea {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 16px;
+    color: #9098a9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+    padding: 0px 12px;
+}
+
+.inp-textarea .border-textarea {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;
+}
+
+.inp-textarea textarea {
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    color: #000;
+}
+
+.inp-textarea textarea:focus {
+    outline: none;
+    border: 1px solid #26a5ce;
+}
+
+.inp-textarea textarea:focus + span, .inp-textarea textarea:not(:placeholder-shown) + span {
+    color: #26a5ce;
+    transform: translateX(20px) translateY(+14px) scale(0.75);
+    padding: 5px;
+    background-color: white;
+}
+
+/* form custom */
+form label, form button {
+    width: auto;
+    padding: 5px 10px;
+    color: #26a5ce;
+    background-color: white;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+    border-radius: 8px;
+    border-color: #26a5ce;
+    font-size: 16px;
+    margin: auto;
+}
+
+form label:hover, form button:hover {
+    background-color: #e6f3f8;
+    border: 1px solid rgba(33, 150, 243, 0.5);
+}
+
+form input {
+    display: none;
+}
+
+/* Error messages */
+.App-message-icon {
+    font-size: 20px;
+}
+
+.App-message-icon-variant {
+    opacity: 0.9;
+}
+
+.App-message-message {
+    display: flex;
+    align-items: center;
+}
+
+.App-message-success {
+    background-color: green !important
+}
+
+.App-message-error {
+    background-color: red !important
+}
+
+.App-message-info {
+    background-color: gray !important
+}
+
+.App-message-warning {
+    background-color: orange !important
+}
