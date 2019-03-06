@@ -11,7 +11,7 @@ Afin de faire fonctionner l'application, il est nécessaire de lancer les deux p
 
 Le Projet a été déployé sur Heroku :
 - l'API se trouve à l'adresse : https://instazz-api.herokuapp.com/api/v1/login
-- L'application se trouve elle à l'adresse : 
+- L'application se trouve elle à l'adresse : https://instazz-app.herokuapp.com/
 Il est donc possible d'utiliser l'application directement sur Internet.
 
 Ce projet a été réalisé par une équipe de 2 dans le cadre d'un cours de développement web.
